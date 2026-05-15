@@ -1,0 +1,2419 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="forest">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Garden — Features</title>
+  <meta name="description" content="An elegant, theme-shifting habit tracker with a living garden, streaks, and a hidden puzzle." />
+
+  <!-- ═══ ABOUT PAGE FONTS ═══ -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================
+       HABIT GARDEN — FEATURES PAGE
+       Fonts & Themes from About page • Content from Features page
+    ======================================================== */
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      letter-spacing: -0.008em;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background: var(--page-bg);
+      transition: background 0.7s ease, color 0.7s ease;
+    }
+
+    /* subtle grain overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .036;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.95) 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.70) 0 1px, transparent 1px);
+      background-size: 42px 42px, 64px 64px;
+      mix-blend-mode: soft-light;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ==================== TYPOGRAPHY ==================== */
+
+    h1, h2, h3, h4,
+    .logo,
+    .visual-caption h3,
+    .theme-world h3,
+    .cta h2,
+    .font-display {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.012em;
+    }
+
+    .eyebrow, .label, .theme-switcher span,
+    .mini-tag, .icon, .stage span, .pill, .tech,
+    .feature-label, .hero-eyebrow, .puzzle-eyebrow,
+    .theme-switcher-label {
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: .07em;
+    }
+
+    /* ==================== THEME VARIABLES ==================== */
+
+    [data-theme="forest"] {
+      --page-bg:
+        radial-gradient(circle at 18% 0%, rgba(223,255,208,.36), transparent 27%),
+        radial-gradient(circle at 86% 14%, rgba(86,216,84,.16), transparent 26%),
+        linear-gradient(135deg, #07170f 0%, #194c2a 48%, #06170f 100%);
+      --topbar-bg: rgba(7, 28, 18, 0.72);
+      --card: rgba(235, 250, 229, 0.72);
+      --card-strong: rgba(248, 255, 244, 0.90);
+      --soft: rgba(226, 246, 215, 0.62);
+      --border: rgba(143, 205, 127, 0.30);
+      --text: #10220f;
+      --heading: #0c1f0c;
+      --muted: #4d7047;
+      --accent: #2f8f43;
+      --accent-2: #b7e86a;
+      --accent-soft: rgba(143, 216, 117, 0.22);
+      --glow: rgba(98, 212, 90, 0.28);
+      --shadow: rgba(5, 32, 13, 0.22);
+      --canvas-opacity: 0.90;
+    }
+
+    [data-theme="spring"] {
+      --page-bg:
+        radial-gradient(circle at 18% 8%, #ffeaf3 0%, #ffd9ea 24%, #e9f8d6 56%, #f7fff4 100%);
+      --topbar-bg: rgba(255, 245, 251, 0.78);
+      --card: rgba(255, 250, 253, 0.80);
+      --card-strong: rgba(255, 255, 250, 0.94);
+      --soft: rgba(255, 238, 248, 0.62);
+      --border: rgba(215, 128, 171, 0.26);
+      --text: #2e1830;
+      --heading: #231024;
+      --muted: #70506a;
+      --accent: #c65f95;
+      --accent-2: #69bd72;
+      --accent-soft: rgba(244, 175, 210, 0.24);
+      --glow: rgba(222, 116, 170, 0.28);
+      --shadow: rgba(148, 62, 105, 0.12);
+      --canvas-opacity: 0.84;
+    }
+
+    [data-theme="rainy"] {
+      --page-bg:
+        radial-gradient(circle at top, #d8f2ff 0%, #5aa8ce 42%, #061927 100%);
+      --topbar-bg: rgba(8, 32, 50, 0.72);
+      --card: rgba(235, 247, 255, 0.80);
+      --card-strong: rgba(250, 254, 255, 0.93);
+      --soft: rgba(231, 245, 253, 0.62);
+      --border: rgba(133, 188, 219, 0.42);
+      --text: #082033;
+      --heading: #071f2e;
+      --muted: #426e88;
+      --accent: #126ca5;
+      --accent-2: #65c7e8;
+      --accent-soft: rgba(196, 228, 247, 0.80);
+      --glow: rgba(67, 171, 226, 0.30);
+      --shadow: rgba(8, 58, 94, 0.18);
+      --canvas-opacity: 0.94;
+    }
+
+    [data-theme="autumn"] {
+      --page-bg:
+        radial-gradient(circle at 72% 5%, rgba(255,230,174,.58), transparent 28%),
+        radial-gradient(circle at 15% 88%, rgba(198,95,42,.16), transparent 30%),
+        linear-gradient(135deg, #7d3a1b 0%, #c77a3d 48%, #4f2410 100%);
+      --topbar-bg: rgba(91, 43, 18, 0.58);
+      --card: rgba(255, 244, 226, 0.72);
+      --card-strong: rgba(255, 250, 240, 0.88);
+      --soft: rgba(255, 226, 192, 0.58);
+      --border: rgba(184, 112, 54, 0.25);
+      --text: #341806;
+      --heading: #261005;
+      --muted: #81512e;
+      --accent: #b7612b;
+      --accent-2: #e8b66f;
+      --accent-soft: rgba(229, 151, 65, 0.20);
+      --glow: rgba(223, 129, 45, 0.22);
+      --shadow: rgba(83, 31, 5, 0.20);
+      --canvas-opacity: 0.78;
+    }
+
+    [data-theme="night"] {
+      --page-bg:
+        radial-gradient(circle at 50% -12%, #5b48bd 0%, #171b4a 48%, #060711 100%);
+      --topbar-bg: rgba(10, 12, 34, 0.68);
+      --card: rgba(30, 33, 74, 0.70);
+      --card-strong: rgba(38, 41, 88, 0.88);
+      --soft: rgba(43, 45, 92, 0.72);
+      --border: rgba(212, 194, 255, 0.28);
+      --text: #f7f3ff;
+      --heading: #ffffff;
+      --muted: #ddd6ff;
+      --accent: #c1a8ff;
+      --accent-2: #8affe4;
+      --accent-soft: rgba(183, 156, 255, 0.26);
+      --glow: rgba(194, 164, 255, 0.56);
+      --shadow: rgba(0, 0, 0, 0.42);
+      --canvas-opacity: 1;
+    }
+
+    /* ==================== BG CANVAS ==================== */
+
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: var(--canvas-opacity);
+      transition: opacity 0.5s ease;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 15%, var(--glow), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,0.10), transparent 28%),
+        radial-gradient(circle at 50% 95%, var(--accent-soft), transparent 34%);
+      pointer-events: none;
+    }
+
+    /* ==================== TOPBAR (from About page) ==================== */
+
+    .topbar {
+      height: 58px;
+      max-width: min(1300px, calc(100% - 30px));
+      margin: 14px auto 0;
+      padding: 0 24px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 14px;
+      z-index: 50;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.04)),
+        color-mix(in srgb, var(--topbar-bg), transparent 12%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.55) 34%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 16px 48px rgba(0,0,0,.10);
+      backdrop-filter: blur(24px) saturate(1.3);
+      -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    }
+
+    .logo {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--accent);
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+      text-shadow: 0 8px 26px var(--glow);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    [data-theme="night"] .logo { color: #d7c4ff; }
+
+    /* Nav visibility on dark themes */
+    [data-theme="forest"] .nav a { color: rgba(180,240,160,.85); }
+    [data-theme="forest"] .nav a.active, [data-theme="forest"] .nav a:hover { color: #a5f08c; }
+    [data-theme="rainy"] .nav a { color: rgba(140,210,248,.85); }
+    [data-theme="rainy"] .nav a.active, [data-theme="rainy"] .nav a:hover { color: #7dd4f5; }
+    [data-theme="autumn"] .nav a { color: rgba(248,200,145,.85); }
+    [data-theme="autumn"] .nav a.active, [data-theme="autumn"] .nav a:hover { color: #f0b870; }
+    [data-theme="night"] .nav a { color: #c1a8ff; }
+    [data-theme="night"] .nav a.active, [data-theme="night"] .nav a:hover { color: #e0d4ff; }
+
+    [data-theme="forest"] .theme-switcher span,
+    [data-theme="rainy"] .theme-switcher span,
+    [data-theme="autumn"] .theme-switcher span,
+    [data-theme="night"] .theme-switcher span { color: rgba(255,255,255,.55); }
+
+    .nav {
+      display: flex;
+      gap: 2px;
+      margin-left: 6px;
+    }
+
+    .nav a {
+      font-family: "DM Sans", sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 999px;
+      opacity: .82;
+      transition: background .22s ease, color .22s ease, opacity .22s ease, transform .22s ease, box-shadow .22s ease;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+      opacity: 0;
+      transition: opacity .22s ease;
+    }
+
+    .nav a:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      opacity: 1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px var(--glow);
+    }
+
+    .nav a:hover::before { opacity: 1; }
+
+    .nav a.active {
+      background: color-mix(in srgb, var(--accent-soft), rgba(255,255,255,.08) 20%);
+      color: var(--accent);
+      opacity: 1;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 2px 10px var(--glow);
+    }
+
+    .theme-switcher {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.5) 30%);
+      padding: 6px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(18px) saturate(1.25);
+    }
+
+    .theme-switcher span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+    }
+
+    .theme-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .theme-dot:hover { transform: scale(1.18); }
+
+    .theme-dot.active {
+      border-color: var(--heading);
+      transform: scale(1.22);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .theme-dot[data-theme="forest"]  { background: #2f7d24; }
+    .theme-dot[data-theme="spring"]  { background: #e8659a; }
+    .theme-dot[data-theme="rainy"]   { background: #1679a9; }
+    .theme-dot[data-theme="autumn"]  { background: #bd5b18; }
+    .theme-dot[data-theme="night"]   { background: #a889ff; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      padding: 7px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.5) 30%);
+      transition: background .22s ease;
+      margin-left: auto;
+    }
+
+    .hamburger:hover { background: rgba(255,255,255,.18); }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--muted);
+      transition: transform .3s ease, opacity .3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(320px, calc(100% - 40px));
+      z-index: 49;
+      border-radius: 24px;
+      padding: 10px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+        color-mix(in srgb, var(--topbar-bg), transparent 8%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.55) 34%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 24px 60px rgba(0,0,0,.18);
+      backdrop-filter: blur(28px) saturate(1.3);
+      -webkit-backdrop-filter: blur(28px) saturate(1.3);
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu a {
+      display: block;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 11px 16px;
+      border-radius: 14px;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .mobile-menu a:hover, .mobile-menu a.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+
+    @keyframes slowSpin { to { transform: rotate(360deg); } }
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+    @keyframes ambientFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-16px) scale(1.05); }
+    }
+    @keyframes softBlobFloat {
+      0%, 100% { transform: translateY(0) rotate(-18deg) scale(1); }
+      50% { transform: translateY(-14px) rotate(-8deg) scale(1.04); }
+    }
+    @keyframes softOrbPulse {
+      0%, 100% { transform: scale(1); opacity: .25; }
+      50% { transform: scale(1.12); opacity: .42; }
+    }
+
+    /* stem sway */
+    @keyframes sway {
+      0%,100% { transform: rotate(-4deg) translateX(-50%); }
+      50%      { transform: rotate(4deg)  translateX(-50%); }
+    }
+    /* leaf bob */
+    @keyframes leafBob {
+      0%,100% { transform: scaleY(1) rotate(var(--lr,0deg)); }
+      50%      { transform: scaleY(1.06) rotate(var(--lr,0deg)); }
+    }
+    /* pot bounce */
+    @keyframes potBounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-3px); }
+    }
+    /* eye blink */
+    @keyframes blink {
+      0%,92%,100% { transform: scaleY(1); }
+      96%          { transform: scaleY(0.08); }
+    }
+    /* sparkle spin */
+    @keyframes sparkleSpin {
+      from { transform: rotate(0deg) scale(1); opacity: 0.8; }
+      50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
+      to   { transform: rotate(360deg) scale(1); opacity: 0.8; }
+    }
+    @keyframes cursorBlink {
+      0%,100% { opacity: 1; } 50% { opacity: 0; }
+    }
+    @keyframes lock-float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+    @keyframes unlock-flash {
+      0%   { box-shadow: inset 0 0 0 0 rgba(255,213,107,0); }
+      30%  { box-shadow: inset 0 0 60px 20px rgba(255,213,107,0.45); }
+      100% { box-shadow: inset 0 0 0 0 rgba(255,213,107,0); }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative; z-index: 10;
+      max-width: 64rem; margin: 0 auto;
+      padding: 6rem 1.5rem 4rem; text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+    }
+    .hero h1 {
+      margin-top: 1.5rem;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      color: var(--heading);
+    }
+    [data-theme="forest"] .hero h1,
+    [data-theme="rainy"] .hero h1,
+    [data-theme="autumn"] .hero h1,
+    [data-theme="night"] .hero h1 {
+      color: #ffffff;
+      text-shadow: 0 18px 52px rgba(0,0,0,.34);
+    }
+    .hero h1 em { font-weight: 300; font-style: italic; color: var(--accent); }
+    .hero-sub {
+      margin: 2rem auto 0;
+      max-width: 36rem;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+    [data-theme="forest"] .hero-sub,
+    [data-theme="rainy"] .hero-sub,
+    [data-theme="autumn"] .hero-sub,
+    [data-theme="night"] .hero-sub { color: rgba(255,255,255,.78); }
+    .hero-hint { margin-top: 1.5rem; font-size: 0.75rem; font-style: italic; color: var(--muted); }
+    [data-theme="forest"] .hero-hint,
+    [data-theme="rainy"] .hero-hint,
+    [data-theme="autumn"] .hero-hint,
+    [data-theme="night"] .hero-hint { color: rgba(255,255,255,.6); }
+
+    /* ── Feature sections ── */
+    .feature-section {
+      position: relative; z-index: 10;
+      max-width: 64rem; margin: 0 auto; padding: 5rem 1.5rem;
+    }
+    .feature-grid { display: grid; gap: 3rem; align-items: start; }
+    @media (min-width: 768px) {
+      .feature-grid { grid-template-columns: 1fr 1.2fr; }
+      .feature-grid.reverse > *:first-child { order: 2; }
+    }
+    .feature-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+    }
+    .feature-title {
+      margin-top: 1rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--heading);
+    }
+    [data-theme="forest"] .feature-title,
+    [data-theme="rainy"] .feature-title,
+    [data-theme="autumn"] .feature-title,
+    [data-theme="night"] .feature-title { color: #ffffff; }
+
+    .feature-card {
+      border-radius: 1rem;
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.62) 42%);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.17), rgba(255,255,255,.045)),
+        color-mix(in srgb, var(--card), transparent 42%);
+      padding: 2rem;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text);
+      backdrop-filter: blur(30px) saturate(1.35);
+      -webkit-backdrop-filter: blur(30px) saturate(1.35);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.17),
+        0 20px 56px color-mix(in srgb, var(--shadow), transparent 34%);
+    }
+
+    [data-theme="forest"] .feature-card p,
+    [data-theme="rainy"] .feature-card p,
+    [data-theme="autumn"] .feature-card p,
+    [data-theme="night"] .feature-card p { color: rgba(255,255,255,.82); }
+
+    [data-theme="night"] .feature-card {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035)),
+        rgba(26,29,64,.62);
+      border-color: rgba(208,190,255,.24);
+    }
+
+    .feature-card p + p { margin-top: 1rem; }
+    .visited-tag {
+      display: block; margin-top: 1rem;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    /* ══════════════════════════════════════
+       PLANT MASCOT BOX
+    ══════════════════════════════════════ */
+    .mascot-section {
+      position: relative; z-index: 10;
+      max-width: 64rem; margin: 0 auto; padding: 2rem 1.5rem 0;
+    }
+    .mascot-box {
+      display: flex; align-items: flex-end; gap: 1.5rem;
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--accent-soft) 14%, transparent),
+        color-mix(in srgb, var(--card) 80%, transparent));
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.62) 42%);
+      border-radius: 1.5rem; padding: 1.5rem 2rem;
+      backdrop-filter: blur(30px) saturate(1.35);
+      -webkit-backdrop-filter: blur(30px) saturate(1.35);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      transition: background 800ms ease, border-color 800ms ease;
+    }
+    .mascot-plant {
+      flex-shrink: 0;
+      width: 80px; height: 110px;
+      position: relative;
+    }
+    .mascot-plant svg { overflow: visible; }
+
+    .plant-pot   { animation: potBounce 2.4s ease-in-out infinite; }
+    .plant-stem  {
+      transform-origin: bottom center;
+      transform: translateX(-50%);
+      animation: sway 3s ease-in-out infinite;
+      transform-box: fill-box;
+    }
+    .plant-leaf-l {
+      --lr: -15deg;
+      transform-origin: right center;
+      animation: leafBob 2.8s ease-in-out infinite;
+      transform-box: fill-box;
+    }
+    .plant-leaf-r {
+      --lr: 15deg;
+      transform-origin: left center;
+      animation: leafBob 2.8s ease-in-out infinite 0.4s;
+      transform-box: fill-box;
+    }
+    .plant-eye { animation: blink 4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .plant-sparkle { animation: sparkleSpin 3s linear infinite; transform-origin: center; transform-box: fill-box; }
+    .plant-sparkle2 { animation: sparkleSpin 4s linear infinite reverse; transform-origin: center; transform-box: fill-box; }
+
+    .mascot-speech { flex: 1; }
+    .mascot-speech-bubble {
+      background: color-mix(in srgb, var(--card) 90%, white 10%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.62) 42%);
+      border-radius: 1rem 1rem 1rem 0.25rem;
+      padding: 1rem 1.25rem;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text);
+      min-height: 5rem;
+    }
+    [data-theme="forest"] .mascot-speech-bubble,
+    [data-theme="rainy"] .mascot-speech-bubble,
+    [data-theme="autumn"] .mascot-speech-bubble,
+    [data-theme="night"] .mascot-speech-bubble { color: rgba(255,255,255,.88); }
+
+    .mascot-name {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .mascot-cursor {
+      display: inline-block;
+      width: 2px; height: 1em;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      animation: cursorBlink 0.8s step-end infinite;
+    }
+
+    /* ══════════════════════════════════════
+       PUZZLE SECTION
+    ══════════════════════════════════════ */
+    .puzzle-section {
+      position: relative; z-index: 10;
+      max-width: 64rem; margin: 0 auto;
+      padding: 4rem 1.5rem 8rem;
+    }
+    .puzzle-header { margin-bottom: 2.5rem; text-align: center; }
+    .puzzle-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+    }
+    .puzzle-title {
+      margin-top: 0.75rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--heading);
+    }
+    [data-theme="forest"] .puzzle-title,
+    [data-theme="rainy"] .puzzle-title,
+    [data-theme="autumn"] .puzzle-title,
+    [data-theme="night"] .puzzle-title { color: #ffffff; }
+
+    .puzzle-sub {
+      margin: 0.75rem auto 0;
+      max-width: 28rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    [data-theme="forest"] .puzzle-sub,
+    [data-theme="rainy"] .puzzle-sub,
+    [data-theme="autumn"] .puzzle-sub,
+    [data-theme="night"] .puzzle-sub { color: rgba(255,255,255,.6); }
+
+    .puzzle-layout {
+      display: grid;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (min-width: 768px) {
+      .puzzle-layout { grid-template-columns: 1fr 1fr; align-items: center; }
+    }
+
+    /* ── Picture Puzzle ── */
+    .puzzle-game {
+      border-radius: 1.25rem;
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.62) 42%);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.17), rgba(255,255,255,.045)),
+        color-mix(in srgb, var(--card), transparent 30%);
+      padding: 1.5rem;
+      color: var(--text);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      backdrop-filter: blur(30px) saturate(1.35);
+      -webkit-backdrop-filter: blur(30px) saturate(1.35);
+    }
+    [data-theme="night"] .puzzle-game {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035)),
+        rgba(26,29,64,.62);
+      color: #f7f3ff;
+    }
+    [data-theme="forest"] .puzzle-game,
+    [data-theme="rainy"] .puzzle-game,
+    [data-theme="autumn"] .puzzle-game { color: rgba(255,255,255,.9); }
+
+    .puzzle-meta {
+      display: flex; align-items: baseline;
+      justify-content: space-between; margin-bottom: 1rem;
+    }
+    .puzzle-game-title {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 1.4rem;
+    }
+    .puzzle-status { font-size: 0.75rem; color: var(--muted); margin-top: 0.125rem; }
+    .play-again-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em;
+      font-family: "IBM Plex Mono", monospace;
+      color: var(--accent); opacity: 0.9; transition: opacity 0.2s;
+    }
+    .play-again-btn:hover { opacity: 0.6; }
+
+    .puzzle-grid-wrap {
+      position: relative;
+      width: 100%; max-width: 22rem;
+      margin: 0 auto;
+      aspect-ratio: 1;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent);
+    }
+    .puzzle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3px;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.3);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+
+    .tile-btn {
+      aspect-ratio: 1;
+      border: none; cursor: pointer;
+      padding: 0; overflow: hidden;
+      position: relative;
+      transition: transform 0.12s, filter 0.15s;
+      outline: none;
+    }
+    .tile-btn:hover:not(.empty) { transform: scale(1.04); filter: brightness(1.12); z-index: 2; }
+    .tile-btn:active:not(.empty) { transform: scale(0.96); }
+    .tile-btn.empty {
+      background: rgba(0,0,0,0.55);
+      cursor: default;
+      border-radius: 0;
+    }
+    .tile-btn svg { display: block; width: 100%; height: 100%; }
+
+    .tile-num {
+      position: absolute; top: 4px; left: 5px;
+      font-size: 0.55rem;
+      font-family: "Cormorant Garamond", serif;
+      color: rgba(255,255,255,0.55);
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    .puzzle-won-msg {
+      margin-top: 1rem; text-align: center;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.25rem; font-style: italic;
+      color: var(--accent);
+    }
+    .puzzle-hint-msg {
+      margin-top: 0.5rem; text-align: center;
+      font-size: 0.75rem; color: var(--muted);
+    }
+
+    .puzzle-reference {
+      margin-top: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.7rem; color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .puzzle-reference svg {
+      width: 48px; height: 48px;
+      border-radius: 0.375rem;
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.5) 30%);
+      flex-shrink: 0;
+    }
+
+    .won-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.55);
+      border-radius: 0.75rem;
+      backdrop-filter: blur(2px);
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .won-overlay.show { opacity: 1; }
+    .won-overlay-text {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem; font-style: italic;
+      color: #fff;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.6);
+    }
+    .won-stars { font-size: 1.5rem; margin-top: 0.25rem; }
+
+    /* PUZZLE LOCK OVERLAY */
+    .puzzle-lock-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(0, 0, 0, 0.82);
+      border-radius: 1.25rem;
+      backdrop-filter: blur(6px);
+      z-index: 20;
+      text-align: center;
+      padding: 1.5rem;
+      transition: opacity 0.6s ease;
+    }
+    .puzzle-lock-overlay.unlocked {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .lock-icon {
+      font-size: 3rem;
+      margin-bottom: 0.75rem;
+      animation: lock-float 3s ease-in-out infinite;
+    }
+    .lock-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .lock-sub {
+      font-size: 0.8rem;
+      font-family: "DM Sans", sans-serif;
+      color: rgba(255,255,255,0.6);
+      max-width: 18rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+    .lock-streak-bar {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .streak-pip {
+      width: 2.2rem; height: 2.2rem;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.07);
+      transition: all 0.4s ease;
+    }
+    .streak-pip.filled {
+      background: linear-gradient(135deg, #ffd56b, #ff9a56);
+      border-color: #ffd56b;
+      box-shadow: 0 0 12px rgba(255,200,80,0.6);
+    }
+    .lock-streak-label {
+      font-size: 0.7rem;
+      font-family: "IBM Plex Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.6rem;
+    }
+    .unlock-flash {
+      animation: unlock-flash 0.8s ease-out;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative; z-index: 10;
+      border-top: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.5) 30%);
+      padding: 2rem; text-align: center;
+      font-size: 0.75rem;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: .06em;
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+    }
+
+    /* ── Section dividers ── */
+    .feature-section + .feature-section {
+      position: relative;
+    }
+    .feature-section + .feature-section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 28px; right: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--border), white 40%), transparent);
+      opacity: .42;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+
+    @media (max-width: 1100px) {
+      .nav { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        height: 56px;
+        padding: 0 16px;
+        top: 10px;
+      }
+      .logo { font-size: 19px; }
+      .theme-switcher span { display: none; }
+    }
+
+  
+    /* ── Enhanced card hover effects ── */
+    .feature-card {
+      transition: transform .38s cubic-bezier(.2,.8,.2,1), box-shadow .38s cubic-bezier(.2,.8,.2,1), border-color .38s, background .38s;
+      cursor: default;
+    }
+    .feature-card:hover {
+      transform: translateY(-8px) scale(1.015);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 24px 64px color-mix(in srgb, var(--shadow), transparent 18%),
+        0 0 0 1.5px var(--accent),
+        0 0 28px var(--glow);
+      border-color: var(--accent);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.24), rgba(255,255,255,.08)),
+        color-mix(in srgb, var(--card), transparent 25%);
+    }
+    .prog-card-outer { transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s; }
+
+    
+    /* ==================== FEATURES ENHANCED STYLES ==================== */
+
+    /* Dark theme body text */
+    [data-theme="forest"] body,
+    [data-theme="rainy"] body,
+    [data-theme="autumn"] body,
+    [data-theme="night"] body {
+      color: rgba(255,255,255,.82);
+    }
+
+    /* Hero heading on dark */
+    [data-theme="forest"] .hero h1,
+    [data-theme="rainy"] .hero h1,
+    [data-theme="autumn"] .hero h1,
+    [data-theme="night"] .hero h1 {
+      color: #ffffff;
+      text-shadow: 0 18px 52px rgba(0,0,0,.38);
+    }
+
+    /* Hero sub and hint on dark */
+    [data-theme="forest"] .hero-sub,
+    [data-theme="rainy"] .hero-sub,
+    [data-theme="autumn"] .hero-sub,
+    [data-theme="night"] .hero-sub {
+      color: rgba(255,255,255,.78);
+    }
+    [data-theme="forest"] .hero-hint,
+    [data-theme="rainy"] .hero-hint,
+    [data-theme="autumn"] .hero-hint,
+    [data-theme="night"] .hero-hint {
+      color: rgba(255,255,255,.55);
+    }
+
+    /* Hero eyebrow */
+    [data-theme="forest"] .hero-eyebrow { color: #a5f08c; }
+    [data-theme="rainy"] .hero-eyebrow { color: #a8e4ff; }
+    [data-theme="autumn"] .hero-eyebrow { color: #ffd49a; }
+    [data-theme="night"] .hero-eyebrow { color: #c1a8ff; }
+
+    /* Feature label (01, 02 etc) per theme */
+    [data-theme="forest"] .feature-label { color: #a5f08c; opacity: 1; }
+    [data-theme="rainy"] .feature-label { color: #a8e4ff; opacity: 1; }
+    [data-theme="autumn"] .feature-label { color: #ffd49a; opacity: 1; }
+    [data-theme="night"] .feature-label { color: #c1a8ff; opacity: 1; }
+
+    /* Feature title on dark */
+    [data-theme="forest"] .feature-title { color: #f0ffe8; }
+    [data-theme="rainy"] .feature-title { color: #ffffff; }
+    [data-theme="autumn"] .feature-title { color: #ffffff; }
+    [data-theme="night"] .feature-title { color: #f7f3ff; }
+
+    /* Feature description text on dark */
+    [data-theme="forest"] .feature-desc,
+    [data-theme="forest"] .feature-text { color: rgba(220,255,195,.88); }
+    [data-theme="rainy"] .feature-desc,
+    [data-theme="rainy"] .feature-text { color: rgba(255,255,255,.90); }
+    [data-theme="autumn"] .feature-desc,
+    [data-theme="autumn"] .feature-text { color: rgba(255,255,255,.88); }
+    [data-theme="night"] .feature-desc,
+    [data-theme="night"] .feature-text { color: #d4cff6; }
+
+    /* Feature card inner text */
+    [data-theme="forest"] .feature-card h3 { color: #e8ffe0; }
+    [data-theme="forest"] .feature-card p { color: rgba(220,255,195,.85); }
+    [data-theme="rainy"] .feature-card h3 { color: #ffffff; }
+    [data-theme="rainy"] .feature-card p { color: rgba(255,255,255,.88); }
+    [data-theme="autumn"] .feature-card h3 { color: #ffffff; }
+    [data-theme="autumn"] .feature-card p { color: rgba(255,255,255,.86); }
+    [data-theme="night"] .feature-card h3 { color: #f0ecff; }
+    [data-theme="night"] .feature-card p { color: #d4cff6; }
+
+    /* Puzzle section */
+    [data-theme="forest"] .puzzle-title { color: #f0ffe8; }
+    [data-theme="rainy"] .puzzle-title { color: #ffffff; }
+    [data-theme="autumn"] .puzzle-title { color: #ffffff; }
+    [data-theme="night"] .puzzle-title { color: #f7f3ff; }
+
+    [data-theme="forest"] .puzzle-eyebrow { color: #a5f08c; opacity: 1; }
+    [data-theme="rainy"] .puzzle-eyebrow { color: #a8e4ff; opacity: 1; }
+    [data-theme="autumn"] .puzzle-eyebrow { color: #ffd49a; opacity: 1; }
+    [data-theme="night"] .puzzle-eyebrow { color: #c1a8ff; opacity: 1; }
+
+    [data-theme="forest"] .puzzle-sub { color: rgba(220,255,195,.82); }
+    [data-theme="rainy"] .puzzle-sub { color: rgba(255,255,255,.82); }
+    [data-theme="autumn"] .puzzle-sub { color: rgba(255,255,255,.80); }
+    [data-theme="night"] .puzzle-sub { color: #d4cff6; }
+
+    /* Visited tag */
+    [data-theme="forest"] .visited-tag { color: #a5f08c; }
+    [data-theme="rainy"] .visited-tag { color: #a8e4ff; }
+    [data-theme="autumn"] .visited-tag { color: #ffd49a; }
+    [data-theme="night"] .visited-tag { color: #c1a8ff; }
+
+    /* Mascot text */
+    [data-theme="forest"] .mascot-name { color: #a5f08c; }
+    [data-theme="rainy"] .mascot-name { color: #a8e4ff; }
+    [data-theme="autumn"] .mascot-name { color: #ffd49a; }
+    [data-theme="night"] .mascot-name { color: #c1a8ff; }
+
+    /* Puzzle title / status */
+    [data-theme="forest"] .puzzle-game-title,
+    [data-theme="forest"] .puzzle-status { color: #e8ffe0; }
+    [data-theme="rainy"] .puzzle-game-title,
+    [data-theme="rainy"] .puzzle-status { color: #ffffff; }
+    [data-theme="autumn"] .puzzle-game-title,
+    [data-theme="autumn"] .puzzle-status { color: #fff5e4; }
+    [data-theme="night"] .puzzle-game-title,
+    [data-theme="night"] .puzzle-status { color: #f0ecff; }
+
+    /* Hero h1 sizing refinement */
+    .hero h1 {
+      font-size: clamp(48px, 6.5vw, 88px);
+      line-height: .95;
+      letter-spacing: -0.018em;
+    }
+
+    /* Footer */
+    footer {
+      font-family: "DM Sans", sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 0;
+      opacity: .65;
+    }
+    [data-theme="forest"] footer { color: rgba(200,245,175,.80); }
+    [data-theme="rainy"] footer  { color: rgba(255,255,255,.72); }
+    [data-theme="autumn"] footer { color: rgba(255,255,255,.72); }
+    [data-theme="night"] footer  { color: rgba(190,175,255,.70); }
+
+    /* Page glow */
+    .page::before {
+      background:
+        radial-gradient(circle at 15% 15%, var(--glow), transparent 32%),
+        radial-gradient(circle at 88% 12%, rgba(255,255,255,0.08), transparent 30%),
+        radial-gradient(circle at 50% 98%, var(--accent-soft), transparent 36%);
+    }
+
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <div class="page">
+
+    <!-- ═══ TOPBAR (About page style) ═══ -->
+    <header class="topbar">
+      <div class="logo">
+        <span style="font-style:normal;">🌿</span>
+        Habit Garden
+      </div>
+
+      <nav class="nav">
+        <a href="home.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="about.html">About</a>
+        <a href="garden.html">Garden</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="features.html" class="active">Features</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="theme-switcher">
+        <span>Theme</span>
+        <button class="theme-dot active" data-theme="forest" aria-label="Forest theme"></button>
+        <button class="theme-dot" data-theme="spring" aria-label="Spring theme"></button>
+        <button class="theme-dot" data-theme="rainy" aria-label="Rainy theme"></button>
+        <button class="theme-dot" data-theme="autumn" aria-label="Autumn theme"></button>
+        <button class="theme-dot" data-theme="night" aria-label="Night theme"></button>
+      </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu">
+      <a href="home.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="about.html">About</a>
+      <a href="garden.html">Garden</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="features.html" class="active">Features</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- ═══ ORIGINAL HABITGARDEN CONTENT BELOW — UNCHANGED ═══ -->
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="hero-eyebrow">Product capabilities</p>
+      <h1>A garden that grows<br><em>with you.</em></h1>
+      <p class="hero-sub">Five living themes. Real-time growth. Streaks that earn quiet rewards — including a puzzle waiting to bloom.</p>
+      <p class="hero-hint" id="hero-hint">Currently: Forest — droplets on leaves</p>
+    </section>
+
+    <!-- Feature 01 -->
+    <section class="feature-section" id="tracking">
+      <div class="feature-grid">
+        <div>
+          <p class="feature-label">01</p>
+          <h2 class="feature-title">Interactive Habit Tracking</h2>
+        </div>
+        <div class="feature-card">
+          <p>The application includes a dynamic habit tracking system where users can create, manage, and monitor their daily habits through an intuitive interface. Each completed habit contributes experience points (XP) and progression within the garden environment. The system is designed to encourage consistency by making productivity visually meaningful rather than repetitive or mechanical.
+</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 02 -->
+    <section class="feature-section" id="garden">
+      <div class="feature-grid reverse">
+        <div>
+          <p class="feature-label">02</p>
+          <h2 class="feature-title">Dynamic Garden Growth</h2>
+        </div>
+        <div class="feature-card">
+          <p>One of the core features of the project is the animated growth mechanism of the virtual garden.At the initial stage,the garden may contain only a seed or small sprout. As users continue completing habits regularly, the plant gradually develops into:
+a young sapling,
+a flowering plant,
+and eventually a fully grown tree.These animations make the progression feel alive and emotionally rewarding, reinforcing the user's motivation to maintain habits consistently.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 03 -->
+    <section class="feature-section" id="themes">
+      <div class="feature-grid">
+        <div>
+          <p class="feature-label">03</p>
+          <h2 class="feature-title">Live Theme &amp; UI Changes</h2>
+        </div>
+        <div class="feature-card">
+          <p>To increase personalization and user engagement, the application includes a theme selection system during login. Users can choose one among four unique environmental themes based on their mood or personal preference.
+Each theme introduces a completely different atmosphere through customized:
+color palettes,
+background designs,
+environmental effects,
+animations,
+and visual assets.This feature ensures that every user experiences a unique and immersive environment while interacting with the application.</p>
+          <span class="visited-tag" id="visited-tag">Visited 1/5</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 04 -->
+    <section class="feature-section" id="streaks">
+      <div class="feature-grid reverse">
+        <div>
+          <p class="feature-label">04</p>
+          <h2 class="feature-title">Streaks &amp; Rituals</h2>
+        </div>
+        <div class="feature-card">
+          <p>A gentle counter never a punishment. Days stack into weeks, weeks into quiet rituals, and the small flame of consistency grows on its own.To make habit completion more satisfying, the application incorporates visual reward mechanisms and celebratory animations whenever users achieve progress milestones.
+Another important feature is personalized progression based on the selected theme. Although users may reach the same level numerically, the visual rewards and environmental changes differ depending on the chosen theme.
+</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PUZZLE SECTION ══ -->
+    <section class="puzzle-section">
+      <div class="puzzle-header">
+        <p class="puzzle-eyebrow">Garden Puzzle</p>
+        <h2 class="puzzle-title">Piece the garden together.</h2>
+        <p class="puzzle-sub">Slide the tiles to restore the garden scene.</p>
+      </div>
+
+      <div class="puzzle-layout">
+
+        <!-- LEFT: Plant mascot intro -->
+        <div class="mascot-section" style="padding:0">
+          <div class="mascot-box">
+            <!-- Animated plant SVG -->
+            <div class="mascot-plant">
+              <svg viewBox="0 0 80 110" width="80" height="110" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sparkles -->
+                <g class="plant-sparkle" transform="translate(62,22)">
+                  <text font-size="9" text-anchor="middle" dominant-baseline="middle">✨</text>
+                </g>
+                <g class="plant-sparkle2" transform="translate(14,28)">
+                  <text font-size="7" text-anchor="middle" dominant-baseline="middle">🌟</text>
+                </g>
+
+                <!-- Pot group bounces -->
+                <g class="plant-pot">
+                  <!-- Soil -->
+                  <ellipse cx="40" cy="74" rx="20" ry="5" fill="#5a3a1a" opacity="0.7"/>
+                  <!-- Pot rim -->
+                  <rect x="18" y="74" width="44" height="5" rx="3" fill="#8B5E3C"/>
+                  <!-- Pot body -->
+                  <path d="M22,79 Q20,100 40,103 Q60,100 58,79 Z" fill="#A0522D"/>
+                  <!-- Pot shine -->
+                  <path d="M26,83 Q28,78 33,80" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+                  <!-- Stem (swaying, grows from pot) -->
+                  <g class="plant-stem" transform="translate(40,74)">
+                    <!-- main stem -->
+                    <path d="M0,0 C-1,-10 1,-22 0,-36" stroke="#3a7d2a" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                    <!-- Left leaf -->
+                    <g class="plant-leaf-l" transform="translate(-2,-20)">
+                      <ellipse cx="-10" cy="0" rx="13" ry="6" fill="#4a9e38" transform="rotate(-20)"/>
+                      <path d="M0,0 L-20,-2" stroke="#3a7d2a" stroke-width="0.8" fill="none" opacity="0.6"/>
+                    </g>
+
+                    <!-- Right leaf -->
+                    <g class="plant-leaf-r" transform="translate(2,-28)">
+                      <ellipse cx="10" cy="0" rx="13" ry="6" fill="#56b843" transform="rotate(20)"/>
+                      <path d="M0,0 L20,-2" stroke="#3a7d2a" stroke-width="0.8" fill="none" opacity="0.6"/>
+                    </g>
+
+                    <!-- Flower head -->
+                    <g transform="translate(0,-38)">
+                      <!-- Petals -->
+                      <ellipse cx="0" cy="-8" rx="5" ry="8" fill="#ffd56b" opacity="0.9"/>
+                      <ellipse cx="0" cy="-8" rx="5" ry="8" fill="#ffd56b" opacity="0.9" transform="rotate(60,0,0)"/>
+                      <ellipse cx="0" cy="-8" rx="5" ry="8" fill="#ffd56b" opacity="0.9" transform="rotate(120,0,0)"/>
+                      <!-- Face center -->
+                      <circle cx="0" cy="0" r="7" fill="#ffe082"/>
+                      <!-- Eyes -->
+                      <g class="plant-eye">
+                        <circle cx="-2.5" cy="-0.5" r="1.5" fill="#3a2010"/>
+                        <circle cx="2.5"  cy="-0.5" r="1.5" fill="#3a2010"/>
+                        <!-- eye shine -->
+                        <circle cx="-2" cy="-1" r="0.5" fill="white"/>
+                        <circle cx="3"  cy="-1" r="0.5" fill="white"/>
+                      </g>
+                      <!-- Smile -->
+                      <path d="M-2.5,2 Q0,4.5 2.5,2" stroke="#3a2010" stroke-width="1" fill="none" stroke-linecap="round"/>
+                      <!-- Blush -->
+                      <ellipse cx="-4" cy="1.5" rx="2" ry="1.2" fill="#ff9999" opacity="0.4"/>
+                      <ellipse cx="4"  cy="1.5" rx="2" ry="1.2" fill="#ff9999" opacity="0.4"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Speech bubble -->
+            <div class="mascot-speech">
+              <div class="mascot-speech-bubble">
+                <div class="mascot-name">🌱 Sprout says</div>
+                <div id="mascot-text"></div><span class="mascot-cursor" id="mascot-cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Picture Puzzle -->
+        <div class="puzzle-game" style="position:relative;">
+
+          <!-- ═══ LOCK OVERLAY ═══ -->
+          <div class="puzzle-lock-overlay" id="puzzle-lock-overlay">
+            <div class="lock-icon" id="lock-icon">🔒</div>
+            <div class="lock-title">Garden Puzzle Locked</div>
+            <div class="lock-sub">Build a <strong style="color:#ffd56b">3-day streak</strong> in your Habit Garden to unlock this puzzle.</div>
+            <div class="lock-streak-bar" id="lock-streak-bar">
+              <div class="streak-pip" id="pip-0">🌱</div>
+              <div class="streak-pip" id="pip-1">🌱</div>
+              <div class="streak-pip" id="pip-2">🌱</div>
+            </div>
+            <div class="lock-streak-label" id="lock-streak-label">0 / 3 days</div>
+          </div>
+          <!-- ═══ END LOCK OVERLAY ═══ -->
+          <div class="puzzle-meta">
+            <div>
+              <p class="puzzle-game-title font-display">Garden Puzzle</p>
+              <p class="puzzle-status" id="puzzle-status">Moves: 0</p>
+            </div>
+            <button class="play-again-btn" id="play-again-btn">Shuffle 🔀</button>
+          </div>
+
+          <div class="puzzle-grid-wrap" id="puzzle-grid-wrap">
+            <div class="puzzle-grid" id="puzzle-grid"></div>
+            <div class="won-overlay" id="won-overlay">
+              <div class="won-overlay-text">Bloomed! 🌸</div>
+              <div class="won-stars">⭐ ⭐ ⭐</div>
+            </div>
+          </div>
+
+          <div class="puzzle-reference">
+            <!-- tiny reference image -->
+            <svg id="ref-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"></svg>
+            <span>Reference — restore the garden scene</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>© 2026 Habit Garden — grown with care.</footer>
+
+  </div><!-- end .page -->
+
+<script>
+/* ══════════════════════════════════════════════════════
+   THEME SWITCHING — About page style
+══════════════════════════════════════════════════════ */
+const html = document.documentElement;
+const dots = document.querySelectorAll(".theme-dot");
+
+// Hamburger menu
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("open");
+  mobileMenu.classList.toggle("open");
+});
+document.addEventListener("click", (e) => {
+  if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+    hamburger.classList.remove("open");
+    mobileMenu.classList.remove("open");
+  }
+});
+
+const THEMES_META = [
+  { id:"forest",  label:"Forest",  hint:"droplets on leaves" },
+  { id:"spring",  label:"Spring",  hint:"cherry blossoms" },
+  { id:"rainy",   label:"Rainy",   hint:"soft mist and rain" },
+  { id:"autumn",  label:"Autumn",  hint:"falling leaves" },
+  { id:"night",   label:"Night",   hint:"fireflies" },
+];
+const visited = new Set(["forest"]);
+
+let canvasCleanup = null;
+
+function applyTheme(theme) {
+  html.setAttribute("data-theme", theme);
+  visited.add(theme);
+  dots.forEach(dot => dot.classList.toggle("active", dot.dataset.theme === theme));
+
+  const t = THEMES_META.find(x => x.id === theme) || THEMES_META[0];
+  const hintEl = document.getElementById("hero-hint");
+  if (hintEl) hintEl.textContent = `Currently: ${t.label} — ${t.hint}`;
+
+  const vtag = document.getElementById("visited-tag");
+  if (vtag) vtag.textContent = `Visited ${visited.size}/${THEMES_META.length}`;
+
+  localStorage.setItem("habitGardenTheme", theme);
+  localStorage.setItem("hg-theme", theme);
+
+  if (canvasCleanup) canvasCleanup();
+  canvasCleanup = startScene(theme);
+}
+
+dots.forEach(dot => {
+  dot.addEventListener("click", () => applyTheme(dot.dataset.theme));
+});
+
+const savedTheme = localStorage.getItem("habitGardenTheme") || localStorage.getItem("hg-theme") || "forest";
+applyTheme(savedTheme);
+
+// ── Universal theme sync across all open tabs ──
+window.addEventListener('storage', function(e) {
+  if (e.key === 'habitGardenTheme' || e.key === 'hg-theme') {
+    if (e.newValue && typeof applyTheme === 'function') {
+      applyTheme(e.newValue);
+    }
+  }
+});
+
+
+/* ══════════════════════════════════════════════════════
+   CANVAS SCENES — exact copy from About page
+══════════════════════════════════════════════════════ */
+function startScene(theme) {
+  const canvas = document.getElementById("bg-canvas");
+  const ctx = canvas.getContext("2d");
+  let raf = 0;
+  let w = 0;
+  let h = 0;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const rand = (a, b) => a + Math.random() * (b - a);
+
+  function resize() {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+
+  function leafShape(x, y, size, color, rot) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.bezierCurveTo(size * 0.35, -size * 0.55, size, -size * 0.42, size * 1.28, 0);
+    ctx.bezierCurveTo(size, size * 0.42, size * 0.35, size * 0.55, 0, 0);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,0.24)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(size * 1.16, 0);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawPetal(x, y, size, color, rot) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, size * 0.52, size, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,0.28)";
+    ctx.beginPath();
+    ctx.ellipse(-size * 0.12, -size * 0.2, size * 0.14, size * 0.32, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function glowCircle(x, y, r, inner, outer) {
+    const rg = ctx.createRadialGradient(x, y, 0, x, y, r);
+    rg.addColorStop(0, inner);
+    rg.addColorStop(1, outer);
+    ctx.fillStyle = rg;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function sceneForest() {
+    const canopyLeaves = Array.from({ length: Math.max(7, Math.floor(w / 165)) }, (_, i) => ({
+      x: (i + 0.5) * (w / Math.max(7, Math.floor(w / 165))) + rand(-45, 45),
+      y: rand(-38, 56),
+      len: rand(110, 170),
+      width: rand(34, 56),
+      rot: rand(0.58, 1.08),
+      phase: rand(0, Math.PI * 2),
+      hue: rand(102, 138),
+      light: rand(30, 42)
+    }));
+
+    const fineVines = Array.from({ length: 7 }, (_, i) => ({
+      x: (i + 0.5) * (w / 7) + rand(-42, 42),
+      length: rand(h * 0.16, h * 0.36),
+      amp: rand(7, 16),
+      phase: rand(0, Math.PI * 2),
+      speed: rand(0.42, 0.82)
+    }));
+
+    const fireflies = Array.from({ length: 46 }, () => ({
+      x: rand(0, w),
+      y: rand(0, h),
+      vx: rand(-0.20, 0.20),
+      vy: rand(-0.16, 0.16),
+      phase: rand(0, Math.PI * 2),
+      speed: rand(0.012, 0.036),
+      r: rand(1.0, 2.1)
+    }));
+
+    const pollen = Array.from({ length: 42 }, () => ({
+      x: rand(0, w),
+      y: rand(0, h),
+      r: rand(0.8, 2.1),
+      phase: rand(0, Math.PI * 2),
+      speed: rand(0.008, 0.024),
+      alpha: rand(0.10, 0.26)
+    }));
+
+    const drops = [];
+    let t = 0;
+
+    function drawPremiumLeaf(len, width, color, vein) {
+      const leafGradient = ctx.createLinearGradient(0, -width, len, width);
+      leafGradient.addColorStop(0, color);
+      leafGradient.addColorStop(1, "rgba(164,220,132,.88)");
+
+      ctx.fillStyle = leafGradient;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(len * 0.34, -width * 0.92, len * 0.78, -width * 0.58, len, 0);
+      ctx.bezierCurveTo(len * 0.78, width * 0.58, len * 0.34, width * 0.92, 0, 0);
+      ctx.fill();
+
+      ctx.strokeStyle = vein;
+      ctx.lineWidth = 1.2;
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(len * 0.36, -width * 0.18, len * 0.72, -width * 0.10, len, 0);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    function tick() {
+      t += 0.016;
+
+      const bg = ctx.createLinearGradient(0, 0, 0, h);
+      bg.addColorStop(0, "rgba(16,54,22,0.96)");
+      bg.addColorStop(0.45, "rgba(22,74,34,0.92)");
+      bg.addColorStop(1, "rgba(9,32,14,0.97)");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, h);
+
+      const ligh = ctx.createRadialGradient(w * 0.5, 0, 0, w * 0.5, 0, h * 0.6);
+      ligh.addColorStop(0, "rgba(200,255,174,0.09)");
+      ligh.addColorStop(0.5, "rgba(140,210,110,0.04)");
+      ligh.addColorStop(1, "rgba(6,20,10,0)");
+      ctx.fillStyle = ligh;
+      ctx.fillRect(0, 0, w, h);
+
+      fineVines.forEach(v => {
+        ctx.strokeStyle = "rgba(72,140,68,0.34)";
+        ctx.lineWidth = 1.2;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        for (let y = 0; y <= v.length; y += 8) {
+          const x = v.x + Math.sin(y * 0.055 + t * v.speed + v.phase) * v.amp;
+          if (y === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      });
+
+      canopyLeaves.forEach(leaf => {
+        const sway = Math.sin(t * 0.7 + leaf.phase) * 6;
+        ctx.save();
+        ctx.translate(leaf.x + sway, leaf.y);
+        ctx.rotate(leaf.rot + Math.sin(t * 0.5 + leaf.phase) * 0.08);
+        drawPremiumLeaf(
+          leaf.len, leaf.width,
+          `hsla(${leaf.hue},58%,${leaf.light}%,.92)`,
+          `rgba(90,175,72,.55)`
+        );
+        ctx.restore();
+      });
+
+      const groundGrad = ctx.createLinearGradient(0, h * 0.72, 0, h);
+      groundGrad.addColorStop(0, "rgba(8,38,14,.0)");
+      groundGrad.addColorStop(1, "rgba(4,22,8,.88)");
+      ctx.fillStyle = groundGrad;
+      ctx.fillRect(0, h * 0.72, w, h * 0.28);
+
+      if (Math.random() < 0.06) {
+        drops.push({
+          x: rand(0, w),
+          y: rand(h * 0.14, h * 0.72),
+          r: rand(1.0, 2.8),
+          alpha: rand(0.36, 0.82),
+          decay: rand(0.012, 0.028)
+        });
+      }
+
+      for (let i = drops.length - 1; i >= 0; i--) {
+        const d = drops[i];
+        d.alpha -= d.decay;
+        if (d.alpha <= 0) { drops.splice(i, 1); continue; }
+        glowCircle(d.x, d.y, d.r * 9.5, `rgba(130,220,100,${d.alpha * 0.28})`, `rgba(80,170,60,0)`);
+        ctx.fillStyle = `rgba(200,250,175,${d.alpha * 0.85})`;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      pollen.forEach(p => {
+        p.phase += p.speed;
+        p.x += Math.sin(p.phase * 1.3) * 0.22;
+        p.y -= 0.04 + p.speed;
+        if (p.y < -8) { p.y = h + 8; p.x = rand(0, w); }
+        const a = p.alpha * (0.6 + Math.sin(p.phase * 2) * 0.38);
+        glowCircle(p.x, p.y, p.r * 5.5, `rgba(200,240,130,${a})`, `rgba(120,200,80,0)`);
+      });
+
+      fireflies.forEach(f => {
+        f.phase += f.speed;
+        f.vx += rand(-0.012, 0.012);
+        f.vy += rand(-0.010, 0.010);
+        f.vx = Math.max(-0.28, Math.min(0.28, f.vx));
+        f.vy = Math.max(-0.22, Math.min(0.22, f.vy));
+        f.x += f.vx;
+        f.y += f.vy;
+        if (f.x < 0) f.x = w;
+        if (f.x > w) f.x = 0;
+        if (f.y < 0) f.y = h;
+        if (f.y > h) f.y = 0;
+        const glow = 0.5 + 0.5 * Math.sin(f.phase);
+        glowCircle(f.x, f.y, f.r * 11 * glow + 4, `rgba(200,255,130,${0.55 * glow})`, `rgba(120,220,70,0)`);
+        ctx.fillStyle = `rgba(230,255,185,${glow})`;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      raf = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  function sceneSpring() {
+    const pollen = Array.from({ length: 75 }, () => ({
+      x: rand(0, w), y: rand(0, h), phase: rand(0, 10), r: rand(1.2, 3.4), speed: rand(0.08, 0.28)
+    }));
+    const petals = Array.from({ length: 70 }, () => ({
+      x: rand(-40, w + 40), y: rand(-h, h), size: rand(4, 11),
+      vy: rand(0.22, 0.68), vx: rand(-0.18, 0.24), rot: rand(0, 6.28),
+      spin: rand(-0.018, 0.018), phase: rand(0, 10),
+      color: ["rgba(255,250,185,0.72)", "rgba(221,255,207,0.76)", "rgba(255,236,205,0.62)"][Math.floor(rand(0, 3))]
+    }));
+    const flowerHeads = Array.from({ length: 26 }, () => ({
+      x: rand(20, w - 20), base: rand(h * 0.74, h * 1.02), size: rand(11, 24), phase: rand(0, 10),
+      hue: rand(42, 78)
+    }));
+    const butterflies = Array.from({ length: 10 }, () => ({
+      x: rand(40, w - 40), y: rand(h * 0.16, h * 0.76), tx: rand(40, w - 40), ty: rand(h * 0.15, h * 0.75),
+      phase: rand(0, 10), size: rand(11, 21), hue: [42, 95, 165, 205][Math.floor(rand(0, 4))]
+    }));
+    let t = 0;
+
+    function drawButterfly(b) {
+      b.phase += 0.075;
+      b.x += (b.tx - b.x) * 0.005 + Math.sin(b.phase) * 0.26;
+      b.y += (b.ty - b.y) * 0.005 + Math.cos(b.phase * 1.2) * 0.20;
+      if (Math.abs(b.tx - b.x) < 24 && Math.abs(b.ty - b.y) < 24) {
+        b.tx = rand(35, w - 35);
+        b.ty = rand(h * 0.13, h * 0.74);
+      }
+      const flap = Math.abs(Math.sin(b.phase * 2.4));
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(Math.sin(b.phase) * 0.22);
+      ctx.fillStyle = `hsla(${b.hue}, 70%, 62%, 0.72)`;
+      ctx.beginPath();
+      ctx.ellipse(-b.size * 0.45, -b.size * 0.22, b.size * (0.33 + flap * 0.22), b.size * 0.54, -0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(b.size * 0.45, -b.size * 0.22, b.size * (0.33 + flap * 0.22), b.size * 0.54, 0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = `hsla(${b.hue + 30}, 74%, 72%, 0.62)`;
+      ctx.beginPath();
+      ctx.ellipse(-b.size * 0.34, b.size * 0.28, b.size * 0.30, b.size * 0.36, 0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(b.size * 0.34, b.size * 0.28, b.size * 0.30, b.size * 0.36, -0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "rgba(40,75,45,0.72)";
+      ctx.beginPath();
+      ctx.ellipse(0, 0, b.size * 0.11, b.size * 0.47, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawFlower(f) {
+      const sway = Math.sin(t + f.phase) * 5;
+      const stemTop = f.base - f.size * 3.4;
+      ctx.strokeStyle = "rgba(64,136,70,0.33)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(f.x, f.base);
+      ctx.quadraticCurveTo(f.x + sway * 0.4, (f.base + stemTop) / 2, f.x + sway, stemTop);
+      ctx.stroke();
+      ctx.save();
+      ctx.translate(f.x + sway, stemTop);
+      for (let i = 0; i < 6; i++) {
+        ctx.rotate(Math.PI / 3);
+        ctx.fillStyle = `hsla(${f.hue}, 78%, 72%, 0.50)`;
+        ctx.beginPath();
+        ctx.ellipse(0, -f.size * 0.45, f.size * 0.26, f.size * 0.56, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = "rgba(236,190,68,0.72)";
+      ctx.beginPath();
+      ctx.arc(0, 0, f.size * 0.22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function tick() {
+      t += 0.012;
+      const g = ctx.createLinearGradient(0, 0, 0, h);
+      g.addColorStop(0, "rgba(255,252,220,0.94)");
+      g.addColorStop(0.48, "rgba(213,245,204,0.76)");
+      g.addColorStop(1, "rgba(172,232,199,0.70)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+
+      glowCircle(w * 0.78, h * 0.14, 190, "rgba(255,236,138,0.42)", "rgba(255,236,138,0)");
+      glowCircle(w * 0.20, h * 0.86, 220, "rgba(91,204,125,0.20)", "rgba(91,204,125,0)");
+
+      ctx.fillStyle = "rgba(255,255,255,0.16)";
+      for (let i = 0; i < 6; i++) {
+        ctx.beginPath();
+        ctx.ellipse(w * (0.08 + i * 0.18) + Math.sin(t + i) * 16, h * (0.18 + (i % 2) * 0.08), 135, 40, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      flowerHeads.forEach(drawFlower);
+
+      petals.forEach(p => {
+        p.phase += 0.028;
+        p.x += p.vx + Math.sin(p.phase) * 0.32;
+        p.y += p.vy;
+        p.rot += p.spin;
+        if (p.y > h + 24) {
+          p.y = -24;
+          p.x = rand(-40, w + 40);
+        }
+        drawPetal(p.x, p.y, p.size, p.color, p.rot);
+      });
+
+      pollen.forEach((p, i) => {
+        p.phase += 0.026;
+        p.y -= p.speed;
+        p.x += Math.sin(p.phase + i) * 0.14;
+        if (p.y < -20) {
+          p.y = h + 20;
+          p.x = rand(0, w);
+        }
+        const pulse = 0.20 + Math.sin(p.phase) * 0.12;
+        glowCircle(p.x, p.y, 17, `rgba(255,230,105,${pulse})`, "rgba(255,230,105,0)");
+      });
+
+      butterflies.forEach(drawButterfly);
+      raf = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  function sceneRainy() {
+    const drops = Array.from({ length: 160 }, () => ({
+      x: rand(-35, w + 35),
+      y: rand(-150, h),
+      len: rand(11, 22),
+      speed: rand(6, 14),
+      alpha: rand(0.16, 0.50)
+    }));
+
+    const bubbles = Array.from({ length: 28 }, () => ({
+      x: rand(0, w),
+      y: rand(0, h),
+      r: rand(2, 7),
+      vy: rand(0.16, 0.52),
+      phase: rand(0, Math.PI * 2),
+      alpha: rand(0.10, 0.30)
+    }));
+
+    const ripples = Array.from({ length: 14 }, () => ({
+      x: rand(0, w),
+      y: rand(h * 0.62, h * 0.96),
+      r: rand(2, 10),
+      speed: rand(0.28, 0.62),
+      alpha: rand(0.18, 0.46)
+    }));
+
+    const mist = Array.from({ length: 5 }, (_, i) => ({
+      y: h * (0.28 + i * 0.14),
+      phase: rand(0, Math.PI * 2),
+      alpha: rand(0.04, 0.10)
+    }));
+
+    let t = 0;
+
+    function tick() {
+      t += 0.016;
+
+      const bg = ctx.createLinearGradient(0, 0, 0, h);
+      bg.addColorStop(0, "rgba(170,215,240,0.96)");
+      bg.addColorStop(0.40, "rgba(100,172,210,0.94)");
+      bg.addColorStop(0.80, "rgba(40,108,160,0.92)");
+      bg.addColorStop(1, "rgba(10,44,80,0.97)");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, h);
+
+      mist.forEach((m, idx) => {
+        const grad = ctx.createLinearGradient(0, m.y - 28, 0, m.y + 28);
+        grad.addColorStop(0, "rgba(210,238,255,0)");
+        grad.addColorStop(0.5, `rgba(210,238,255,${m.alpha * (0.7 + Math.sin(t * 0.5 + m.phase) * 0.3)})`);
+        grad.addColorStop(1, "rgba(210,238,255,0)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, m.y - 28, w, 56);
+      });
+
+      drops.forEach(d => {
+        d.y += d.speed;
+        if (d.y > h + 20) {
+          d.y = rand(-150, -10);
+          d.x = rand(-35, w + 35);
+        }
+        ctx.strokeStyle = "rgba(190,230,255," + d.alpha + ")";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - 5, d.y + d.len);
+        ctx.stroke();
+      });
+
+      bubbles.forEach(b => {
+        b.phase += 0.03;
+        b.y -= b.vy;
+        b.x += Math.sin(b.phase) * 0.34;
+        if (b.y < -20) {
+          b.y = h + 20;
+          b.x = rand(0, w);
+        }
+        ctx.strokeStyle = "rgba(195,238,255," + b.alpha + ")";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+
+      ripples.forEach(r => {
+        r.r += r.speed;
+        r.alpha -= 0.0032;
+        if (r.alpha <= 0 || r.r > 65) {
+          r.x = rand(0, w);
+          r.y = rand(h * 0.62, h * 0.96);
+          r.r = 2;
+          r.alpha = rand(0.18, 0.46);
+        }
+        ctx.strokeStyle = "rgba(174,228,255," + r.alpha + ")";
+        ctx.lineWidth = 1.15;
+        ctx.beginPath();
+        ctx.ellipse(r.x, r.y, r.r * 1.85, r.r * 0.45, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+
+      raf = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  function sceneAutumn() {
+    const leaves = Array.from({ length: 105 }, () => ({
+      x: rand(-70, w + 70),
+      y: rand(-h, h),
+      vx: rand(-0.42, 0.34),
+      vy: rand(0.32, 0.95),
+      rot: rand(0, Math.PI * 2),
+      spin: rand(-0.032, 0.032),
+      size: rand(8, 21),
+      phase: rand(0, Math.PI * 2),
+      color: [
+        "rgba(179,78,31,0.74)",
+        "rgba(210,118,47,0.72)",
+        "rgba(226,160,74,0.68)",
+        "rgba(142,66,34,0.66)",
+        "rgba(240,186,98,0.58)"
+      ][Math.floor(rand(0, 5))]
+    }));
+
+    const dust = Array.from({ length: 56 }, () => ({
+      x: rand(0, w),
+      y: rand(0, h),
+      r: rand(0.8, 2.4),
+      phase: rand(0, Math.PI * 2),
+      alpha: rand(0.08, 0.22),
+      speed: rand(0.006, 0.020)
+    }));
+
+    const windLines = Array.from({ length: 5 }, (_, i) => ({
+      y: h * (0.24 + i * 0.13),
+      phase: rand(0, Math.PI * 2),
+      alpha: rand(0.035, 0.075)
+    }));
+
+    let t = 0;
+
+    function tick() {
+      t += 0.016;
+
+      const bg = ctx.createLinearGradient(0, 0, 0, h);
+      bg.addColorStop(0, "rgba(255,224,174,0.96)");
+      bg.addColorStop(0.48, "rgba(203,119,62,0.90)");
+      bg.addColorStop(1, "rgba(93,42,20,0.96)");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, h);
+
+      const sun = ctx.createRadialGradient(w * 0.70, h * 0.18, 0, w * 0.70, h * 0.18, h * 0.36);
+      sun.addColorStop(0, "rgba(255,239,184,0.42)");
+      sun.addColorStop(0.52, "rgba(255,184,92,0.14)");
+      sun.addColorStop(1, "rgba(255,184,92,0)");
+      ctx.fillStyle = sun;
+      ctx.beginPath();
+      ctx.arc(w * 0.70, h * 0.18, h * 0.36, 0, Math.PI * 2);
+      ctx.fill();
+
+      windLines.forEach((line, idx) => {
+        const grad = ctx.createLinearGradient(0, 0, w, 0);
+        grad.addColorStop(0, "rgba(255,235,190,0)");
+        grad.addColorStop(0.45, "rgba(255,235,190," + line.alpha + ")");
+        grad.addColorStop(1, "rgba(255,235,190,0)");
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.3;
+        ctx.beginPath();
+        for (let x = -80; x <= w + 80; x += 35) {
+          const y = line.y + Math.sin(x * 0.012 + t * 0.8 + line.phase) * (9 + idx * 2);
+          if (x === -80) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      });
+
+      ctx.fillStyle = "rgba(132,59,24,0.18)";
+      ctx.beginPath();
+      ctx.moveTo(0, h * 0.78);
+      for (let x = 0; x <= w; x += 54) {
+        ctx.lineTo(x, h * 0.76 + Math.sin(x * 0.011 + t * 0.42) * 11);
+      }
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(77,32,14,0.24)";
+      ctx.beginPath();
+      ctx.moveTo(0, h * 0.88);
+      for (let x = 0; x <= w; x += 60) {
+        ctx.lineTo(x, h * 0.865 + Math.cos(x * 0.01 + t * 0.38) * 9);
+      }
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      ctx.fill();
+
+      dust.forEach(d => {
+        d.phase += d.speed;
+        d.x += Math.sin(d.phase) * 0.14;
+        d.y -= 0.055 + d.speed * 2;
+        if (d.y < -10) {
+          d.y = h + 10;
+          d.x = rand(0, w);
+        }
+        const a = d.alpha * (0.72 + Math.sin(d.phase * 2) * 0.25);
+        glowCircle(d.x, d.y, d.r * 6.5, "rgba(255,219,144," + a + ")", "rgba(255,219,144,0)");
+      });
+
+      leaves.forEach(l => {
+        l.phase += 0.026;
+        l.x += l.vx + Math.sin(l.phase) * 0.38;
+        l.y += l.vy;
+        l.rot += l.spin;
+        if (l.y > h + 35) {
+          l.y = rand(-65, -15);
+          l.x = rand(-70, w + 70);
+        }
+        leafShape(l.x, l.y, l.size, l.color, l.rot);
+      });
+
+      raf = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  function sceneNight() {
+    const stars = Array.from({length:110},()=>({x:rand(0,w),y:rand(0,h*.65),r:rand(.35,1.4),tw:rand(0,6.28)}));
+    const flies = Array.from({length:72},()=>({x:rand(0,w),y:rand(h*.18,h),vx:rand(-.35,.35),vy:rand(-.35,.35),phase:rand(0,6.28),speed:rand(.025,.065)}));
+    const glowPlants = Array.from({length:18},()=>({x:rand(0,w),base:h+rand(-10,30),len:rand(45,120),p:rand(0,6.28)}));
+    let t=0;
+    function tick(){
+      t+=.016;
+      const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'rgba(8,8,28,1)');g.addColorStop(.52,'rgba(12,8,35,1)');g.addColorStop(1,'rgba(4,3,15,1)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+      const mx=w*.78,my=h*.18,mr=Math.min(w,h)*.075;
+      const moon=ctx.createRadialGradient(mx-mr*.25,my-mr*.3,0,mx,my,mr*3.8);
+      moon.addColorStop(0,'rgba(245,240,255,.95)'); moon.addColorStop(.22,'rgba(210,200,255,.42)'); moon.addColorStop(1,'rgba(150,125,255,0)');
+      ctx.fillStyle=moon;ctx.beginPath();ctx.arc(mx,my,mr*3.8,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='rgba(241,236,255,.95)';ctx.beginPath();ctx.arc(mx,my,mr,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='rgba(8,8,28,.72)';ctx.beginPath();ctx.arc(mx+mr*.35,my-mr*.15,mr*.9,0,Math.PI*2);ctx.fill();
+      stars.forEach(s=>{s.tw+=.04;ctx.fillStyle=`rgba(225,220,255,${.35+.42*Math.sin(s.tw)})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});
+      glowPlants.forEach((p,i)=>{const sway=Math.sin(t*1.2+p.p)*8;ctx.strokeStyle='rgba(145,255,190,.25)';ctx.lineWidth=3;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(p.x,p.base);ctx.quadraticCurveTo(p.x+sway*.4,p.base-p.len*.55,p.x+sway,p.base-p.len);ctx.stroke();const gx=p.x+sway,gy=p.base-p.len;const pulse=.45+.45*Math.sin(t*2+p.p);const rg=ctx.createRadialGradient(gx,gy,0,gx,gy,20+pulse*22);rg.addColorStop(0,`rgba(190,255,210,${.75*pulse})`);rg.addColorStop(.45,`rgba(110,255,175,${.2*pulse})`);rg.addColorStop(1,'rgba(110,255,175,0)');ctx.fillStyle=rg;ctx.beginPath();ctx.arc(gx,gy,24+pulse*24,0,Math.PI*2);ctx.fill();ctx.fillStyle=`rgba(230,255,235,${.75*pulse})`;ctx.beginPath();ctx.arc(gx,gy,2.3,0,Math.PI*2);ctx.fill();});
+      flies.forEach(f=>{f.phase+=f.speed;f.vx+=rand(-.04,.04);f.vy+=rand(-.04,.04);f.vx=Math.max(-.55,Math.min(.55,f.vx));f.vy=Math.max(-.55,Math.min(.55,f.vy));f.x+=f.vx;f.y+=f.vy;if(f.x<0)f.x=w;if(f.x>w)f.x=0;if(f.y<0)f.y=h;if(f.y>h)f.y=0;const glow=.5+.5*Math.sin(f.phase);const rg=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,34*glow+6);rg.addColorStop(0,`rgba(255,244,165,${.82*glow})`);rg.addColorStop(.38,`rgba(255,221,80,${.26*glow})`);rg.addColorStop(1,'rgba(255,221,80,0)');ctx.fillStyle=rg;ctx.beginPath();ctx.arc(f.x,f.y,34*glow+6,0,Math.PI*2);ctx.fill();ctx.fillStyle=`rgba(255,255,205,${glow})`;ctx.beginPath();ctx.arc(f.x,f.y,1.4,0,Math.PI*2);ctx.fill();});
+      raf=requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+  const scenes = {
+    forest: sceneForest,
+    spring: sceneSpring,
+    rainy: sceneRainy,
+    autumn: sceneAutumn,
+    night: sceneNight
+  };
+
+  (scenes[theme] || sceneForest)();
+
+  return function cleanup() {
+    cancelAnimationFrame(raf);
+    window.removeEventListener("resize", resize);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
+}
+
+/* ══════════════════════════════════════════════════════
+   GARDEN SVG — drawn once, clipped per tile
+══════════════════════════════════════════════════════ */
+const W = 300, H = 300;
+
+function buildGardenSVGContent(ns) {
+  const defs = `
+    <defs>
+      <linearGradient id="${ns}sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#87ceeb"/>
+        <stop offset="100%" stop-color="#c8e6c9"/>
+      </linearGradient>
+      <radialGradient id="${ns}sun" cx="75%" cy="15%" r="12%">
+        <stop offset="0%"   stop-color="#fff176"/>
+        <stop offset="60%"  stop-color="#ffd54f"/>
+        <stop offset="100%" stop-color="#ffb300" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="${ns}grass" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#66bb6a"/>
+        <stop offset="100%" stop-color="#388e3c"/>
+      </linearGradient>
+      <linearGradient id="${ns}path" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#d7ccc8"/>
+        <stop offset="100%" stop-color="#bcaaa4"/>
+      </linearGradient>
+    </defs>`;
+
+  const scene = `
+    <rect width="300" height="300" fill="url(#${ns}sky)"/>
+    <circle cx="225" cy="45" r="28" fill="url(#${ns}sun)"/>
+    <g stroke="#ffd54f" stroke-width="2" opacity="0.7">
+      <line x1="225" y1="10" x2="225" y2="2"/>
+      <line x1="225" y1="80" x2="225" y2="88"/>
+      <line x1="190" y1="45" x2="182" y2="45"/>
+      <line x1="260" y1="45" x2="268" y2="45"/>
+      <line x1="200" y1="20" x2="195" y2="15"/>
+      <line x1="250" y1="20" x2="255" y2="15"/>
+      <line x1="200" y1="70" x2="195" y2="75"/>
+      <line x1="250" y1="70" x2="255" y2="75"/>
+    </g>
+    <g fill="white" opacity="0.85">
+      <ellipse cx="60"  cy="55" rx="30" ry="14"/>
+      <ellipse cx="40"  cy="60" rx="22" ry="11"/>
+      <ellipse cx="80"  cy="60" rx="22" ry="11"/>
+      <ellipse cx="160" cy="38" rx="22" ry="10"/>
+      <ellipse cx="145" cy="42" rx="16" ry="9"/>
+      <ellipse cx="175" cy="42" rx="16" ry="9"/>
+    </g>
+    <rect x="0" y="185" width="300" height="115" fill="url(#${ns}grass)"/>
+    <ellipse cx="0"   cy="185" rx="40" ry="8" fill="#81c784"/>
+    <ellipse cx="80"  cy="183" rx="45" ry="7" fill="#81c784"/>
+    <ellipse cx="160" cy="186" rx="50" ry="7" fill="#81c784"/>
+    <ellipse cx="260" cy="184" rx="45" ry="7" fill="#81c784"/>
+    <path d="M110,300 Q130,240 140,185 Q150,240 170,300 Z" fill="url(#${ns}path)" opacity="0.8"/>
+    <ellipse cx="140" cy="200" rx="9" ry="5" fill="#bdbdbd" opacity="0.7"/>
+    <ellipse cx="138" cy="218" rx="8" ry="4" fill="#bdbdbd" opacity="0.7"/>
+    <ellipse cx="141" cy="236" rx="9" ry="5" fill="#bdbdbd" opacity="0.7"/>
+    <ellipse cx="139" cy="254" rx="8" ry="4" fill="#bdbdbd" opacity="0.7"/>
+    <ellipse cx="140" cy="274" rx="10" ry="5" fill="#bdbdbd" opacity="0.7"/>
+    <rect x="38" y="90" width="12" height="100" rx="4" fill="#6d4c41"/>
+    <ellipse cx="44"  cy="105" rx="42" ry="38" fill="#388e3c"/>
+    <ellipse cx="30"  cy="118" rx="28" ry="24" fill="#2e7d32"/>
+    <ellipse cx="58"  cy="115" rx="28" ry="22" fill="#43a047"/>
+    <ellipse cx="44"  cy="88"  rx="22" ry="18" fill="#43a047"/>
+    <circle cx="20" cy="105" r="5" fill="#f06292" opacity="0.7"/>
+    <circle cx="60" cy="95"  r="4" fill="#f06292" opacity="0.7"/>
+    <circle cx="44" cy="82"  r="3" fill="#f48fb1" opacity="0.6"/>
+    <rect x="248" y="110" width="10" height="80" rx="3" fill="#5d4037"/>
+    <ellipse cx="253" cy="122" rx="30" ry="26" fill="#2e7d32"/>
+    <ellipse cx="242" cy="132" rx="20" ry="18" fill="#388e3c"/>
+    <ellipse cx="264" cy="130" rx="20" ry="17" fill="#43a047"/>
+    <ellipse cx="253" cy="108" rx="16" ry="13" fill="#43a047"/>
+    <g fill="#ef9a9a" opacity="0.65">
+      <circle cx="244" cy="115" r="3"/>
+      <circle cx="263" cy="118" r="2.5"/>
+      <circle cx="253" cy="105" r="2"/>
+    </g>
+    <g fill="#388e3c">
+      <ellipse cx="190" cy="185" rx="12" ry="8" transform="rotate(-20,190,185)"/>
+      <ellipse cx="210" cy="182" rx="10" ry="7" transform="rotate(15,210,182)"/>
+      <ellipse cx="80"  cy="186" rx="11" ry="7" transform="rotate(-10,80,186)"/>
+      <ellipse cx="95"  cy="183" rx="9"  ry="6" transform="rotate(20,95,183)"/>
+    </g>
+    <g>
+      <circle cx="178" cy="180" r="5" fill="#fff176"/>
+      <circle cx="178" cy="180" r="2.5" fill="#f9a825"/>
+      <circle cx="198" cy="177" r="5" fill="#ff8a65"/>
+      <circle cx="198" cy="177" r="2.5" fill="#bf360c"/>
+      <circle cx="218" cy="179" r="5" fill="#ce93d8"/>
+      <circle cx="218" cy="179" r="2.5" fill="#6a1b9a"/>
+      <circle cx="238" cy="178" r="5" fill="#80cbc4"/>
+      <circle cx="238" cy="178" r="2.5" fill="#00695c" opacity="0.9"/>
+      <circle cx="258" cy="181" r="5" fill="#fff176"/>
+      <circle cx="258" cy="181" r="2.5" fill="#f57f17"/>
+      <circle cx="275" cy="180" r="5" fill="#80deea"/>
+      <circle cx="275" cy="180" r="2.5" fill="#00838f"/>
+    </g>
+    <g stroke="#388e3c" stroke-width="1.5" fill="none">
+      <line x1="178" y1="187" x2="178" y2="199"/>
+      <line x1="198" y1="184" x2="198" y2="196"/>
+      <line x1="218" y1="186" x2="218" y2="198"/>
+      <line x1="238" y1="184" x2="238" y2="196"/>
+      <line x1="258" y1="186" x2="258" y2="198"/>
+      <line x1="275" y1="185" x2="275" y2="197"/>
+    </g>
+    <g transform="translate(155,150) rotate(-10)">
+      <ellipse cx="-10" cy="-6" rx="12" ry="8" fill="#f48fb1" opacity="0.85"/>
+      <ellipse cx="10"  cy="-6" rx="12" ry="8" fill="#f48fb1" opacity="0.85"/>
+      <ellipse cx="-8"  cy="4"  rx="8"  ry="6" fill="#e91e63" opacity="0.75"/>
+      <ellipse cx="8"   cy="4"  rx="8"  ry="6" fill="#e91e63" opacity="0.75"/>
+      <ellipse cx="0"   cy="0"  rx="2"  ry="7" fill="#3e2723"/>
+    </g>
+    <path d="M195,68 Q200,62 205,68" stroke="#455a64" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M210,65 Q215,59 220,65" stroke="#455a64" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <g transform="translate(130,210)">
+      <rect x="0" y="0" width="22" height="16" rx="3" fill="#78909c"/>
+      <path d="M22,6 Q32,4 30,12" stroke="#78909c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M30,12 L34,9 M30,12 L33,14 M30,12 L35,12" stroke="#4fc3f7" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M8,-3 Q11,-8 14,-3" stroke="#78909c" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(100,205)">
+      <ellipse cx="0" cy="0" rx="10" ry="6" fill="#ef5350"/>
+      <rect x="-3" y="0" width="6" height="9" rx="2" fill="#fafafa"/>
+      <circle cx="-4" cy="-2" r="2" fill="white" opacity="0.7"/>
+      <circle cx="2"  cy="-4" r="1.5" fill="white" opacity="0.7"/>
+      <circle cx="5"  cy="-1" r="1.5" fill="white" opacity="0.7"/>
+    </g>
+    <g fill="#d7ccc8" opacity="0.6">
+      <rect x="0"   y="192" width="4" height="20" rx="2"/>
+      <rect x="15"  y="192" width="4" height="20" rx="2"/>
+      <rect x="0"   y="195" width="19" height="3" rx="1"/>
+      <rect x="0"   y="205" width="19" height="3" rx="1"/>
+      <rect x="270" y="192" width="4" height="20" rx="2"/>
+      <rect x="285" y="192" width="4" height="20" rx="2"/>
+      <rect x="270" y="195" width="19" height="3" rx="1"/>
+      <rect x="270" y="205" width="19" height="3" rx="1"/>
+    </g>
+  `;
+  return defs + scene;
+}
+
+(function buildRef() {
+  const svg = document.getElementById("ref-svg");
+  svg.innerHTML = buildGardenSVGContent("ref");
+})();
+
+/* ══════════════════════════════════════════════════════
+   PICTURE SLIDING PUZZLE
+══════════════════════════════════════════════════════ */
+const SIZE = 3;
+const TOTAL = SIZE * SIZE;
+let tiles = [];
+let moves = 0;
+let won = false;
+
+function isSolvable(arr) {
+  let inv = 0;
+  const flat = arr.filter(n => n !== TOTAL - 1);
+  for (let i = 0; i < flat.length; i++)
+    for (let j = i + 1; j < flat.length; j++)
+      if (flat[i] > flat[j]) inv++;
+  return inv % 2 === 0;
+}
+function shuffle() {
+  while (true) {
+    const a = [...Array(TOTAL).keys()].sort(() => Math.random() - 0.5);
+    if (isSolvable(a) && a.some((v,i) => v !== i)) return a;
+  }
+}
+
+function makeTileSVG(tileIndex) {
+  const col = tileIndex % SIZE;
+  const row = Math.floor(tileIndex / SIZE);
+  const vx = col * (W / SIZE);
+  const vy = row * (H / SIZE);
+  const vw = W / SIZE;
+  const vh = H / SIZE;
+
+  const ns = `t${tileIndex}_`;
+  return `<svg viewBox="${vx} ${vy} ${vw} ${vh}" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    ${buildGardenSVGContent(ns)}
+  </svg>`;
+}
+
+function renderPuzzle() {
+  const grid = document.getElementById("puzzle-grid");
+  grid.innerHTML = "";
+
+  tiles.forEach((tileVal, position) => {
+    const btn = document.createElement("button");
+    const isEmpty = tileVal === TOTAL - 1;
+    btn.className = "tile-btn" + (isEmpty ? " empty" : "");
+
+    if (!isEmpty) {
+      btn.innerHTML = makeTileSVG(tileVal);
+      const num = document.createElement("span");
+      num.className = "tile-num";
+      num.textContent = tileVal + 1;
+      btn.appendChild(num);
+    }
+
+    btn.addEventListener("click", () => moveTile(position));
+    grid.appendChild(btn);
+  });
+
+  document.getElementById("puzzle-status").textContent = `Moves: ${moves}`;
+
+  const overlay = document.getElementById("won-overlay");
+  if (won) {
+    overlay.classList.add("show");
+    mascotSay("You did it! 🌸 The garden is whole again! You're a natural gardener~", true);
+  } else {
+    overlay.classList.remove("show");
+  }
+}
+
+function moveTile(pos) {
+  if (won) return;
+  const emptyPos = tiles.indexOf(TOTAL - 1);
+  const r1 = Math.floor(pos / SIZE),      c1 = pos % SIZE;
+  const r2 = Math.floor(emptyPos / SIZE), c2 = emptyPos % SIZE;
+  if (Math.abs(r1 - r2) + Math.abs(c1 - c2) !== 1) return;
+  [tiles[pos], tiles[emptyPos]] = [tiles[emptyPos], tiles[pos]];
+  moves++;
+  if (tiles.every((v, i) => v === i)) won = true;
+  renderPuzzle();
+}
+
+document.getElementById("play-again-btn").addEventListener("click", () => {
+  tiles = shuffle();
+  moves = 0;
+  won = false;
+  renderPuzzle();
+  mascotSay(shuffleMessages[Math.floor(Math.random() * shuffleMessages.length)]);
+});
+
+tiles = shuffle();
+renderPuzzle();
+
+/* ══════════════════════════════════════════════════════
+   PLANT MASCOT — TYPEWRITER
+══════════════════════════════════════════════════════ */
+const introMessages = [
+  "Hiii!! 🌱 I'm Sprout, your little garden buddy! I've been soaking up sunshine and waiting for you!",
+  "Welcome to the garden! 🌻 Can you help me put the tiles back together? I got a little... jumbled.",
+  "Slide the tiles to piece together our beautiful garden scene! Start from anywhere — I believe in you! 🌿",
+];
+
+const shuffleMessages = [
+  "Ooh, a fresh start! Let's grow again! 🌱",
+  "Shake shake shake! Time to bloom anew~ 🌸",
+  "Every puzzle begins with beautiful chaos! ✨",
+  "Go go go! You've totally got this! 🌻",
+];
+
+let typewriterTimer = null;
+let isTyping = false;
+
+function mascotSay(text, instant = false) {
+  if (typewriterTimer) clearTimeout(typewriterTimer);
+  const el = document.getElementById("mascot-text");
+  const cursor = document.getElementById("mascot-cursor");
+  el.textContent = "";
+  cursor.style.display = "inline-block";
+  if (instant) {
+    el.textContent = text;
+    cursor.style.display = "none";
+    return;
+  }
+  isTyping = true;
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i++];
+      typewriterTimer = setTimeout(type, 28);
+    } else {
+      isTyping = false;
+      cursor.style.display = "none";
+    }
+  }
+  type();
+}
+
+function playIntro(index) {
+  if (index >= introMessages.length) return;
+  mascotSay(introMessages[index]);
+  const delay = introMessages[index].length * 30 + 2000;
+  typewriterTimer = setTimeout(() => playIntro(index + 1), delay);
+}
+playIntro(0);
+
+/* ══════════════════════════════════════════════════════
+   PUZZLE LOCK — reads streak from Habit Garden localStorage
+══════════════════════════════════════════════════════ */
+const STREAK_NEEDED = 3;
+
+function getStreakFromStorage() {
+  try {
+    const raw = localStorage.getItem('habitGardenData');
+    if (!raw) return 0;
+    const d = JSON.parse(raw);
+    return parseInt(d.streak, 10) || 0;
+  } catch (e) { return 0; }
+}
+
+function updateLockUI() {
+  const streak = getStreakFromStorage();
+  const overlay = document.getElementById('puzzle-lock-overlay');
+  const label   = document.getElementById('lock-streak-label');
+  const lockIcon = document.getElementById('lock-icon');
+  const clamped = Math.min(streak, STREAK_NEEDED);
+
+  for (let i = 0; i < STREAK_NEEDED; i++) {
+    const pip = document.getElementById(`pip-${i}`);
+    if (i < streak) {
+      pip.classList.add('filled');
+      pip.textContent = '🔥';
+    } else {
+      pip.classList.remove('filled');
+      pip.textContent = '🌱';
+    }
+  }
+
+  label.textContent = `${clamped} / ${STREAK_NEEDED} days`;
+
+  if (streak >= STREAK_NEEDED) {
+    lockIcon.textContent = '🔓';
+    overlay.classList.add('unlocked');
+    const wrap = document.getElementById('puzzle-grid-wrap');
+    wrap.classList.add('unlock-flash');
+    setTimeout(() => wrap.classList.remove('unlock-flash'), 900);
+  } else {
+    overlay.classList.remove('unlocked');
+    lockIcon.textContent = '🔒';
+  }
+}
+
+updateLockUI();
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') updateLockUI();
+});
+
+setInterval(updateLockUI, 5000);
+</script>
+</body>
+</html>

@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="forest">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Habit Garden — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   RESET
+══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:none;background:none}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+select{font:inherit}
+
+/* ══════════════════════════════════════════
+   THEMES
+   Each theme: full page bg, cards, text,
+   accent colour, heat colours, plant colours
+══════════════════════════════════════════ */
+[data-theme="forest"]{
+  --bg:          #e8f0e0;
+  --bg-noise:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --bg-card:     #ffffff;
+  --bg-2:        #f2f7ed;
+  --bg-3:        #e6f0df;
+  --border:      #c8d8be;
+  --border-s:    #ddebd4;
+  --txt:         #182814;
+  --txt-2:       #3d5e30;
+  --txt-3:       #7a9870;
+  --txt-inv:     #fff;
+  --acc:         #2d7a1c;
+  --acc-s:       #52a83e;
+  --acc-pale:    #c8e8be;
+  --acc-glow:    rgba(45,122,28,0.22);
+  --acc-glow2:   rgba(45,122,28,0.08);
+  --topbar-bg:   rgba(7, 28, 18, 0.72);
+  --muted:       #4d7047;
+  --accent:      #2f8f43;
+  --accent-soft: rgba(143,216,117,0.22);
+  --glow:        rgba(98,212,90,0.28);
+  --shadow-var:  rgba(5,32,13,0.22);
+  --canvas-opacity: 0.90;
+  --heat0:#deebd4;--heat1:#a8d490;--heat2:#5eb044;--heat3:#2d7a1c;--heat4:#174d0a;
+  --bar-bg:#c0d8b4;--bar-hi:#2d7a1c;
+  --pot:#a05a28;--pot-r:#c87838;--stem:#2d7a1c;--leaf:#40982c;
+  --shadow:0 2px 12px rgba(16,36,12,0.08),0 1px 4px rgba(16,36,12,0.05);
+  --shadow-h:0 8px 28px rgba(16,36,12,0.13),0 2px 8px rgba(16,36,12,0.08);
+  --r:14px;--r-s:10px;--r-xs:6px;
+}
+[data-theme="ocean"]{
+  --bg:          #e2eef6;
+  --bg-noise:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --bg-card:     #ffffff;
+  --bg-2:        #eef5fb;
+  --bg-3:        #ddeaf4;
+  --border:      #b8d0e4;
+  --border-s:    #cce0f0;
+  --txt:         #0a1e2e;
+  --txt-2:       #1e5070;
+  --txt-3:       #5888a8;
+  --txt-inv:     #fff;
+  --acc:         #1060a0;
+  --acc-s:       #3088c8;
+  --acc-pale:    #b8d8f0;
+  --acc-glow:    rgba(16,96,160,0.20);
+  --acc-glow2:   rgba(16,96,160,0.08);
+  --topbar-bg:   rgba(8,22,38,0.70);
+  --muted:       #3a6888;
+  --accent:      #1060a0;
+  --accent-soft: rgba(100,180,240,0.22);
+  --glow:        rgba(60,160,230,0.28);
+  --shadow-var:  rgba(8,20,36,0.18);
+  --canvas-opacity: 0.88;
+  --heat0:#d8eaf6;--heat1:#88c0e0;--heat2:#3088c8;--heat3:#1060a0;--heat4:#083460;
+  --bar-bg:#a8c8e0;--bar-hi:#1060a0;
+  --pot:#483898;--pot-r:#6858b8;--stem:#1060a0;--leaf:#2080b8;
+  --shadow:0 2px 12px rgba(8,20,36,0.08),0 1px 4px rgba(8,20,36,0.05);
+  --shadow-h:0 8px 28px rgba(8,20,36,0.13),0 2px 8px rgba(8,20,36,0.08);
+  --r:14px;--r-s:10px;--r-xs:6px;
+}
+[data-theme="desert"]{
+  --bg:          #f0e8d8;
+  --bg-noise:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --bg-card:     #fdf8f0;
+  --bg-2:        #f5ede0;
+  --bg-3:        #ece0cc;
+  --border:      #d4bea0;
+  --border-s:    #e0d0b8;
+  --txt:         #241408;
+  --txt-2:       #704828;
+  --txt-3:       #a87858;
+  --txt-inv:     #fff;
+  --acc:         #b05818;
+  --acc-s:       #d08038;
+  --acc-pale:    #ecd0a8;
+  --acc-glow:    rgba(176,88,24,0.20);
+  --acc-glow2:   rgba(176,88,24,0.08);
+  --topbar-bg:   rgba(70,38,10,0.62);
+  --muted:       #7a5030;
+  --accent:      #b05818;
+  --accent-soft: rgba(220,150,60,0.20);
+  --glow:        rgba(210,130,50,0.24);
+  --shadow-var:  rgba(36,16,0,0.18);
+  --canvas-opacity: 0.82;
+  --heat0:#e8d8bc;--heat1:#e0b068;--heat2:#d08038;--heat3:#b05818;--heat4:#702800;
+  --bar-bg:#d4c098;--bar-hi:#b05818;
+  --pot:#b05818;--pot-r:#d08038;--stem:#487018;--leaf:#689828;
+  --shadow:0 2px 12px rgba(36,16,0,0.08),0 1px 4px rgba(36,16,0,0.05);
+  --shadow-h:0 8px 28px rgba(36,16,0,0.13),0 2px 8px rgba(36,16,0,0.08);
+  --r:14px;--r-s:10px;--r-xs:6px;
+}
+[data-theme="night"]{
+  --bg:          #0a0c16;
+  --bg-noise:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  --bg-card:     #12141e;
+  --bg-2:        #181a28;
+  --bg-3:        #0e1018;
+  --border:      #2e3350;
+  --border-s:    #242844;
+  --txt:         #f1f3ff;
+  --txt-2:       #b8c0ff;
+  --txt-3:       #8f98d8;
+  --txt-inv:     #0a0c16;
+  --acc:         #7c6cff;
+  --acc-s:       #a59cff;
+  --acc-pale:    rgba(124,108,255,0.25);
+  --acc-glow:    rgba(124,108,255,0.35);
+  --acc-glow2:   rgba(124,108,255,0.12);
+  --topbar-bg:   rgba(10,12,34,0.68);
+  --muted:       #ddd6ff;
+  --accent:      #c1a8ff;
+  --accent-soft: rgba(183,156,255,0.26);
+  --glow:        rgba(194,164,255,0.56);
+  --shadow-var:  rgba(0,0,0,0.42);
+  --canvas-opacity: 1;
+  --heat0:#161933;
+  --heat1:#3a30a0;
+  --heat2:#5a4cff;
+  --heat3:#7c6cff;
+  --heat4:#a59cff;
+  --bar-bg:#2a2f55;--bar-hi:#7c6cff;
+  --pot:#3c2c80;--pot-r:#5a4cc0;--stem:#7c6cff;--leaf:#a59cff;
+  --shadow:0 2px 12px rgba(0,0,0,0.6),0 1px 4px rgba(0,0,0,0.5);
+  --shadow-h:0 8px 28px rgba(0,0,0,0.7),0 2px 8px rgba(0,0,0,0.6);
+  --r:14px;--r-s:10px;--r-xs:6px;
+}
+[data-theme="spring"]{
+  --bg:          #fce8f0;
+  --bg-noise:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  --bg-card:     #ffffff;
+  --bg-2:        #fdf2f7;
+  --bg-3:        #fae0ec;
+  --border:      #f0b8d4;
+  --border-s:    #f8d0e4;
+  --txt:         #2a0a18;
+  --txt-2:       #8c2d56;
+  --txt-3:       #c07898;
+  --txt-inv:     #fff;
+  --acc:         #d4266e;
+  --acc-s:       #e8559a;
+  --acc-pale:    #fcd0e4;
+  --acc-glow:    rgba(212,38,110,0.22);
+  --acc-glow2:   rgba(212,38,110,0.08);
+  --topbar-bg:   rgba(255,245,251,0.78);
+  --muted:       #70506a;
+  --accent:      #c65f95;
+  --accent-soft: rgba(244,175,210,0.24);
+  --glow:        rgba(222,116,170,0.28);
+  --shadow-var:  rgba(148,62,105,0.12);
+  --canvas-opacity: 0.84;
+  --heat0:#fce0ec;--heat1:#f8a8cc;--heat2:#e8559a;--heat3:#d4266e;--heat4:#8c0040;
+  --bar-bg:#f8c0d8;--bar-hi:#d4266e;
+  --pot:#c0507a;--pot-r:#e07098;--stem:#c8406a;--leaf:#e8559a;
+  --shadow:0 2px 12px rgba(60,10,30,0.08),0 1px 4px rgba(60,10,30,0.05);
+  --shadow-h:0 8px 28px rgba(60,10,30,0.13),0 2px 8px rgba(60,10,30,0.08);
+  --r:14px;--r-s:10px;--r-xs:6px;
+}
+[data-theme="rainy"]{
+  --bg:          #daeef8;
+  --bg-noise:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --bg-card:     #f0f8ff;
+  --bg-2:        #e8f4fb;
+  --bg-3:        #d0e8f4;
+  --border:      #9cc8e0;
+  --border-s:    #b8d8ec;
+  --txt:         #081e2c;
+  --txt-2:       #1e5878;
+  --txt-3:       #4888a8;
+  --txt-inv:     #fff;
+  --acc:         #1279a5;
+  --acc-s:       #34a0cc;
+  --acc-pale:    #b8e0f4;
+  --acc-glow:    rgba(18,121,165,0.25);
+  --acc-glow2:   rgba(18,121,165,0.09);
+  --topbar-bg:   rgba(8,32,50,0.72);
+  --muted:       #426e88;
+  --accent:      #126ca5;
+  --accent-soft: rgba(196,228,247,0.80);
+  --glow:        rgba(67,171,226,0.30);
+  --shadow-var:  rgba(8,58,94,0.18);
+  --canvas-opacity: 0.94;
+  --heat0:#d0e8f4;--heat1:#78c0e0;--heat2:#2898c8;--heat3:#1279a5;--heat4:#085478;
+  --bar-bg:#9cc8e0;--bar-hi:#1279a5;
+  --pot:#2860a0;--pot-r:#4880c0;--stem:#1279a5;--leaf:#2898c8;
+  --shadow:0 2px 12px rgba(4,18,30,0.09),0 1px 4px rgba(4,18,30,0.06);
+  --shadow-h:0 8px 28px rgba(4,18,30,0.14),0 2px 8px rgba(4,18,30,0.08);
+  --r:14px;--r-s:10px;--r-xs:6px;
+}
+[data-theme="autumn"]{
+  --bg:          #f2e0c8;
+  --bg-noise:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --bg-card:     #fdf5eb;
+  --bg-2:        #f7ead8;
+  --bg-3:        #eedbc0;
+  --border:      #d8a870;
+  --border-s:    #e8c898;
+  --txt:         #2c1004;
+  --txt-2:       #8c4418;
+  --txt-3:       #b87848;
+  --txt-inv:     #fff;
+  --acc:         #b7612b;
+  --acc-s:       #d88048;
+  --acc-pale:    #f0d0a8;
+  --acc-glow:    rgba(183,97,43,0.22);
+  --acc-glow2:   rgba(183,97,43,0.09);
+  --topbar-bg:   rgba(91,43,18,0.58);
+  --muted:       #81512e;
+  --accent:      #b7612b;
+  --accent-soft: rgba(229,151,65,0.20);
+  --glow:        rgba(223,129,45,0.22);
+  --shadow-var:  rgba(83,31,5,0.20);
+  --canvas-opacity: 0.78;
+  --heat0:#f0d8b0;--heat1:#e8a858;--heat2:#d08038;--heat3:#b7612b;--heat4:#7a3410;
+  --bar-bg:#d8b888;--bar-hi:#b7612b;
+  --pot:#b7612b;--pot-r:#d88048;--stem:#5a7818;--leaf:#7aa028;
+  --shadow:0 2px 12px rgba(38,14,0,0.09),0 1px 4px rgba(38,14,0,0.06);
+  --shadow-h:0 8px 28px rgba(38,14,0,0.14),0 2px 8px rgba(38,14,0,0.08);
+  --r:14px;--r-s:10px;--r-xs:6px;
+}
+
+/* ══════════════════════════════════════════
+   BASE + PAGE BACKGROUND
+   The textured gradient bg is the big visual
+   difference from a plain white page
+══════════════════════════════════════════ */
+html{font-size:15px;scroll-behavior:smooth}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  letter-spacing:-0.008em;
+  color:var(--txt);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background .7s ease, color .7s ease;
+}
+
+/* subtle grain overlay */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  opacity:.036;
+  background-image:
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.95) 0 1px,transparent 1px),
+    radial-gradient(circle at 80% 70%,rgba(255,255,255,.70) 0 1px,transparent 1px);
+  background-size:42px 42px,64px 64px;
+  mix-blend-mode:soft-light;
+}
+
+#bg-canvas{
+  position:fixed;inset:0;z-index:0;
+  width:100%;height:100%;pointer-events:none;
+  opacity:var(--canvas-opacity,1);
+  transition:opacity .5s ease;
+}
+
+.page-wrap{position:relative;z-index:1}
+
+.page-wrap::before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(circle at 15% 15%,var(--acc-glow),transparent 30%),
+    radial-gradient(circle at 85% 20%,rgba(255,255,255,0.10),transparent 28%),
+    radial-gradient(circle at 50% 95%,var(--acc-glow2),transparent 34%);
+  pointer-events:none;
+}
+
+/* ══════════════════════════════════════════
+   TOPBAR — Premium glassmorphic pill navbar
+══════════════════════════════════════════ */
+.topbar{
+  height:58px;
+  max-width:min(1340px,calc(100% - 30px));
+  margin:14px auto 0;
+  padding:0 24px;
+  border-radius:999px;
+  display:flex;align-items:center;gap:16px;
+  position:sticky;top:14px;z-index:200;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.04)),
+    color-mix(in srgb,var(--topbar-bg,var(--bg-card)),transparent 12%);
+  border:1px solid color-mix(in srgb,var(--border),rgba(255,255,255,.55) 34%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 16px 48px rgba(0,0,0,.10);
+  backdrop-filter:blur(24px) saturate(1.3);
+  -webkit-backdrop-filter:blur(24px) saturate(1.3);
+  transition:background .45s,border-color .45s;
+}
+
+.logo{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-size:22px;font-weight:400;
+  color:var(--acc);
+  white-space:nowrap;letter-spacing:-0.01em;
+  text-shadow:0 8px 26px var(--glow,var(--acc-glow));
+  flex-shrink:0;display:flex;align-items:center;gap:6px;
+}
+.logo-leaf{font-style:normal;font-size:1.1rem;}
+[data-theme="night"] .logo{color:#d7c4ff;}
+[data-theme="forest"] .logo{color:rgba(180,255,150,.95);}
+[data-theme="rainy"] .logo{color:rgba(140,220,255,.95);}
+[data-theme="autumn"] .logo{color:rgba(255,200,120,.95);}
+
+/* NAV LINKS */
+.topbar-nav{
+  display:flex;align-items:center;gap:2px;
+  margin-left:6px;
+}
+.topbar-nav a{
+  font-family:'DM Sans',sans-serif;
+  font-size:12.5px;font-weight:500;
+  color:var(--txt-3);
+  padding:6px 11px;border-radius:999px;
+  opacity:.82;
+  transition:background .22s,color .22s,opacity .22s,transform .22s,box-shadow .22s;
+  position:relative;white-space:nowrap;
+}
+.topbar-nav a::before{
+  content:"";position:absolute;inset:0;border-radius:999px;
+  background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.04));
+  opacity:0;transition:opacity .22s;
+}
+.topbar-nav a:hover{
+  background:var(--acc-pale);color:var(--acc);
+  opacity:1;transform:translateY(-1px);
+  box-shadow:0 4px 16px var(--acc-glow);
+}
+.topbar-nav a:hover::before{opacity:1;}
+.topbar-nav a.active{
+  background:color-mix(in srgb,var(--acc-pale),rgba(255,255,255,.08) 20%);
+  color:var(--acc);opacity:1;font-weight:600;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 10px var(--acc-glow);
+}
+
+/* TOPBAR RIGHT */
+.topbar-right{
+  margin-left:auto;
+  display:flex;align-items:center;gap:10px;
+}
+
+/* DATE PILL */
+.date-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 13px;border-radius:999px;
+  border:1px solid var(--border-s);
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(18px);
+  font-size:.73rem;font-family:'IBM Plex Mono',monospace;
+  color:var(--txt-2);
+}
+.date-day{font-weight:600;color:var(--acc);}
+
+/* THEME SWITCHER */
+.theme-switcher{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.14);
+  border:1px solid color-mix(in srgb,var(--border),rgba(255,255,255,.5) 30%);
+  padding:6px 12px;border-radius:999px;
+  backdrop-filter:blur(18px) saturate(1.25);
+}
+.theme-switcher-label{
+  font-size:10px;text-transform:uppercase;
+  letter-spacing:1.2px;color:var(--txt-3);
+}
+.theme-dot-btn{
+  width:15px;height:15px;border-radius:50%;
+  border:2px solid transparent;
+  cursor:pointer;transition:.2s ease;flex-shrink:0;
+}
+.theme-dot-btn:hover{transform:scale(1.18);}
+.theme-dot-btn.active{
+  border-color:var(--txt);transform:scale(1.22);
+  box-shadow:0 0 0 4px var(--acc-pale);
+}
+.theme-dot-btn[data-t="forest"] {background:#2d7a1c;}
+.theme-dot-btn[data-t="spring"] {background:#e8659a;}
+.theme-dot-btn[data-t="rainy"]  {background:#1679a9;}
+.theme-dot-btn[data-t="autumn"] {background:#bd5b18;}
+.theme-dot-btn[data-t="night"]  {background:#7c6cff;}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  padding:7px;border-radius:50%;
+  background:rgba(255,255,255,.14);
+  border:1px solid var(--border-s);
+  backdrop-filter:blur(12px);
+  cursor:pointer;transition:.22s ease;
+  margin-left:auto;
+}
+.hamburger span{
+  display:block;width:18px;height:2px;
+  background:var(--txt);border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* MOBILE MENU */
+.mobile-menu{
+  display:none;flex-direction:column;gap:4px;
+  max-width:min(1340px,calc(100% - 30px));
+  margin:8px auto 0;padding:12px 16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.16);
+  border:1px solid var(--border-s);
+  backdrop-filter:blur(24px);
+  position:sticky;top:86px;z-index:199;
+}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{
+  padding:9px 16px;border-radius:12px;
+  font-size:14px;font-weight:500;color:var(--txt-2);
+  transition:background .18s,color .18s;
+}
+.mobile-menu a:hover{background:var(--acc-pale);color:var(--acc);}
+.mobile-menu a.active{background:var(--acc-pale);color:var(--acc);font-weight:600;}
+
+@media(max-width:860px){
+  .topbar-nav{display:none;}
+  .hamburger{display:flex;}
+  .theme-switcher .theme-switcher-label{display:none;}
+}
+@media(max-width:600px){
+  .date-pill{display:none;}
+}
+
+/* Dark-theme nav link colours matching about page */
+[data-theme="night"] .topbar-nav a{color:#c1a8ff;}
+[data-theme="night"] .topbar-nav a.active,[data-theme="night"] .topbar-nav a:hover{color:#e0d4ff;}
+[data-theme="forest"] .topbar-nav a{color:rgba(180,240,160,.85);}
+[data-theme="forest"] .topbar-nav a.active,[data-theme="forest"] .topbar-nav a:hover{color:#a5f08c;}
+[data-theme="rainy"] .topbar-nav a{color:rgba(140,210,248,.85);}
+[data-theme="rainy"] .topbar-nav a.active,[data-theme="rainy"] .topbar-nav a:hover{color:#7dd4f5;}
+[data-theme="autumn"] .topbar-nav a{color:rgba(248,200,145,.85);}
+[data-theme="autumn"] .topbar-nav a.active,[data-theme="autumn"] .topbar-nav a:hover{color:#f0b870;}
+[data-theme="night"] .theme-switcher-label,
+[data-theme="forest"] .theme-switcher-label,
+[data-theme="rainy"] .theme-switcher-label,
+[data-theme="autumn"] .theme-switcher-label{color:rgba(255,255,255,.55);}
+[data-theme="night"] .mobile-menu a,[data-theme="forest"] .mobile-menu a,
+[data-theme="rainy"] .mobile-menu a,[data-theme="autumn"] .mobile-menu a{color:rgba(255,255,255,.78);}
+[data-theme="night"] .mobile-menu a:hover,[data-theme="forest"] .mobile-menu a:hover,
+[data-theme="rainy"] .mobile-menu a:hover,[data-theme="autumn"] .mobile-menu a:hover,
+[data-theme="night"] .mobile-menu a.active,[data-theme="forest"] .mobile-menu a.active,
+[data-theme="rainy"] .mobile-menu a.active,[data-theme="autumn"] .mobile-menu a.active{color:#fff;}
+
+/* ══════════════════════════════════════════
+   GREETING
+══════════════════════════════════════════ */
+.greeting-bar{
+  padding:20px 24px 6px;
+  max-width:1340px;margin:0 auto;
+}
+.greeting-bar h1{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(1.5rem,3vw,2.1rem);
+  font-weight:500;font-style:italic;
+  color:var(--txt);letter-spacing:-.02em;
+}
+.greeting-bar p{font-size:.8rem;color:var(--txt-3);margin-top:3px}
+
+/* ══════════════════════════════════════════
+   MAIN GRID
+══════════════════════════════════════════ */
+.dash{
+  display:grid;gap:14px;
+  padding:14px 24px 40px;
+  max-width:1340px;margin:0 auto;
+}
+.row-1{display:grid;grid-template-columns:230px 1fr 1fr 1fr 1fr;gap:14px;align-items:stretch}
+.row-2{display:grid;grid-template-columns:1fr;gap:14px}
+.row-3{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ══════════════════════════════════════════
+   CARD BASE
+══════════════════════════════════════════ */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  transition:background .4s,border-color .4s,box-shadow .22s,transform .2s;
+  overflow:hidden;
+}
+.card:hover{box-shadow:var(--shadow-h);transform:translateY(-1px)}
+
+.c-label{
+  font-size:.6rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.13em;
+  color:var(--txt-3);margin-bottom:3px;display:block;
+}
+
+/* ══════════════════════════════════════════
+   ROW 1 — PROFILE
+══════════════════════════════════════════ */
+.card-profile{
+  padding:18px;display:flex;flex-direction:column;gap:13px;
+  position:relative;
+  background:linear-gradient(150deg,var(--bg-card) 55%,var(--bg-3));
+}
+.profile-top{display:flex;align-items:center;gap:12px}
+.avatar-wrap{position:relative;flex-shrink:0;width:54px;height:54px}
+.avatar-init{
+  width:54px;height:54px;border-radius:50%;
+  background:var(--acc-pale);
+  box-shadow:0 0 0 2.5px var(--acc);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1.5rem;font-weight:400;
+  color:var(--acc);
+  transition:box-shadow .4s;
+  cursor:pointer;
+}
+.avatar-ring{
+  position:absolute;inset:-5px;border-radius:50%;
+  border:2.5px solid transparent;pointer-events:none;
+  transition:border-color .4s;
+}
+.avatar-ring.on{
+  border-color:var(--acc-s);
+  animation:ring-pulse 2.8s ease-in-out infinite;
+}
+@keyframes ring-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.08)}}
+
+.profile-name{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1.1rem;font-weight:400;color:var(--txt);line-height:1.2;
+}
+.profile-sub{font-size:.7rem;color:var(--txt-3);margin-top:2px}
+
+.mini-bars{display:flex;flex-direction:column;gap:7px}
+.mbar{display:flex;align-items:center;gap:7px}
+.mbar-icon{font-size:.75rem;width:15px;text-align:center}
+.mbar-track{
+  flex:1;height:5px;border-radius:10px;
+  background:var(--bg-3);border:1px solid var(--border-s);overflow:hidden;
+}
+.mbar-fill{
+  height:100%;border-radius:10px;background:var(--acc);
+  width:0%;transition:width 1s cubic-bezier(.34,1.4,.64,1),background .4s;
+}
+.mbar-fill.orange{background:#ff8c3a}
+.mbar-fill.purple{background:#a060d0}
+.mbar-val{font-size:.6rem;font-family:'IBM Plex Mono',monospace;color:var(--txt-3);width:28px;text-align:right}
+
+/* ══════════════════════════════════════════
+   ROW 1 — STAT CARDS
+══════════════════════════════════════════ */
+.card-stat{
+  padding:18px 16px 14px;
+  display:flex;flex-direction:column;justify-content:space-between;gap:8px;
+  position:relative;overflow:hidden;cursor:default;
+}
+.card-stat::before{
+  content:'';position:absolute;top:-18px;left:-18px;
+  width:70px;height:70px;border-radius:50%;
+  background:var(--acc-glow);filter:blur(18px);pointer-events:none;
+  transition:background .4s;
+}
+.stat-icon{font-size:1.25rem;line-height:1}
+.stat-val{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1.9rem;font-weight:400;
+  color:var(--txt);line-height:1;letter-spacing:-.03em;
+}
+.stat-val sub{font-size:.85rem;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--txt-3)}
+.stat-delta{font-size:.62rem;font-family:'IBM Plex Mono',monospace;color:var(--acc)}
+
+/* ══════════════════════════════════════════
+   ROW 2 RIGHT — PROGRESS SUMMARY
+══════════════════════════════════════════ */
+.card-progress{padding:20px;display:flex;flex-direction:column;gap:16px}
+.progress-hd{display:flex;justify-content:space-between;align-items:flex-start}
+.progress-hd h2{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1rem;font-weight:400;color:var(--txt)}
+.progress-hd-sub{font-size:.7rem;color:var(--txt-3)}
+.progress-body{display:flex;align-items:center;gap:18px}
+
+/* XP RING */
+.xp-ring-wrap{position:relative;flex-shrink:0}
+.xp-ring-svg{display:block;transform:rotate(-90deg)}
+.xp-track{fill:none;stroke:var(--bg-3);stroke-width:9;transition:stroke .4s}
+.xp-arc{
+  fill:none;stroke:var(--acc);stroke-width:9;stroke-linecap:round;
+  stroke-dasharray:226;stroke-dashoffset:226;
+  transition:stroke-dashoffset 1.1s cubic-bezier(.34,1.4,.64,1),stroke .4s;
+}
+.xp-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.xp-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem;font-weight:500;color:var(--txt);line-height:1}
+.xp-denom{font-size:.58rem;font-family:'IBM Plex Mono',monospace;color:var(--txt-3)}
+
+/* PLANT */
+.plant-zone{
+  flex:1;min-height:112px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:var(--bg-2);border:1px solid var(--border-s);border-radius:var(--r-s);
+  position:relative;overflow:hidden;padding:10px;
+}
+.plant-zone::before{
+  content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  width:80px;height:60px;border-radius:50%;
+  background:var(--acc-glow);filter:blur(20px);
+  pointer-events:none;transition:background .5s;
+}
+.plant{position:relative;width:56px;height:76px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.p-pot{position:relative;z-index:2;width:100%}
+.p-rim{width:38px;height:6px;background:var(--pot-r);border-radius:3px;margin:0 auto;transition:background .4s}
+.p-body{width:32px;height:22px;margin:0 auto;background:var(--pot);border-radius:0 0 8px 8px;clip-path:polygon(8% 0%,92% 0%,85% 100%,15% 100%);transition:background .4s}
+.p-stem{
+  width:4px;height:36px;background:var(--stem);border-radius:2px;
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  transform-origin:bottom center;z-index:1;
+  transition:background .4s,opacity .4s;
+}
+.p-leaf{
+  position:absolute;width:19px;height:11px;background:var(--leaf);
+  border-radius:50% 50% 50% 0;
+  transition:background .4s,opacity .4s;
+}
+.ll{right:calc(50% - 2px);bottom:50px;transform:scaleX(-1) rotate(8deg)}
+.lr{left:calc(50% - 2px);bottom:50px;transform:rotate(-8deg)}
+.lt{right:calc(50% - 2px);bottom:62px;width:14px;height:9px;transform:scaleX(-1) rotate(18deg)}
+.ltr{left:calc(50% - 2px);bottom:62px;width:14px;height:9px;transform:rotate(-18deg)}
+.p-sparks{position:absolute;top:4px;left:50%;transform:translateX(-50%);width:68px;opacity:0;transition:opacity .4s;pointer-events:none}
+.p-sp{position:absolute;font-size:.75rem;animation:sp-up 1.8s ease-in-out infinite}
+.p-sp:nth-child(1){left:4px;top:0;animation-delay:0s}
+.p-sp:nth-child(2){left:50%;top:-6px;animation-delay:.5s}
+.p-sp:nth-child(3){right:4px;top:2px;animation-delay:1s}
+@keyframes sp-up{0%,100%{transform:translateY(0) scale(1);opacity:.7}50%{transform:translateY(-10px) scale(1.2);opacity:1}}
+.p-drop{position:absolute;top:6px;right:6px;font-size:1rem;opacity:0;transition:opacity .4s;animation:drip 2.4s ease-in-out infinite}
+@keyframes drip{0%,75%,100%{transform:translateY(0);opacity:.8}88%{transform:translateY(6px);opacity:.2}}
+
+/* plant states via data attr */
+[data-ps="neutral"] .p-stem{animation:sway 3.2s ease-in-out infinite}
+[data-ps="neutral"] .p-leaf{animation:lsway 3.2s ease-in-out infinite}
+[data-ps="excited"] .p-stem{animation:esway 1s ease-in-out infinite}
+[data-ps="excited"] .p-leaf{animation:lpop .7s ease-in-out infinite alternate}
+[data-ps="excited"] .lr{animation-delay:.12s}
+[data-ps="excited"] .lt{animation-delay:.24s}
+[data-ps="excited"] .ltr{animation-delay:.36s}
+[data-ps="excited"] .p-sparks{opacity:1}
+[data-ps="dull"] .p-stem{animation:droop 2s ease-in-out infinite alternate;opacity:.5;filter:saturate(.2)}
+[data-ps="dull"] .p-leaf{opacity:.4;filter:saturate(.15);animation:ldroop 2s ease-in-out infinite alternate}
+[data-ps="dull"] .p-drop{opacity:1}
+@keyframes sway{0%,100%{transform:translateX(-50%) rotate(-2.5deg)}50%{transform:translateX(-50%) rotate(2.5deg)}}
+@keyframes lsway{0%,100%{transform:scaleX(-1) rotate(8deg)}50%{transform:scaleX(-1) rotate(5deg)}}
+@keyframes esway{0%,100%{transform:translateX(-50%) rotate(-5deg) scaleY(1)}50%{transform:translateX(-50%) rotate(5deg) scaleY(1.04)}}
+@keyframes lpop{from{transform:scaleX(-1) rotate(8deg) scale(1)}to{transform:scaleX(-1) rotate(14deg) scale(1.12)}}
+@keyframes droop{from{transform:translateX(-50%) rotate(-9deg)}to{transform:translateX(-50%) rotate(-13deg)}}
+@keyframes ldroop{from{transform:scaleX(-1) rotate(8deg)}to{transform:scaleX(-1) rotate(3deg)}}
+
+.plant-caption{font-size:.66rem;color:var(--txt-3);text-align:center;line-height:1.4}
+
+/* XP bar */
+.xp-bar-row{display:flex;align-items:center;gap:9px}
+.xp-bar-lbl{font-size:.63rem;color:var(--txt-3);white-space:nowrap;flex-shrink:0}
+.xp-bar-track{flex:1;height:7px;border-radius:10px;background:var(--bg-3);border:1px solid var(--border-s);overflow:hidden}
+.xp-bar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--acc),var(--acc-s));width:0%;transition:width 1.1s cubic-bezier(.34,1.4,.64,1)}
+.xp-bar-right{font-size:.63rem;font-family:'IBM Plex Mono',monospace;color:var(--txt-2);white-space:nowrap;flex-shrink:0}
+
+/* ══════════════════════════════════════════
+   ROW 3 LEFT — ACHIEVEMENTS
+══════════════════════════════════════════ */
+.card-rewards{padding:20px;display:flex;flex-direction:column;gap:14px}
+.rewards-hd h2{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1rem;font-weight:400;color:var(--txt)}
+.rewards-hd p{font-size:.68rem;color:var(--txt-3);margin-top:2px}
+.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ach{
+  padding:12px 13px;background:var(--bg-2);border:1px solid var(--border-s);
+  border-radius:var(--r-s);display:flex;flex-direction:column;gap:3px;
+  position:relative;overflow:hidden;transition:all .22s;cursor:default;
+}
+.ach.locked{opacity:.38;filter:grayscale(.8)}
+.ach.unlocked{border-color:var(--acc);background:linear-gradient(135deg,var(--bg-card),var(--bg-3))}
+.ach.unlocked::after{content:'✓';position:absolute;top:8px;right:10px;font-size:.65rem;color:var(--acc);font-weight:700}
+.ach.unlocked:hover{transform:translateY(-2px)}
+.ach-icon{font-size:1.25rem;line-height:1}
+.ach-name{font-size:.75rem;font-weight:600;color:var(--txt)}
+.ach-desc{font-size:.6rem;color:var(--txt-3);line-height:1.4}
+.ach-req{font-size:.58rem;color:var(--acc);font-family:'IBM Plex Mono',monospace;margin-top:2px}
+
+/* ══════════════════════════════════════════
+   ROW 3 RIGHT — WEEKLY SNAPSHOT
+══════════════════════════════════════════ */
+.card-weekly{padding:20px;display:flex;flex-direction:column;gap:16px}
+.weekly-hd h2{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1rem;font-weight:400;color:var(--txt)}
+.weekly-hd p{font-size:.68rem;color:var(--txt-3);margin-top:2px}
+.week-chart{display:flex;align-items:flex-end;gap:8px;height:110px}
+.dg{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%}
+.dg-wrap{flex:1;width:100%;display:flex;align-items:flex-end}
+.dbar{
+  width:100%;height:var(--h,20%);min-height:4px;
+  border-radius:5px 5px 0 0;background:var(--bar-bg);
+  position:relative;cursor:default;
+  transition:height .8s cubic-bezier(.34,1.4,.64,1),background .4s;
+}
+.dbar.today{background:var(--bar-hi)}
+.dbar:hover{filter:brightness(1.1)}
+.dbar::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 5px);left:50%;
+  transform:translateX(-50%);
+  background:var(--txt);color:var(--bg-card);
+  font-size:.58rem;padding:3px 7px;border-radius:4px;
+  white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .15s;z-index:10;
+}
+.dbar:hover::after{opacity:1}
+.dlbl{font-size:.6rem;font-weight:500;color:var(--txt-3)}
+.week-totals{display:flex;gap:16px;flex-wrap:wrap}
+.wt{display:flex;flex-direction:column;gap:1px}
+.wt-val{font-family:'IBM Plex Mono',monospace;font-size:.88rem;font-weight:500;color:var(--txt)}
+.wt-lbl{font-size:.6rem;color:var(--txt-3)}
+
+/* ══════════════════════════════════════════
+   ROW 4 — HEATMAP
+══════════════════════════════════════════ */
+.card-heatmap{padding:20px 22px 18px;display:flex;flex-direction:column;gap:12px}
+.hm-hd{display:flex;justify-content:space-between;align-items:flex-start}
+.hm-hd h2{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1rem;font-weight:400;color:var(--txt)}
+.hm-hd p{font-size:.68rem;color:var(--txt-3);margin-top:2px}
+.hm-select{
+  padding:4px 10px;border-radius:var(--r-xs);
+  border:1px solid var(--border);background:var(--bg-2);
+  color:var(--txt-2);font-size:.72rem;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  transition:border-color .18s;
+}
+.hm-select:focus{outline:none;border-color:var(--acc-s)}
+.hm-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border) transparent;padding-bottom:4px}
+.hm-vis{display:flex;gap:0;min-width:max-content}
+.hm-days{display:flex;flex-direction:column;justify-content:space-between;padding:22px 8px 0 0;flex-shrink:0}
+.hm-days span{font-size:.58rem;font-weight:500;color:var(--txt-3);display:flex;align-items:center;height:12px}
+.hm-right{flex:1;display:flex;flex-direction:column;gap:4px}
+.hm-months{display:flex;padding-bottom:4px}
+.hm-month{font-size:.6rem;font-weight:500;color:var(--txt-3);text-align:left}
+.hm-grid{display:grid;grid-template-rows:repeat(3,12px);grid-auto-columns:12px;grid-auto-flow:column;gap:3px}
+.hm-cell{
+  width:12px;height:12px;border-radius:2.5px;
+  background:var(--heat0);
+  transition:background .4s,transform .15s;cursor:default;position:relative;
+}
+.hm-cell[data-lv="1"]{background:var(--heat1)}
+.hm-cell[data-lv="2"]{background:var(--heat2)}
+.hm-cell[data-lv="3"]{background:var(--heat3)}
+.hm-cell[data-lv="4"]{background:var(--heat4)}
+.hm-cell:hover{transform:scale(1.5);z-index:5}
+.hm-cell[title]:hover::after{
+  content:attr(title);
+  position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);
+  background:var(--txt);color:var(--bg-card);
+  font-size:.58rem;padding:3px 7px;border-radius:4px;
+  white-space:nowrap;pointer-events:none;z-index:20;
+}
+.hm-legend{display:flex;align-items:center;gap:4px;justify-content:flex-end;margin-top:2px}
+.hm-ltxt{font-size:.6rem;color:var(--txt-3)}
+.hm-lc{width:11px;height:11px;border-radius:2px}
+.hm-lc.l0{background:var(--heat0)}.hm-lc.l1{background:var(--heat1)}.hm-lc.l2{background:var(--heat2)}.hm-lc.l3{background:var(--heat3)}.hm-lc.l4{background:var(--heat4)}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  display:flex;align-items:center;gap:10px;
+  padding:12px 18px;
+  background:var(--bg-card);border:1px solid var(--acc);
+  border-radius:var(--r-s);box-shadow:var(--shadow-h);
+  font-size:.82rem;color:var(--txt);
+  transform:translateY(80px);
+  transition:transform .35s cubic-bezier(.34,1.4,.64,1),background .4s,border-color .4s;
+  pointer-events:none;max-width:300px;
+}
+.toast.show{transform:translateY(0)}
+
+/* FAB removed — habits completed via Garden page only */
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.dash-footer{
+  border-top:1px solid var(--border-s);padding:16px 24px;
+  display:flex;justify-content:center;align-items:center;gap:10px;
+  font-size:.68rem;color:var(--txt-3);
+  transition:border-color .4s;
+}
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+@keyframes fade-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slide-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.card{animation:slide-up .42s ease both}
+.card-profile{animation-delay:.04s}.card-stat{animation-delay:.08s}
+.card-progress{animation-delay:.14s}
+.card-rewards{animation-delay:.18s}.card-weekly{animation-delay:.20s}
+.card-heatmap{animation-delay:.24s}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:1100px){.row-1{grid-template-columns:200px repeat(4,1fr)}}
+@media(max-width:900px){
+  .row-1{grid-template-columns:1fr 1fr}
+  .card-profile{grid-column:1/3}
+  .row-2,.row-3{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .topbar-nav{display:none}
+  .dash{padding:12px 14px 28px}
+  .row-1{grid-template-columns:1fr 1fr}
+  .card-profile{grid-column:1/3}
+  .ach-grid{grid-template-columns:1fr}
+  .week-chart{height:80px;gap:5px}
+  .theme-switcher-label{display:none}
+}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+.reveal{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* Card glass shimmer */
+.card::after{
+  content:"";
+  position:absolute;inset:-40%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.07),transparent);
+  transform:translateX(-120%) rotate(12deg);
+  animation:anim-shimmer 9s linear infinite;
+  pointer-events:none;border-radius:inherit;
+}
+@keyframes anim-shimmer{
+  0%{transform:translateX(-120%) rotate(12deg)}
+  100%{transform:translateX(120%) rotate(12deg)}
+}
+@keyframes slowSpin{to{transform:rotate(360deg)}}
+
+/* Dark-bg themes - cards get glass treatment */
+[data-theme="forest"] .card,
+[data-theme="rainy"] .card,
+[data-theme="autumn"] .card,
+[data-theme="night"] .card{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.04)),
+    color-mix(in srgb,var(--bg-card),transparent 22%);
+  border-color:color-mix(in srgb,var(--border),rgba(255,255,255,.45) 34%);
+  backdrop-filter:blur(20px) saturate(1.2);
+  -webkit-backdrop-filter:blur(20px) saturate(1.2);
+}
+[data-theme="forest"] .card .c-label,
+[data-theme="rainy"] .card .c-label,
+[data-theme="autumn"] .card .c-label,
+[data-theme="night"] .card .c-label{color:rgba(255,255,255,.55);}
+[data-theme="forest"] .card h2,
+[data-theme="rainy"] .card h2,
+[data-theme="autumn"] .card h2{color:#fff;}
+[data-theme="forest"] .card .txt-3-like,
+[data-theme="rainy"] .card .txt-3-like,
+[data-theme="autumn"] .card .txt-3-like{color:rgba(255,255,255,.68);}
+
+
+  /* ==================== DASHBOARD ENHANCED STYLES ==================== */
+
+  /* Greeting h1 sizing and style refinement */
+  #greeting {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.018em;
+    line-height: 1.1;
+  }
+
+  /* Greeting text light color for dark-bg themes (forest & rainy have dark topbar/bg) */
+  [data-theme="forest"] .greeting-bar h1,
+  [data-theme="forest"] #greeting { color: #d8ffc8; }
+  [data-theme="forest"] .greeting-bar p { color: rgba(200,245,175,.70); }
+
+  [data-theme="rainy"] .greeting-bar h1,
+  [data-theme="rainy"] #greeting { color: #e8f6ff; }
+  [data-theme="rainy"] .greeting-bar p { color: rgba(200,230,255,.68); }
+
+  /* Card glass upgrade - subtle shimmer */
+  .card {
+    backdrop-filter: blur(18px) saturate(1.25);
+    -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  }
+
+  /* card-stat number sizing */
+  .stat-val {
+    font-size: 2.1rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* c-label spacing refinement */
+  .c-label {
+    font-size: .58rem;
+    letter-spacing: .16em;
+  }
+
+  /* Profile name sizing */
+  .profile-name {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  /* Profile sub text */
+  .profile-sub {
+    font-size: .76rem;
+  }
+
+  /* Footer DM Sans alignment */
+  .dash-footer {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .72rem;
+    letter-spacing: 0;
+  }
+
+  /* Topbar enhanced shadow */
+  .topbar {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.14),
+      0 18px 52px rgba(0,0,0,.14);
+  }
+
+  /* Card stat decorative elements per-theme improvement */
+  [data-theme="night"] .card-stat .stat-icon,
+  [data-theme="night"] .stat-delta {
+    opacity: .85;
+  }
+
+  /* Greeting bar padding */
+  .greeting-bar {
+    padding: 24px 24px 8px;
+  }
+
+  /* h2 inside progress section */
+  .progress-hd h2 {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    letter-spacing: -0.015em;
+  }
+
+  /* Date pill font */
+  .date-day, .date-full {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: .04em;
+  }
+
+  /* Mini bar values */
+  .mbar-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    letter-spacing: .04em;
+  }
+
+  /* XP center number */
+  .xp-num {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* Plant caption font */
+  .plant-caption {
+    font-size: .8rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Achievement badge subtitle */
+  .badge-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+  }
+
+  /* Theme switcher label */
+  .theme-switcher-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .6rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  /* Progress heading */
+  [data-theme="night"] .progress-hd h2 { color: #f7f3ff; }
+  [data-theme="forest"] .progress-hd h2 { color: #e8ffe0; }
+  [data-theme="rainy"] .progress-hd h2 { color: #ffffff; }
+  [data-theme="autumn"] .progress-hd h2 { color: #fff5e4; }
+
+</style>
+</head>
+<body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<div class="page-wrap">
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo"><span class="logo-leaf">🌿</span>Habit Garden</div>
+
+  <nav class="topbar-nav">
+    <a href="home.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="about.html">About</a>
+    <a href="garden.html">Garden</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="features.html">Features</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="topbar-right">
+    <div class="date-pill">
+      <span class="date-day" id="dateDay">Mon</span>
+      <span id="dateStr">27 Apr 2026</span>
+    </div>
+    <div class="theme-switcher">
+      <span class="theme-switcher-label">Theme</span>
+      <button class="theme-dot-btn active" data-t="forest"  title="Forest 🌲"></button>
+      <button class="theme-dot-btn"        data-t="spring"  title="Spring 🌸"></button>
+      <button class="theme-dot-btn"        data-t="rainy"   title="Rainy 🌧️"></button>
+      <button class="theme-dot-btn"        data-t="autumn"  title="Autumn 🍂"></button>
+      <button class="theme-dot-btn"        data-t="night"   title="Night 🌙"></button>
+      <button class="theme-dot-btn"        data-t="ocean"   title="Ocean 🌊"></button>
+      <button class="theme-dot-btn"        data-t="desert"  title="Desert 🏜️"></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<nav class="mobile-menu" id="mobileMenu">
+  <a href="home.html">Home</a>
+  <a href="login.html">Login</a>
+  <a href="about.html">About</a>
+  <a href="garden.html">Garden</a>
+  <a href="dashboard.html" class="active">Dashboard</a>
+  <a href="features.html">Features</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<!-- GREETING -->
+<div class="greeting-bar">
+  <h1 id="greeting">Hello, Gardener! 🌱</h1>
+  <p id="greetingSub">Your personalised workspace track.</p>
+</div>
+
+<!-- DASHBOARD -->
+<main class="dash">
+
+  <!-- ROW 1 -->
+  <div class="row-1">
+    <!-- PROFILE -->
+    <div class="card card-profile">
+      <div class="profile-top">
+        <div class="avatar-wrap">
+          <div class="avatar-init" id="avatarInit" title="Click to change">G</div>
+          <div class="avatar-ring" id="avatarRing"></div>
+        </div>
+        <div>
+          <div class="profile-name" id="profileName">Gardener</div>
+          <div class="profile-sub" id="profileSub">Lv. 1 · Forest</div>
+        </div>
+      </div>
+      <div class="mini-bars">
+        <div class="mbar"><span class="mbar-icon">⚡</span><div class="mbar-track"><div class="mbar-fill" id="mbarXP"></div></div><span class="mbar-val" id="mbarXPVal">0%</span></div>
+        <div class="mbar"><span class="mbar-icon">🔥</span><div class="mbar-track"><div class="mbar-fill orange" id="mbarStreak"></div></div><span class="mbar-val" id="mbarStreakVal">0d</span></div>
+        <div class="mbar"><span class="mbar-icon">🏅</span><div class="mbar-track"><div class="mbar-fill purple" id="mbarBadge"></div></div><span class="mbar-val" id="mbarBadgeVal">0/4</span></div>
+      </div>
+    </div>
+
+    <!-- STAT: Completed -->
+    <div class="card card-stat">
+      <span class="c-label">Completed</span>
+      <span class="stat-icon">✅</span>
+      <div class="stat-val" id="sCompleted">0</div>
+      <div class="stat-delta" id="dCompleted">habits done</div>
+    </div>
+
+    <!-- STAT: Level -->
+    <div class="card card-stat">
+      <span class="c-label">Level</span>
+      <span class="stat-icon">🏆</span>
+      <div class="stat-val" id="sLevel">1</div>
+      <div class="stat-delta">current rank</div>
+    </div>
+
+    <!-- STAT: XP -->
+    <div class="card card-stat">
+      <span class="c-label">Total XP</span>
+      <span class="stat-icon">⚡</span>
+      <div class="stat-val" id="sXP">0</div>
+      <div class="stat-delta" id="dXP">/ 50 this level</div>
+    </div>
+
+    <!-- STAT: Streak -->
+    <div class="card card-stat">
+      <span class="c-label">Streak</span>
+      <span class="stat-icon">🔥</span>
+      <div class="stat-val" id="sStreak">0 <sub>days</sub></div>
+      <div class="stat-delta" id="dStreak">start your streak!</div>
+    </div>
+  </div><!-- /row-1 -->
+
+  <!-- ROW 2 -->
+  <div class="row-2">
+
+    <!-- PROGRESS -->
+    <div class="card card-progress">
+      <div class="progress-hd">
+        <div><span class="c-label">Progress Summary</span><h2>XP &amp; Garden</h2></div>
+        <div class="progress-hd-sub" id="lvlHint">Lv 1 → 2</div>
+      </div>
+      <div class="progress-body">
+        <!-- XP RING -->
+        <div class="xp-ring-wrap">
+          <svg class="xp-ring-svg" width="90" height="90" viewBox="0 0 90 90">
+            <circle class="xp-track" cx="45" cy="45" r="36"/>
+            <circle class="xp-arc"   cx="45" cy="45" r="36" id="xpArc"/>
+          </svg>
+          <div class="xp-center">
+            <div class="xp-num" id="xpNum">0</div>
+            <div class="xp-denom">/50 XP</div>
+          </div>
+        </div>
+        <!-- PLANT -->
+        <div class="plant-zone">
+          <div class="plant" id="plant" data-ps="neutral">
+            <div class="p-sparks"><span class="p-sp">✨</span><span class="p-sp">⭐</span><span class="p-sp">✨</span></div>
+            <div class="p-drop">💧</div>
+            <div class="p-stem">
+              <div class="p-leaf ll"></div><div class="p-leaf lr"></div>
+              <div class="p-leaf lt"></div><div class="p-leaf ltr"></div>
+            </div>
+            <div class="p-pot"><div class="p-rim"></div><div class="p-body"></div></div>
+          </div>
+          <div class="plant-caption" id="plantCap">Keep going to grow your garden! 🌿</div>
+        </div>
+      </div>
+      <div class="xp-bar-row">
+        <span class="xp-bar-lbl">To next level</span>
+        <div class="xp-bar-track"><div class="xp-bar-fill" id="xpBarFill"></div></div>
+        <span class="xp-bar-right" id="xpBarTxt">0 / 50 XP</span>
+      </div>
+    </div>
+  </div><!-- /row-2 -->
+
+  <!-- ROW 3 -->
+  <div class="row-3">
+    <!-- ACHIEVEMENTS -->
+    <div class="card card-rewards">
+      <div class="rewards-hd"><h2>Rewards &amp; Achievements</h2><p>Unlock badges as you build habits</p></div>
+      <div class="ach-grid">
+        <div class="ach locked" id="achSeed">
+          <div class="ach-icon">🌱</div><div class="ach-name">Seed Starter</div>
+          <div class="ach-desc">Complete your first habit</div><div class="ach-req">≥ 1 habit</div>
+        </div>
+        <div class="ach locked" id="achBloom">
+          <div class="ach-icon">🌸</div><div class="ach-name">Bloom Builder</div>
+          <div class="ach-desc">Reach 20 total XP</div><div class="ach-req">≥ 20 XP</div>
+        </div>
+        <div class="ach locked" id="achTree">
+          <div class="ach-icon">🌳</div><div class="ach-name">Tree Grower</div>
+          <div class="ach-desc">Reach 30 total XP</div><div class="ach-req">≥ 30 XP</div>
+        </div>
+        <div class="ach locked" id="achHero">
+          <div class="ach-icon">🏆</div><div class="ach-name">Habit Hero</div>
+          <div class="ach-desc">Reach 50 XP — level up!</div><div class="ach-req">≥ 50 XP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEKLY -->
+    <div class="card card-weekly">
+      <div class="weekly-hd"><h2>Weekly Snapshot</h2><p>Habits completed each day this week</p></div>
+      <div class="week-chart" id="weekChart">
+        <div class="dg"><div class="dg-wrap"><div class="dbar" id="wb0" data-tip="Mon: 0"></div></div><span class="dlbl">M</span></div>
+        <div class="dg"><div class="dg-wrap"><div class="dbar" id="wb1" data-tip="Tue: 0"></div></div><span class="dlbl">T</span></div>
+        <div class="dg"><div class="dg-wrap"><div class="dbar" id="wb2" data-tip="Wed: 0"></div></div><span class="dlbl">W</span></div>
+        <div class="dg"><div class="dg-wrap"><div class="dbar" id="wb3" data-tip="Thu: 0"></div></div><span class="dlbl">T</span></div>
+        <div class="dg"><div class="dg-wrap"><div class="dbar" id="wb4" data-tip="Fri: 0"></div></div><span class="dlbl">F</span></div>
+        <div class="dg"><div class="dg-wrap"><div class="dbar" id="wb5" data-tip="Sat: 0"></div></div><span class="dlbl">S</span></div>
+        <div class="dg"><div class="dg-wrap"><div class="dbar" id="wb6" data-tip="Sun: 0"></div></div><span class="dlbl">S</span></div>
+      </div>
+      <div class="week-totals">
+        <div class="wt"><div class="wt-val" id="wtTotal">0</div><div class="wt-lbl">Total habits</div></div>
+        <div class="wt"><div class="wt-val" id="wtAvg">0.0</div><div class="wt-lbl">Daily avg</div></div>
+        <div class="wt"><div class="wt-val" id="wtBest">0</div><div class="wt-lbl">Best day</div></div>
+      </div>
+    </div>
+  </div><!-- /row-3 -->
+
+  <!-- ROW 4: HEATMAP -->
+  <div class="card card-heatmap">
+    <div class="hm-hd">
+      <div><h2>Streak Tracker</h2><p>GitHub-style habit activity — Mon, Wed, Fri</p></div>
+      <select class="hm-select" id="hmYear"><option value="2026">2026</option><option value="2025">2025</option></select>
+    </div>
+    <div class="hm-scroll">
+      <div class="hm-vis">
+        <div class="hm-days"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+        <div class="hm-right">
+          <div class="hm-months" id="hmMonths"></div>
+          <div class="hm-grid" id="hmGrid"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hm-legend">
+      <span class="hm-ltxt">Less</span>
+      <div class="hm-lc l0"></div><div class="hm-lc l1"></div><div class="hm-lc l2"></div><div class="hm-lc l3"></div><div class="hm-lc l4"></div>
+      <span class="hm-ltxt">More</span>
+    </div>
+  </div>
+
+</main>
+
+<footer class="dash-footer">
+  <span>© 2026 Digital Habit Garden</span><span>·</span><span>Grow every day 🌿</span><span>·</span><a href="about.html" style="color:var(--acc)">About</a><span>·</span><a href="login.html" id="logoutLink" style="color:var(--txt-3)" onclick="localStorage.removeItem('hg-user')">Log out</a>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toastIcon">🌱</span><span id="toastMsg">Hello!</span></div>
+
+<!-- FAB removed — use Garden page to complete habits -->
+
+<script>
+/* ════════════════════════════════════════════════════════
+   STORE — all data lives here, persisted in localStorage
+════════════════════════════════════════════════════════ */
+const STORE_KEY = 'hg-v1';
+const DEFAULTS = {
+  name:'Gardener', xp:0, xpTotal:0, level:1, xpPerLevel:50,
+  streak:0, lastDate:null, completed:0, badges:[],
+  habitLog:{},
+  reminders:[
+    {id:'r1',name:'Morning meditation',time:'07:00',tag:'tag-d',tagLabel:'Daily',      done:false},
+    {id:'r2',name:'Evening walk',       time:'18:30',tag:'tag-h',tagLabel:'Health',    done:false},
+    {id:'r3',name:'Read 20 pages',      time:'21:00',tag:'tag-l',tagLabel:'Learning',  done:false},
+    {id:'r4',name:'Log water intake',   time:'20:00',tag:'tag-h',tagLabel:'Health',    done:false},
+    {id:'r5',name:'Journal entry',      time:'22:00',tag:'tag-m',tagLabel:'Mindfulness',done:false}
+  ]
+};
+
+const SHARED_KEY = 'hg-shared'; // cross-page bridge
+
+function loadData(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    const base = raw ? Object.assign({}, JSON.parse(JSON.stringify(DEFAULTS)), JSON.parse(raw))
+                     : JSON.parse(JSON.stringify(DEFAULTS));
+
+    // ── Pull name from login keys if still default ──
+    if(base.name === 'Gardener'){
+      const loginName = localStorage.getItem('hg-user')
+                      || localStorage.getItem('habitGardenUsername') || null;
+      if(loginName) base.name = loginName;
+    }
+
+    // ── hg-live: Garden's real-time broadcast — HIGHEST PRIORITY for completed/xp/level ──
+    // This fires on every habit check/uncheck — always use its values directly
+    try{
+      const live = JSON.parse(localStorage.getItem('hg-live')||'{}');
+      if(live.source === 'garden'){
+        // completed: always use garden's exact checked.size (no Math.max — unchecking must decrease)
+        if(live.completed !== undefined) base.completed = live.completed;
+        if(live.xp !== undefined) base.xp = live.xp;
+        if(live.xpTotal !== undefined) base.xpTotal = live.xpTotal;
+        if(live.level !== undefined) base.level = live.level;
+        if(live.streak !== undefined) base.streak = live.streak;
+        if(live.lastDate) base.lastDate = live.lastDate;
+        if(live.name && base.name === 'Gardener') base.name = live.name;
+        if(live.badge && !base.badges.includes(live.badge)) base.badges.push(live.badge);
+        // Log today in habitLog (use exact count — reflects current state)
+        if(live.lastDate && live.completed !== undefined){
+          base.habitLog = base.habitLog || {};
+          base.habitLog[live.lastDate] = live.completed;
+        }
+        // Live theme from garden
+        if(live.theme) base._liveTheme = live.theme;
+      }
+    }catch(e){}
+
+    // ── hg-shared: secondary sync bridge ──
+    try{
+      const shared = JSON.parse(localStorage.getItem(SHARED_KEY)||'{}');
+      if(shared.source === 'garden'){
+        // Use direct values — garden now writes exact state (no Math.max) so resets propagate
+        if(shared.completed !== undefined) base.completed = shared.completed;
+        if(shared.xp !== undefined) base.xp = shared.xp;
+        if(shared.xpTotal !== undefined) base.xpTotal = shared.xpTotal;
+        if(shared.level !== undefined) base.level = shared.level;
+        if(shared.streak !== undefined) base.streak = shared.streak;
+        if(shared.lastDate) base.lastDate = shared.lastDate;
+        if(shared.name && base.name === 'Gardener') base.name = shared.name;
+        if(shared.badge && !base.badges.includes(shared.badge)) base.badges.push(shared.badge);
+      }
+    }catch(e){}
+
+    // ── habitGardenData: written on Save in garden ──
+    try{
+      const gd = JSON.parse(localStorage.getItem('habitGardenData') || 'null');
+      if(gd){
+        // Use garden's exact checked array length
+        if(gd.checked !== undefined) base.completed = (gd.checked||[]).length;
+        if((gd.xp||0) > base.xp){ base.xp = gd.xp; }
+        if((gd.level||1) > base.level){ base.level = gd.level; }
+        if(gd.date){
+          try{
+            const parts = gd.date.split('/');
+            if(parts.length===3){
+              const [m,d,y] = parts;
+              const isoKey = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
+              base.habitLog = base.habitLog || {};
+              base.habitLog[isoKey] = (gd.checked||[]).length;
+            }
+          }catch(e2){}
+        }
+        if(gd.badge && !base.badges.includes(gd.badge)) base.badges.push(gd.badge);
+      }
+    }catch(e){}
+
+    // hg-live takes ultimate priority over habitGardenData for completed (most recent)
+    // Re-apply hg-live completed one more time to ensure it wins
+    try{
+      const live = JSON.parse(localStorage.getItem('hg-live')||'{}');
+      if(live.source === 'garden' && live.completed !== undefined){
+        base.completed = live.completed;
+        if(live.lastDate && live.completed !== undefined){
+          base.habitLog[live.lastDate] = live.completed;
+        }
+      }
+    }catch(e){}
+
+    return base;
+  }catch(e){ return JSON.parse(JSON.stringify(DEFAULTS)); }
+}
+function saveData(d){
+  try{ localStorage.setItem(STORE_KEY,JSON.stringify(d)); }catch(e){}
+  // Sync to shared bridge so garden page can read level/streak/badges from dashboard
+  try{
+    const shared = JSON.parse(localStorage.getItem(SHARED_KEY)||'{}');
+    const next = Object.assign(shared, {
+      streak: d.streak,
+      bestStreak: Math.max(shared.bestStreak||0, d.streak),
+      xpTotal: Math.max(shared.xpTotal||0, d.xpTotal),
+      lastDate: d.lastDate,
+      level: d.level,
+      // Do NOT overwrite completed here — only garden sets it
+      source: 'dashboard'
+    });
+    localStorage.setItem(SHARED_KEY, JSON.stringify(next));
+  }catch(e){}
+}
+
+let D = loadData();
+
+function todayKey(){
+  const n=new Date();
+  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+}
+function prevKey(){
+  const n=new Date(); n.setDate(n.getDate()-1);
+  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+}
+
+/* ════════════════════════════════════════════════════════
+   GREETING — runs after D is fully loaded from all sources
+════════════════════════════════════════════════════════ */
+// (Rendered later by renderAll → renderGreeting)
+const THEMES = ['forest','night','spring','rainy','autumn'];
+const THEME_NAMES = {forest:'Forest',ocean:'Ocean',desert:'Desert',night:'Night',spring:'Spring 🌸',rainy:'Rainy 🌧️',autumn:'Autumn 🍂'};
+
+let _canvasCleanup = null;
+
+function applyTheme(t){
+  if(!THEMES.includes(t)) t='forest';
+  document.documentElement.dataset.theme = t;
+  // Write both keys so all pages (garden uses habitGardenTheme, others use hg-theme) stay in sync
+  try{
+    localStorage.setItem('hg-theme', t);
+    localStorage.setItem('habitGardenTheme', t);
+  }catch(e){}
+  // update active dot
+  document.querySelectorAll('.theme-dot-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.t === t);
+  });
+  // re-render profile sub label
+  const sub = document.getElementById('profileSub');
+  if(sub) sub.textContent = `Lv. ${D.level} · ${THEME_NAMES[t]}`;
+  // restart canvas scene
+  if(_canvasCleanup) _canvasCleanup();
+  _canvasCleanup = startScene(t);
+}
+
+// Theme dot buttons
+document.querySelectorAll('.theme-dot-btn').forEach(btn=>{
+  btn.addEventListener('click',()=> applyTheme(btn.dataset.t));
+});
+
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+if(hamburger && mobileMenu){
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if(!hamburger.contains(e.target) && !mobileMenu.contains(e.target)){
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+
+// Sync from garden page via localStorage (live, real-time)
+window.addEventListener('storage', e=>{
+  // ── Theme sync (from garden, login, or any other page) ──
+  if(e.key==='hg-theme' || e.key==='habitGardenTheme'){
+    if(e.newValue) applyTheme(e.newValue);
+  }
+
+  // ── hg-live: garden broadcasts on EVERY habit check/uncheck ──
+  // Always use its values directly — unchecking must decrease completed count
+  if(e.key==='hg-live'){
+    try{
+      const live = JSON.parse(e.newValue||'{}');
+      if(live.source === 'garden'){
+        // Always assign directly — never Math.max — so unchecking reduces count
+        if(live.completed !== undefined) D.completed = live.completed;
+        if(live.xp !== undefined) D.xp = live.xp;
+        if(live.xpTotal !== undefined) D.xpTotal = live.xpTotal;
+        if(live.level !== undefined) D.level = live.level;
+        if(live.streak !== undefined) D.streak = live.streak;
+        if(live.lastDate) D.lastDate = live.lastDate;
+        if(live.name && D.name === 'Gardener') D.name = live.name;
+        if(live.badge && !D.badges.includes(live.badge)) D.badges.push(live.badge);
+        // Update habitLog with exact current count (not max)
+        if(live.lastDate && live.completed !== undefined){
+          D.habitLog = D.habitLog || {};
+          D.habitLog[live.lastDate] = live.completed;
+        }
+        saveData(D); renderAll();
+      }
+    }catch(err){}
+  }
+
+  // ── hg-shared: secondary bridge ──
+  if(e.key===SHARED_KEY){
+    try{
+      const shared = JSON.parse(e.newValue||'{}');
+      if(shared.source === 'garden'){
+        // Direct assignment — garden writes exact state now (resets propagate)
+        if(shared.completed !== undefined) D.completed = shared.completed;
+        if(shared.xpTotal !== undefined) D.xpTotal = shared.xpTotal;
+        if(shared.xp !== undefined) D.xp = shared.xp;
+        if(shared.level !== undefined) D.level = shared.level;
+        if(shared.streak !== undefined) D.streak = shared.streak;
+        if(shared.lastDate) D.lastDate = shared.lastDate;
+        if(shared.badge && !D.badges.includes(shared.badge)) D.badges.push(shared.badge);
+        saveData(D); renderAll();
+      }
+    }catch(err){}
+  }
+
+  // ── habitGardenData: written on Save button in garden ──
+  if(e.key==='habitGardenData'){
+    try{
+      const gd = JSON.parse(e.newValue || 'null');
+      if(gd){
+        // Always use exact checked count
+        D.completed = (gd.checked||[]).length;
+        if((gd.xp||0) > D.xp){ D.xp = gd.xp; }
+        if((gd.level||1) > D.level){ D.level = gd.level; }
+        // Update habitLog
+        if(gd.date){
+          try{
+            const parts = gd.date.split('/');
+            if(parts.length===3){
+              const [m,d,y] = parts;
+              const isoKey = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
+              D.habitLog = D.habitLog || {};
+              D.habitLog[isoKey] = D.completed;
+            }
+          }catch(e2){}
+        }
+        saveData(D); renderAll();
+      }
+    }catch(err){}
+  }
+});
+
+// Load saved theme — check all sources: hg-theme, habitGardenTheme (garden/login key)
+// Also check hg-live.theme for the most recent theme from garden
+const initialTheme = localStorage.getItem('habitGardenTheme') || localStorage.getItem('hg-theme') || 'forest';
+applyTheme(initialTheme);
+
+// Update profile name display
+(function(){
+  const name = localStorage.getItem('hg-user')
+             || localStorage.getItem('habitGardenUsername')
+             || D.name || 'Gardener';
+  const el = document.getElementById('profileName');
+  if(el) el.textContent = name;
+  D.name = name;
+  // Avatar from login
+  try{
+    const av = localStorage.getItem('gardenAvatar');
+    if(av){ document.getElementById('avatarInit').textContent = av; }
+  }catch(e){}
+})();
+
+/* ════════════════════════════════════════════════════════
+   DATE PILL
+════════════════════════════════════════════════════════ */
+(function(){
+  const n=new Date();
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('dateDay').textContent = days[n.getDay()];
+  document.getElementById('dateStr').textContent = n.getDate()+' '+months[n.getMonth()]+' '+n.getFullYear();
+})();
+
+/* ════════════════════════════════════════════════════════
+   TOAST
+════════════════════════════════════════════════════════ */
+let _tt=null;
+function toast(icon,msg,dur=3200){
+  const t=document.getElementById('toast');
+  document.getElementById('toastIcon').textContent=icon;
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(_tt);
+  _tt=setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+/* ════════════════════════════════════════════════════════
+   COUNTER ANIMATION
+════════════════════════════════════════════════════════ */
+function countUp(el,target,dur=700){
+  if(!el) return;
+  const from=parseInt(el.textContent)||0;
+  const start=performance.now();
+  function tick(now){
+    const p=Math.min((now-start)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(from+(target-from)*e);
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ════════════════════════════════════════════════════════
+   RENDER ALL — called after every state change
+════════════════════════════════════════════════════════ */
+function renderAll(){
+  renderGreeting();
+  renderStats();
+  renderXP();
+  renderPlant();
+  renderMiniBar();
+  renderAchievements();
+  renderWeekly();
+  renderHeatmap(parseInt(document.getElementById('hmYear').value));
+}
+
+/* ── Greeting ── */
+function renderGreeting(){
+  const h=new Date().getHours();
+  const tod=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  // Always re-read name from storage (may have been updated by login)
+  const name = localStorage.getItem('hg-user')
+              || localStorage.getItem('habitGardenUsername')
+              || D.name || 'Gardener';
+  D.name = name;
+  const el=document.getElementById('greeting');
+  if(el) el.textContent=`${tod}, ${name}! 🌱`;
+  const pn=document.getElementById('profileName');
+  if(pn) pn.textContent=name;
+}
+
+/* ── Stat cards ── */
+function renderStats(){
+  countUp(document.getElementById('sCompleted'),D.completed);
+  document.getElementById('dCompleted').textContent= D.completed===1?'habit done':'habits done';
+  countUp(document.getElementById('sLevel'),D.level);
+  countUp(document.getElementById('sXP'),D.xp);
+  document.getElementById('dXP').textContent=`/ ${D.xpPerLevel} this level`;
+  // Streak — keep the <sub> child
+  const sv=document.getElementById('sStreak');
+  sv.innerHTML=D.streak+' <sub>days</sub>';
+  document.getElementById('dStreak').textContent=D.streak>0?'keep it going! 🔥':'start your streak!';
+}
+
+/* ── XP ring + bar ── */
+function renderXP(){
+  const pct=Math.min(D.xp/D.xpPerLevel,1);
+  // SVG arc: circumference 226
+  const arc=document.getElementById('xpArc');
+  if(arc) arc.style.strokeDashoffset=226-(pct*226);
+  document.getElementById('xpNum').textContent=D.xp;
+  document.getElementById('xpBarFill').style.width=(pct*100)+'%';
+  document.getElementById('xpBarTxt').textContent=`${D.xp} / ${D.xpPerLevel} XP`;
+  document.getElementById('lvlHint').textContent=`Lv ${D.level} → ${D.level+1}`;
+}
+
+/* ── Plant state ── */
+const CAPS={
+  excited:['Your garden is thriving! 🌟','On fire! Keep it up! 🔥','Plants are dancing! ✨'],
+  neutral:['Good start! Keep going 🌱','Building momentum… 💪','Every habit counts! 🌿'],
+  dull:   ['Your plant misses you 💧','Come back — garden needs you!','One habit changes everything 🌱']
+};
+function renderPlant(){
+  const state=D.streak>=3?'excited':D.streak>=1?'neutral':'dull';
+  const p=document.getElementById('plant');
+  if(p) p.dataset.ps=state;
+  const caps=CAPS[state];
+  const cap=document.getElementById('plantCap');
+  if(cap) cap.textContent=caps[Math.floor(Math.random()*caps.length)];
+  // profile ring
+  const ring=document.getElementById('avatarRing');
+  if(ring) ring.classList.toggle('on',D.streak>0);
+}
+
+/* ── Mini bars ── */
+function renderMiniBar(){
+  const xpPct=D.xp/D.xpPerLevel;
+  const sPct=Math.min(D.streak/7,1);
+  const bPct=D.badges.length/4;
+  function setB(id,pct){ const b=document.getElementById(id); if(b) b.style.width=(pct*100)+'%'; }
+  setB('mbarXP',xpPct); setB('mbarStreak',sPct); setB('mbarBadge',bPct);
+  document.getElementById('mbarXPVal').textContent=Math.round(xpPct*100)+'%';
+  document.getElementById('mbarStreakVal').textContent=D.streak+'d';
+  document.getElementById('mbarBadgeVal').textContent=D.badges.length+'/4';
+  // profile sub
+  const t=document.documentElement.dataset.theme||'forest';
+  document.getElementById('profileSub').textContent=`Lv. ${D.level} · ${THEME_NAMES[t]}`;
+}
+
+/* ── Achievements ── */
+function renderAchievements(){
+  function setAch(id,unlocked){
+    const c=document.getElementById(id);
+    if(!c) return;
+    c.classList.toggle('unlocked',unlocked);
+    c.classList.toggle('locked',!unlocked);
+  }
+  setAch('achSeed', D.completed>=1);
+  setAch('achBloom',D.xpTotal>=20);
+  setAch('achTree', D.xpTotal>=30);
+  setAch('achHero', D.xpTotal>=50);
+}
+
+/* ── Weekly bars ── */
+const DAY_NAMES=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+function renderWeekly(){
+  const counts=thisWeekCounts();
+  const max=Math.max(...counts,1);
+  const todayDow=(new Date().getDay()+6)%7;
+  counts.forEach((c,i)=>{
+    const b=document.getElementById('wb'+i);
+    if(!b) return;
+    b.style.setProperty('--h',(c/max*100)+'%');
+    b.dataset.tip=`${DAY_NAMES[i]}: ${c} habit${c!==1?'s':''}`;
+    b.classList.toggle('today',i===todayDow);
+  });
+  const total=counts.reduce((a,b)=>a+b,0);
+  document.getElementById('wtTotal').textContent=total;
+  document.getElementById('wtAvg').textContent=(total/7).toFixed(1);
+  document.getElementById('wtBest').textContent=Math.max(...counts);
+}
+function thisWeekCounts(){
+  const counts=[0,0,0,0,0,0,0];
+  const now=new Date();
+  const dow=now.getDay();
+  const monday=new Date(now);
+  monday.setDate(now.getDate()-((dow+6)%7));
+  monday.setHours(0,0,0,0);
+  for(let i=0;i<7;i++){
+    const d=new Date(monday); d.setDate(monday.getDate()+i);
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    counts[i]=D.habitLog[k]||0;
+  }
+  return counts;
+}
+
+/* ════════════════════════════════════════════════════════
+   HEATMAP
+════════════════════════════════════════════════════════ */
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function renderHeatmap(year){
+  year=year||new Date().getFullYear();
+  // Build 52 weeks starting from first Monday on or before Jan 1
+  const jan1=new Date(year,0,1);
+  const dow=jan1.getDay(); // 0=Sun
+  const daysBack=dow===0?6:dow-1;
+  const start=new Date(jan1); start.setDate(jan1.getDate()-daysBack);
+
+  const TARGET=[1,3,5]; // Mon=1,Wed=3,Fri=5 (1-indexed Mon start)
+  const today=todayKey();
+
+  // month labels
+  const monthsEl=document.getElementById('hmMonths');
+  const monthCount={};
+  for(let w=0;w<52;w++){
+    const mon=new Date(start); mon.setDate(start.getDate()+w*7);
+    const m=mon.getMonth();
+    monthCount[m]=(monthCount[m]||0)+1;
+  }
+  monthsEl.innerHTML='';
+  for(let m=0;m<12;m++){
+    if(!monthCount[m]) continue;
+    const s=document.createElement('span');
+    s.className='hm-month'; s.textContent=MONTHS[m];
+    s.style.flexBasis=((monthCount[m]/52)*100)+'%';
+    s.style.flexShrink='0';
+    monthsEl.appendChild(s);
+  }
+
+  // cells: column-first (grid-auto-flow:column means for each week emit Mon,Wed,Fri)
+  const grid=document.getElementById('hmGrid');
+  let html='';
+  const dayLabels=['Mon','Wed','Fri'];
+  for(let w=0;w<52;w++){
+    for(let di=0;di<3;di++){
+      // TARGET[di]: 1=Mon,3=Wed,5=Fri relative to week start (Monday=0)
+      const offset=[0,2,4][di];
+      const date=new Date(start); date.setDate(start.getDate()+w*7+offset);
+      const k=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+      const count=D.habitLog[k]||0;
+      const lv=count===0?0:count===1?1:count===2?2:count===3?3:4;
+      const isFuture=date>new Date();
+      const tip=isFuture?`${dayLabels[di]} ${date.getDate()} ${MONTHS[date.getMonth()]}`:
+        count?`${dayLabels[di]} ${date.getDate()} ${MONTHS[date.getMonth()]}: ${count} habit${count>1?'s':''}`:
+        `${dayLabels[di]} ${date.getDate()} ${MONTHS[date.getMonth()]}: none`;
+      const outline=k===today?' style="outline:2px solid var(--acc);outline-offset:1px;"':'';
+      const fade=isFuture?' style="opacity:0.25;"':'';
+      html+=`<div class="hm-cell" data-lv="${lv}" title="${tip}"${outline||fade}></div>`;
+    }
+  }
+  grid.innerHTML=html;
+}
+document.getElementById('hmYear').addEventListener('change',e=>renderHeatmap(parseInt(e.target.value)));
+
+/* ════════════════════════════════════════════════════════
+   STREAK LOGIC
+════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════
+   STREAK CHECK — only resets if garden hasn't logged activity
+   Garden manages its own streak; dashboard just reflects it
+════════════════════════════════════════════════════════ */
+function checkStreak(){
+  const today=todayKey(), prev=prevKey();
+  // Only reset streak if garden hasn't had activity and it's truly broken
+  // Check hg-live first — if garden has been active, trust its streak value
+  try{
+    const live = JSON.parse(localStorage.getItem('hg-live')||'{}');
+    if(live.source === 'garden' && live.streak !== undefined){
+      D.streak = live.streak; // always trust garden's streak
+      return;
+    }
+  }catch(e){}
+  // Fallback: if no garden activity and streak looks stale, reset it
+  if(D.lastDate && D.lastDate!==today && D.lastDate!==prev){
+    D.streak=0; saveData(D);
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   BADGE CHECKS
+════════════════════════════════════════════════════════ */
+const BADGES=[
+  {id:'seed', icon:'🌱',name:'Seed Starter', check:()=>D.completed>=1},
+  {id:'bloom',icon:'🌸',name:'Bloom Builder',check:()=>D.xpTotal>=20},
+  {id:'tree', icon:'🌳',name:'Tree Grower',  check:()=>D.xpTotal>=30},
+  {id:'hero', icon:'🏆',name:'Habit Hero',   check:()=>D.xpTotal>=50},
+];
+function checkBadges(){
+  BADGES.forEach(b=>{
+    if(!D.badges.includes(b.id)&&b.check()){
+      D.badges.push(b.id);
+      toast(b.icon,`Badge unlocked: ${b.name}!`,4000);
+    }
+  });
+}
+
+// Habit completion is handled via the Garden page.
+// Dashboard is read-only — it reflects garden state in real time.
+
+// Avatar click — cycle emojis
+const AVATARS=['G','🌱','🌿','🌳','🌸','🦋','🏆','⭐','🔥','🌙'];
+let avatarIdx=0;
+document.getElementById('avatarInit').addEventListener('click',()=>{
+  avatarIdx=(avatarIdx+1)%AVATARS.length;
+  document.getElementById('avatarInit').textContent=AVATARS[avatarIdx];
+});
+
+/* ════════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════════ */
+checkStreak();
+renderAll();
+/* ════════════════════════════════════════════════════════
+   CANVAS BACKGROUND SCENES (ported from About page)
+════════════════════════════════════════════════════════ */
+function startScene(theme) {
+  const canvas = document.getElementById("bg-canvas");
+  const ctx = canvas.getContext("2d");
+  let raf = 0;
+  let w = 0, h = 0;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const rand = (a, b) => a + Math.random() * (b - a);
+
+  function resize() {
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + "px"; canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  function leafShape(x,y,size,color,rot){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(0,0);ctx.bezierCurveTo(size*.35,-size*.55,size,-size*.42,size*1.28,0);ctx.bezierCurveTo(size,size*.42,size*.35,size*.55,0,0);ctx.fill();ctx.strokeStyle="rgba(255,255,255,0.24)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(size*1.16,0);ctx.stroke();ctx.restore();}
+  function drawPetal(x,y,size,color,rot){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.fillStyle=color;ctx.beginPath();ctx.ellipse(0,0,size*.52,size,0,0,Math.PI*2);ctx.fill();ctx.fillStyle="rgba(255,255,255,0.28)";ctx.beginPath();ctx.ellipse(-size*.12,-size*.2,size*.14,size*.32,0,0,Math.PI*2);ctx.fill();ctx.restore();}
+  function glowCircle(x,y,r,inner,outer){const rg=ctx.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,inner);rg.addColorStop(1,outer);ctx.fillStyle=rg;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();}
+
+  function sceneForest(){
+    const canopyLeaves=Array.from({length:Math.max(7,Math.floor(w/165))},(_,i)=>({x:(i+.5)*(w/Math.max(7,Math.floor(w/165)))+rand(-45,45),y:rand(-38,56),len:rand(110,170),width:rand(34,56),rot:rand(.58,1.08),phase:rand(0,Math.PI*2),hue:rand(102,138),light:rand(30,42)}));
+    const fireflies=Array.from({length:46},()=>({x:rand(0,w),y:rand(0,h),vx:rand(-.20,.20),vy:rand(-.16,.16),phase:rand(0,Math.PI*2),speed:rand(.012,.036),r:rand(1.0,2.1)}));
+    const pollen=Array.from({length:42},()=>({x:rand(0,w),y:rand(0,h),r:rand(.8,2.1),phase:rand(0,Math.PI*2),speed:rand(.008,.024),alpha:rand(.10,.26)}));
+    const drops=[];let t=0;
+    function drawPremiumLeaf(len,width,color,vein){const lg=ctx.createLinearGradient(0,-width,len,width);lg.addColorStop(0,color);lg.addColorStop(1,"rgba(164,220,132,.88)");ctx.fillStyle=lg;ctx.beginPath();ctx.moveTo(0,0);ctx.bezierCurveTo(len*.34,-width*.92,len*.78,-width*.58,len,0);ctx.bezierCurveTo(len*.78,width*.58,len*.34,width*.92,0,0);ctx.fill();ctx.strokeStyle=vein||"rgba(255,255,255,.24)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(len*.96,0);ctx.stroke();}
+    function tick(){t+=.012;const bg=ctx.createLinearGradient(0,0,0,h);bg.addColorStop(0,"rgba(17,52,34,.96)");bg.addColorStop(.52,"rgba(13,72,37,.93)");bg.addColorStop(1,"rgba(4,19,12,.98)");ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);const sun=ctx.createRadialGradient(w*.18,h*.02,0,w*.18,h*.02,h*.48);sun.addColorStop(0,"rgba(232,255,186,.30)");sun.addColorStop(.42,"rgba(172,245,142,.10)");sun.addColorStop(1,"rgba(172,245,142,0)");ctx.fillStyle=sun;ctx.beginPath();ctx.arc(w*.18,h*.02,h*.48,0,Math.PI*2);ctx.fill();
+    for(let i=0;i<3;i++){ctx.fillStyle="rgba(218,246,218,"+(0.030+i*0.009)+")";ctx.beginPath();ctx.ellipse(w*(0.26+i*0.24)+Math.sin(t*.45+i)*24,h*(0.38+i*.12),w*.32,54,0,0,Math.PI*2);ctx.fill();}
+    canopyLeaves.forEach(leaf=>{leaf.phase+=.014;const rot=leaf.rot+Math.sin(t+leaf.phase)*.035;leaf.tipX=leaf.x+Math.cos(rot)*leaf.len;leaf.tipY=leaf.y+Math.sin(rot)*leaf.len;ctx.save();ctx.translate(leaf.x,leaf.y);ctx.rotate(rot);drawPremiumLeaf(leaf.len,leaf.width,`hsla(${leaf.hue},46%,${leaf.light}%,.86)`,"rgba(255,255,255,.18)");ctx.restore();if(Math.random()<.012&&!drops.some(d=>d.leaf===leaf))drops.push({leaf,y:leaf.tipY,vy:0,r:rand(2.2,4.2),state:"forming",life:0});});
+    for(let i=drops.length-1;i>=0;i--){const d=drops[i];d.life++;if(d.state==="forming"){d.r+=.018;if(d.life>62){d.state="falling";d.vy=.45;}const rg=ctx.createRadialGradient(d.leaf.tipX,d.leaf.tipY-d.r*.3,0,d.leaf.tipX,d.leaf.tipY,d.r*2.4);rg.addColorStop(0,"rgba(238,252,255,.82)");rg.addColorStop(.55,"rgba(155,215,255,.42)");rg.addColorStop(1,"rgba(155,215,255,0)");ctx.fillStyle=rg;ctx.beginPath();ctx.arc(d.leaf.tipX,d.leaf.tipY,d.r*1.6,0,Math.PI*2);ctx.fill();}else{d.vy+=.12;d.y+=d.vy;if(d.y>h+24)drops.splice(i,1);}}
+    pollen.forEach(p=>{p.phase+=p.speed;p.x+=Math.sin(p.phase)*.22;p.y-=.06+p.speed*3;if(p.y<-10){p.y=h+12;p.x=rand(0,w);}const a=p.alpha*(.64+Math.sin(p.phase*2)*.28);glowCircle(p.x,p.y,p.r*6.6,`rgba(208,255,155,${a})`,"rgba(208,255,155,0)");});
+    fireflies.forEach(f=>{f.phase+=f.speed;f.vx+=rand(-.018,.018);f.vy+=rand(-.015,.015);f.vx=Math.max(-.38,Math.min(.38,f.vx));f.vy=Math.max(-.32,Math.min(.32,f.vy));f.x+=f.vx+Math.sin(f.phase)*.06;f.y+=f.vy+Math.cos(f.phase)*.04;if(f.x<0)f.x=w;if(f.x>w)f.x=0;if(f.y<0)f.y=h;if(f.y>h)f.y=0;const glow=.35+Math.sin(f.phase*2.0)*.26;glowCircle(f.x,f.y,20*glow,`rgba(218,255,150,${glow})`,"rgba(150,255,130,0)");ctx.fillStyle="rgba(240,255,194,.70)";ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();});
+    ctx.fillStyle="rgba(2,15,9,.22)";ctx.beginPath();ctx.moveTo(0,h*.90);for(let x=0;x<=w;x+=60)ctx.lineTo(x,h*.885+Math.sin(x*.014+t*.55)*9);ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fill();
+    raf=requestAnimationFrame(tick);}
+    tick();
+  }
+
+  function sceneSpring(){
+    const pollen=Array.from({length:75},()=>({x:rand(0,w),y:rand(0,h),phase:rand(0,10),r:rand(1.2,3.4),speed:rand(.08,.28)}));
+    const petals=Array.from({length:70},()=>({x:rand(-40,w+40),y:rand(-h,h),size:rand(4,11),vy:rand(.22,.68),vx:rand(-.18,.24),rot:rand(0,6.28),spin:rand(-.018,.018),phase:rand(0,10),color:["rgba(255,250,185,0.72)","rgba(221,255,207,0.76)","rgba(255,236,205,0.62)"][Math.floor(rand(0,3))]}));
+    const flowerHeads=Array.from({length:26},()=>({x:rand(20,w-20),base:rand(h*.74,h*1.02),size:rand(11,24),phase:rand(0,10),hue:rand(42,78)}));
+    const butterflies=Array.from({length:10},()=>({x:rand(40,w-40),y:rand(h*.16,h*.76),tx:rand(40,w-40),ty:rand(h*.15,h*.75),phase:rand(0,10),size:rand(11,21),hue:[42,95,165,205][Math.floor(rand(0,4))]}));
+    let t=0;
+    function drawButterfly(b){b.phase+=.075;b.x+=(b.tx-b.x)*.005+Math.sin(b.phase)*.26;b.y+=(b.ty-b.y)*.005+Math.cos(b.phase*1.2)*.20;if(Math.abs(b.tx-b.x)<24&&Math.abs(b.ty-b.y)<24){b.tx=rand(35,w-35);b.ty=rand(h*.13,h*.74);}const flap=Math.abs(Math.sin(b.phase*2.4));ctx.save();ctx.translate(b.x,b.y);ctx.rotate(Math.sin(b.phase)*.22);ctx.fillStyle=`hsla(${b.hue},70%,62%,0.72)`;ctx.beginPath();ctx.ellipse(-b.size*.45,-b.size*.22,b.size*(.33+flap*.22),b.size*.54,-.45,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(b.size*.45,-b.size*.22,b.size*(.33+flap*.22),b.size*.54,.45,0,Math.PI*2);ctx.fill();ctx.fillStyle=`hsla(${b.hue+30},74%,72%,0.62)`;ctx.beginPath();ctx.ellipse(-b.size*.34,b.size*.28,b.size*.30,b.size*.36,.45,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(b.size*.34,b.size*.28,b.size*.30,b.size*.36,-.45,0,Math.PI*2);ctx.fill();ctx.fillStyle="rgba(40,75,45,0.72)";ctx.beginPath();ctx.ellipse(0,0,b.size*.11,b.size*.47,0,0,Math.PI*2);ctx.fill();ctx.restore();}
+    function drawFlower(f){const sway=Math.sin(t+f.phase)*5;const stemTop=f.base-f.size*3.4;ctx.strokeStyle="rgba(64,136,70,0.33)";ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(f.x,f.base);ctx.quadraticCurveTo(f.x+sway*.4,(f.base+stemTop)/2,f.x+sway,stemTop);ctx.stroke();ctx.save();ctx.translate(f.x+sway,stemTop);for(let i=0;i<6;i++){ctx.rotate(Math.PI/3);ctx.fillStyle=`hsla(${f.hue},78%,72%,0.50)`;ctx.beginPath();ctx.ellipse(0,-f.size*.45,f.size*.26,f.size*.56,0,0,Math.PI*2);ctx.fill();}ctx.fillStyle="rgba(236,190,68,0.72)";ctx.beginPath();ctx.arc(0,0,f.size*.22,0,Math.PI*2);ctx.fill();ctx.restore();}
+    function tick(){t+=.012;const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,"rgba(255,252,220,0.94)");g.addColorStop(.48,"rgba(213,245,204,0.76)");g.addColorStop(1,"rgba(172,232,199,0.70)");ctx.fillStyle=g;ctx.fillRect(0,0,w,h);glowCircle(w*.78,h*.14,190,"rgba(255,236,138,0.42)","rgba(255,236,138,0)");glowCircle(w*.20,h*.86,220,"rgba(91,204,125,0.20)","rgba(91,204,125,0)");ctx.fillStyle="rgba(255,255,255,0.16)";for(let i=0;i<6;i++){ctx.beginPath();ctx.ellipse(w*(0.08+i*.18)+Math.sin(t+i)*16,h*(.18+(i%2)*.08),135,40,0,0,Math.PI*2);ctx.fill();}flowerHeads.forEach(drawFlower);petals.forEach(p=>{p.phase+=.028;p.x+=p.vx+Math.sin(p.phase)*.32;p.y+=p.vy;p.rot+=p.spin;if(p.y>h+24){p.y=-24;p.x=rand(-40,w+40);}drawPetal(p.x,p.y,p.size,p.color,p.rot);});pollen.forEach((p,i)=>{p.phase+=.026;p.y-=p.speed;p.x+=Math.sin(p.phase+i)*.14;if(p.y<-20){p.y=h+20;p.x=rand(0,w);}const pulse=.20+Math.sin(p.phase)*.12;glowCircle(p.x,p.y,17,`rgba(255,230,105,${pulse})`,"rgba(255,230,105,0)");});butterflies.forEach(drawButterfly);raf=requestAnimationFrame(tick);}
+    tick();
+  }
+
+  function sceneRainy(){
+    const drops=Array.from({length:210},()=>({x:rand(0,w),y:rand(-h,h),len:rand(12,30),speed:rand(4.5,9.5),alpha:rand(.15,.46),drift:rand(.25,.9)}));
+    const ripples=Array.from({length:28},()=>({x:rand(0,w),y:rand(h*.62,h*.96),r:rand(2,24),speed:rand(.22,.62),alpha:rand(.18,.46)}));
+    const fog=Array.from({length:8},(_,i)=>({x:rand(-w*.3,w),y:h*(.14+i*.07),speed:rand(.08,.24),scale:rand(.75,1.7),alpha:rand(.045,.11)}));
+    const bubbles=Array.from({length:60},()=>({x:rand(0,w),y:rand(0,h),r:rand(2,7),vy:rand(.20,.78),phase:rand(0,Math.PI*2),alpha:rand(.10,.32)}));
+    let t=0;
+    function tick(){t+=.016;const bg=ctx.createLinearGradient(0,0,0,h);bg.addColorStop(0,"rgba(7,38,66,0.98)");bg.addColorStop(.45,"rgba(13,88,128,0.96)");bg.addColorStop(1,"rgba(3,17,32,0.99)");ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);fog.forEach(f=>{f.x+=f.speed;if(f.x>w+220)f.x=-w*.35;ctx.fillStyle="rgba(215,242,255,"+f.alpha+")";ctx.beginPath();ctx.ellipse(f.x,f.y+Math.sin(t+f.scale)*9,180*f.scale,38*f.scale,0,0,Math.PI*2);ctx.fill();});drops.forEach(d=>{d.y+=d.speed;d.x+=d.drift;if(d.y>h+d.len){d.y=rand(-150,-10);d.x=rand(-35,w+35);}ctx.strokeStyle="rgba(190,230,255,"+d.alpha+")";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(d.x-5,d.y+d.len);ctx.stroke();});bubbles.forEach(b=>{b.phase+=.03;b.y-=b.vy;b.x+=Math.sin(b.phase)*.34;if(b.y<-20){b.y=h+20;b.x=rand(0,w);}ctx.strokeStyle="rgba(195,238,255,"+b.alpha+")";ctx.lineWidth=1;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.stroke();});ripples.forEach(r=>{r.r+=r.speed;r.alpha-=.0032;if(r.alpha<=0||r.r>65){r.x=rand(0,w);r.y=rand(h*.62,h*.96);r.r=2;r.alpha=rand(.18,.46);}ctx.strokeStyle="rgba(174,228,255,"+r.alpha+")";ctx.lineWidth=1.15;ctx.beginPath();ctx.ellipse(r.x,r.y,r.r*1.85,r.r*.45,0,0,Math.PI*2);ctx.stroke();});raf=requestAnimationFrame(tick);}
+    tick();
+  }
+
+  function sceneAutumn(){
+    const leaves=Array.from({length:105},()=>({x:rand(-70,w+70),y:rand(-h,h),vx:rand(-.42,.34),vy:rand(.32,.95),rot:rand(0,Math.PI*2),spin:rand(-.032,.032),size:rand(8,21),phase:rand(0,Math.PI*2),color:["rgba(179,78,31,0.74)","rgba(210,118,47,0.72)","rgba(226,160,74,0.68)","rgba(142,66,34,0.66)","rgba(240,186,98,0.58)"][Math.floor(rand(0,5))]}));
+    const dust=Array.from({length:56},()=>({x:rand(0,w),y:rand(0,h),r:rand(.8,2.4),phase:rand(0,Math.PI*2),alpha:rand(.08,.22),speed:rand(.006,.020)}));
+    const windLines=Array.from({length:5},(_,i)=>({y:h*(.24+i*.13),phase:rand(0,Math.PI*2),alpha:rand(.035,.075)}));
+    let t=0;
+    function tick(){t+=.016;const bg=ctx.createLinearGradient(0,0,0,h);bg.addColorStop(0,"rgba(255,224,174,0.96)");bg.addColorStop(.48,"rgba(203,119,62,0.90)");bg.addColorStop(1,"rgba(93,42,20,0.96)");ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);const sun=ctx.createRadialGradient(w*.70,h*.18,0,w*.70,h*.18,h*.36);sun.addColorStop(0,"rgba(255,239,184,0.42)");sun.addColorStop(.52,"rgba(255,184,92,0.14)");sun.addColorStop(1,"rgba(255,184,92,0)");ctx.fillStyle=sun;ctx.beginPath();ctx.arc(w*.70,h*.18,h*.36,0,Math.PI*2);ctx.fill();windLines.forEach((line,idx)=>{const grad=ctx.createLinearGradient(0,0,w,0);grad.addColorStop(0,"rgba(255,235,190,0)");grad.addColorStop(.45,"rgba(255,235,190,"+line.alpha+")");grad.addColorStop(1,"rgba(255,235,190,0)");ctx.strokeStyle=grad;ctx.lineWidth=1.3;ctx.beginPath();for(let x=-80;x<=w+80;x+=35){const y=line.y+Math.sin(x*.012+t*.8+line.phase)*(9+idx*2);if(x===-80)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();});dust.forEach(d=>{d.phase+=d.speed;d.x+=Math.sin(d.phase)*.14;d.y-=.055+d.speed*2;if(d.y<-10){d.y=h+10;d.x=rand(0,w);}const a=d.alpha*(.72+Math.sin(d.phase*2)*.25);glowCircle(d.x,d.y,d.r*6.5,"rgba(255,219,144,"+a+")","rgba(255,219,144,0)");});leaves.forEach(l=>{l.phase+=.026;l.x+=l.vx+Math.sin(l.phase)*.38;l.y+=l.vy;l.rot+=l.spin;if(l.y>h+35){l.y=rand(-65,-15);l.x=rand(-70,w+70);}leafShape(l.x,l.y,l.size,l.color,l.rot);});raf=requestAnimationFrame(tick);}
+    tick();
+  }
+
+  function sceneNight(){
+    const stars=Array.from({length:110},()=>({x:rand(0,w),y:rand(0,h*.65),r:rand(.35,1.4),tw:rand(0,6.28)}));
+    const flies=Array.from({length:72},()=>({x:rand(0,w),y:rand(h*.18,h),vx:rand(-.35,.35),vy:rand(-.35,.35),phase:rand(0,6.28),speed:rand(.025,.065)}));
+    const glowPlants=Array.from({length:18},()=>({x:rand(0,w),base:h+rand(-10,30),len:rand(45,120),p:rand(0,6.28)}));
+    let t=0;
+    function tick(){t+=.016;const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'rgba(8,8,28,1)');g.addColorStop(.52,'rgba(12,8,35,1)');g.addColorStop(1,'rgba(4,3,15,1)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);const mx=w*.78,my=h*.18,mr=Math.min(w,h)*.075;const moon=ctx.createRadialGradient(mx-mr*.25,my-mr*.3,0,mx,my,mr*3.8);moon.addColorStop(0,'rgba(245,240,255,.95)');moon.addColorStop(.22,'rgba(210,200,255,.42)');moon.addColorStop(1,'rgba(150,125,255,0)');ctx.fillStyle=moon;ctx.beginPath();ctx.arc(mx,my,mr*3.8,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(241,236,255,.95)';ctx.beginPath();ctx.arc(mx,my,mr,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(8,8,28,.72)';ctx.beginPath();ctx.arc(mx+mr*.35,my-mr*.15,mr*.9,0,Math.PI*2);ctx.fill();stars.forEach(s=>{s.tw+=.04;ctx.fillStyle=`rgba(225,220,255,${.35+.42*Math.sin(s.tw)})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});glowPlants.forEach(p=>{const sway=Math.sin(t*1.2+p.p)*8;ctx.strokeStyle='rgba(145,255,190,.25)';ctx.lineWidth=3;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(p.x,p.base);ctx.quadraticCurveTo(p.x+sway*.4,p.base-p.len*.55,p.x+sway,p.base-p.len);ctx.stroke();const gx=p.x+sway,gy=p.base-p.len;const pulse=.45+.45*Math.sin(t*2+p.p);const rg=ctx.createRadialGradient(gx,gy,0,gx,gy,20+pulse*22);rg.addColorStop(0,`rgba(190,255,210,${.75*pulse})`);rg.addColorStop(.45,`rgba(110,255,175,${.2*pulse})`);rg.addColorStop(1,'rgba(110,255,175,0)');ctx.fillStyle=rg;ctx.beginPath();ctx.arc(gx,gy,24+pulse*24,0,Math.PI*2);ctx.fill();ctx.fillStyle=`rgba(230,255,235,${.75*pulse})`;ctx.beginPath();ctx.arc(gx,gy,2.3,0,Math.PI*2);ctx.fill();});flies.forEach(f=>{f.phase+=f.speed;f.vx+=rand(-.04,.04);f.vy+=rand(-.04,.04);f.vx=Math.max(-.55,Math.min(.55,f.vx));f.vy=Math.max(-.55,Math.min(.55,f.vy));f.x+=f.vx;f.y+=f.vy;if(f.x<0)f.x=w;if(f.x>w)f.x=0;if(f.y<0)f.y=h;if(f.y>h)f.y=0;const glow=.5+.5*Math.sin(f.phase);const rg=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,34*glow+6);rg.addColorStop(0,`rgba(255,244,165,${.82*glow})`);rg.addColorStop(.38,`rgba(255,221,80,${.26*glow})`);rg.addColorStop(1,'rgba(255,221,80,0)');ctx.fillStyle=rg;ctx.beginPath();ctx.arc(f.x,f.y,34*glow+6,0,Math.PI*2);ctx.fill();ctx.fillStyle=`rgba(255,255,205,${glow})`;ctx.beginPath();ctx.arc(f.x,f.y,1.4,0,Math.PI*2);ctx.fill();});raf=requestAnimationFrame(tick);}
+    tick();
+  }
+
+  // Ocean: animated wave/ripple scene
+  function sceneOcean(){
+    const waves=Array.from({length:5},(_,i)=>({y:h*(.4+i*.12),amp:rand(18,38),speed:rand(.008,.018),phase:rand(0,6.28)}));
+    const bubbles=Array.from({length:80},()=>({x:rand(0,w),y:rand(0,h),r:rand(1,5),vy:rand(.15,.55),phase:rand(0,6.28),alpha:rand(.08,.28)}));
+    const glints=Array.from({length:60},()=>({x:rand(0,w),y:rand(0,h*.55),phase:rand(0,6.28),speed:rand(.04,.12),alpha:rand(.10,.36)}));
+    let t=0;
+    function tick(){t+=.012;const bg=ctx.createLinearGradient(0,0,0,h);bg.addColorStop(0,"rgba(6,30,60,.98)");bg.addColorStop(.48,"rgba(8,70,110,.96)");bg.addColorStop(1,"rgba(2,12,26,.99)");ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);glowCircle(w*.68,h*.14,200,"rgba(100,200,255,.25)","rgba(100,200,255,0)");waves.forEach((wv,i)=>{ctx.strokeStyle=`rgba(100,210,255,${.08+i*.02})`;ctx.lineWidth=1.5+i*.4;ctx.beginPath();for(let x=0;x<=w;x+=6){const y=wv.y+Math.sin(x*.012+t*wv.speed+wv.phase)*wv.amp;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();});glints.forEach(g=>{g.phase+=g.speed;const a=g.alpha*(.5+.5*Math.sin(g.phase));glowCircle(g.x,g.y+Math.sin(g.phase)*8,8,`rgba(180,240,255,${a})`,"rgba(180,240,255,0)");});bubbles.forEach(b=>{b.phase+=.04;b.y-=b.vy;b.x+=Math.sin(b.phase)*.3;if(b.y<-10){b.y=h+10;b.x=rand(0,w);}ctx.strokeStyle="rgba(180,240,255,"+b.alpha+")";ctx.lineWidth=1;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.stroke();});raf=requestAnimationFrame(tick);}
+    tick();
+  }
+
+  // Desert: heat shimmer and sand dust
+  function sceneDesert(){
+    const sandDust=Array.from({length:80},()=>({x:rand(0,w),y:rand(0,h),r:rand(.8,2.8),phase:rand(0,6.28),alpha:rand(.06,.18),speed:rand(.004,.014)}));
+    const mirages=Array.from({length:3},(_,i)=>({x:w*(0.2+i*.3),y:h*.72,phase:rand(0,6.28)}));
+    let t=0;
+    function tick(){t+=.012;const bg=ctx.createLinearGradient(0,0,0,h);bg.addColorStop(0,"rgba(255,200,110,.97)");bg.addColorStop(.45,"rgba(200,110,40,.92)");bg.addColorStop(1,"rgba(100,45,10,.98)");ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);const sun=ctx.createRadialGradient(w*.5,h*.12,0,w*.5,h*.12,h*.45);sun.addColorStop(0,"rgba(255,240,160,.55)");sun.addColorStop(.5,"rgba(255,180,60,.12)");sun.addColorStop(1,"rgba(255,180,60,0)");ctx.fillStyle=sun;ctx.beginPath();ctx.arc(w*.5,h*.12,h*.45,0,Math.PI*2);ctx.fill();mirages.forEach(m=>{m.phase+=.025;const shimH=12+Math.sin(m.phase)*6;ctx.fillStyle=`rgba(255,230,160,${.08+Math.sin(m.phase)*.04})`;ctx.beginPath();ctx.ellipse(m.x,m.y+Math.sin(m.phase*1.3)*4,w*.18,shimH,0,0,Math.PI*2);ctx.fill();});ctx.fillStyle="rgba(140,65,15,.22)";ctx.beginPath();ctx.moveTo(0,h*.82);for(let x=0;x<=w;x+=50)ctx.lineTo(x,h*.80+Math.sin(x*.01+t*.4)*14);ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fill();sandDust.forEach(d=>{d.phase+=d.speed;d.x+=Math.sin(d.phase)*.24+.18;d.y-=.04+d.speed;if(d.x>w+10)d.x=-10;if(d.y<-10){d.y=h+10;d.x=rand(0,w);}const a=d.alpha*(.6+Math.sin(d.phase*2)*.3);glowCircle(d.x,d.y,d.r*5,"rgba(255,210,130,"+a+")","rgba(255,210,130,0)");});raf=requestAnimationFrame(tick);}
+    tick();
+  }
+
+  const scenes={forest:sceneForest,spring:sceneSpring,rainy:sceneRainy,autumn:sceneAutumn,night:sceneNight,ocean:sceneOcean,desert:sceneDesert};
+  (scenes[theme]||sceneNight)();
+
+  return function cleanup(){
+    cancelAnimationFrame(raf);
+    window.removeEventListener("resize",resize);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+  };
+}
+
+</script>
+</body>
+</html>

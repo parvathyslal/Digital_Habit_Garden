@@ -1,0 +1,2653 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="forest">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Digital Habit Garden</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================
+       DIGITAL HABIT GARDEN — PREMIUM EDITORIAL STYLESHEET
+       Font: Cormorant Garamond (elegant serif) + DM Sans (body)
+       Spring dot: pink | Full glass-premium system
+    ======================================================== */
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      letter-spacing: -0.008em;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background: var(--page-bg);
+      transition: background 0.7s ease, color 0.7s ease;
+    }
+
+    /* subtle grain overlay for expensive feel */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .036;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.95) 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.70) 0 1px, transparent 1px);
+      background-size: 42px 42px, 64px 64px;
+      mix-blend-mode: soft-light;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ==================== TYPOGRAPHY ==================== */
+
+    h1, h2, h3, h4,
+    .logo,
+    .visual-caption h3,
+    .theme-world h3,
+    .cta h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.012em;
+    }
+
+    .eyebrow, .label, .theme-switcher span,
+    .mini-tag, .icon, .stage span, .pill, .tech {
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: .07em;
+    }
+
+    /* ==================== THEME VARIABLES ==================== */
+
+    [data-theme="forest"] {
+      --page-bg:
+        radial-gradient(circle at 18% 0%, rgba(223,255,208,.36), transparent 27%),
+        radial-gradient(circle at 86% 14%, rgba(86,216,84,.16), transparent 26%),
+        linear-gradient(135deg, #07170f 0%, #194c2a 48%, #06170f 100%);
+      --topbar-bg: rgba(7, 28, 18, 0.72);
+      --card: rgba(235, 250, 229, 0.72);
+      --card-strong: rgba(248, 255, 244, 0.90);
+      --soft: rgba(226, 246, 215, 0.62);
+      --border: rgba(143, 205, 127, 0.30);
+      --text: #10220f;
+      --heading: #0c1f0c;
+      --muted: #4d7047;
+      --accent: #2f8f43;
+      --accent-2: #b7e86a;
+      --accent-soft: rgba(143, 216, 117, 0.22);
+      --glow: rgba(98, 212, 90, 0.28);
+      --shadow: rgba(5, 32, 13, 0.22);
+      --canvas-opacity: 0.90;
+    }
+
+    [data-theme="spring"] {
+      --page-bg:
+        radial-gradient(circle at 18% 8%, #ffeaf3 0%, #ffd9ea 24%, #e9f8d6 56%, #f7fff4 100%);
+      --topbar-bg: rgba(255, 245, 251, 0.78);
+      --card: rgba(255, 250, 253, 0.80);
+      --card-strong: rgba(255, 255, 250, 0.94);
+      --soft: rgba(255, 238, 248, 0.62);
+      --border: rgba(215, 128, 171, 0.26);
+      --text: #2e1830;
+      --heading: #231024;
+      --muted: #70506a;
+      --accent: #c65f95;
+      --accent-2: #69bd72;
+      --accent-soft: rgba(244, 175, 210, 0.24);
+      --glow: rgba(222, 116, 170, 0.28);
+      --shadow: rgba(148, 62, 105, 0.12);
+      --canvas-opacity: 0.84;
+    }
+
+    [data-theme="rainy"] {
+      --page-bg:
+        radial-gradient(circle at top, #d8f2ff 0%, #5aa8ce 42%, #061927 100%);
+      --topbar-bg: rgba(8, 32, 50, 0.72);
+      --card: rgba(235, 247, 255, 0.80);
+      --card-strong: rgba(250, 254, 255, 0.93);
+      --soft: rgba(231, 245, 253, 0.62);
+      --border: rgba(133, 188, 219, 0.42);
+      --text: #082033;
+      --heading: #071f2e;
+      --muted: #426e88;
+      --accent: #126ca5;
+      --accent-2: #65c7e8;
+      --accent-soft: rgba(196, 228, 247, 0.80);
+      --glow: rgba(67, 171, 226, 0.30);
+      --shadow: rgba(8, 58, 94, 0.18);
+      --canvas-opacity: 0.94;
+    }
+
+    [data-theme="autumn"] {
+      --page-bg:
+        radial-gradient(circle at 72% 5%, rgba(255,230,174,.58), transparent 28%),
+        radial-gradient(circle at 15% 88%, rgba(198,95,42,.16), transparent 30%),
+        linear-gradient(135deg, #7d3a1b 0%, #c77a3d 48%, #4f2410 100%);
+      --topbar-bg: rgba(91, 43, 18, 0.58);
+      --card: rgba(255, 244, 226, 0.72);
+      --card-strong: rgba(255, 250, 240, 0.88);
+      --soft: rgba(255, 226, 192, 0.58);
+      --border: rgba(184, 112, 54, 0.25);
+      --text: #341806;
+      --heading: #261005;
+      --muted: #81512e;
+      --accent: #b7612b;
+      --accent-2: #e8b66f;
+      --accent-soft: rgba(229, 151, 65, 0.20);
+      --glow: rgba(223, 129, 45, 0.22);
+      --shadow: rgba(83, 31, 5, 0.20);
+      --canvas-opacity: 0.78;
+    }
+
+    [data-theme="night"] {
+      --page-bg:
+        radial-gradient(circle at 50% -12%, #5b48bd 0%, #171b4a 48%, #060711 100%);
+      --topbar-bg: rgba(10, 12, 34, 0.68);
+      --card: rgba(30, 33, 74, 0.70);
+      --card-strong: rgba(38, 41, 88, 0.88);
+      --soft: rgba(43, 45, 92, 0.72);
+      --border: rgba(212, 194, 255, 0.28);
+      --text: #f7f3ff;
+      --heading: #ffffff;
+      --muted: #ddd6ff;
+      --accent: #c1a8ff;
+      --accent-2: #8affe4;
+      --accent-soft: rgba(183, 156, 255, 0.26);
+      --glow: rgba(194, 164, 255, 0.56);
+      --shadow: rgba(0, 0, 0, 0.42);
+      --canvas-opacity: 1;
+    }
+
+    /* ==================== BG CANVAS ==================== */
+
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: var(--canvas-opacity);
+      transition: opacity 0.5s ease;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 15%, var(--glow), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,0.10), transparent 28%),
+        radial-gradient(circle at 50% 95%, var(--accent-soft), transparent 34%);
+      pointer-events: none;
+    }
+
+    /* ==================== TOPBAR ==================== */
+
+    .topbar {
+      height: 58px;
+      max-width: min(1300px, calc(100% - 30px));
+      margin: 14px auto 0;
+      padding: 0 24px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 14px;
+      z-index: 50;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.04)),
+        color-mix(in srgb, var(--topbar-bg), transparent 12%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.55) 34%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 16px 48px rgba(0,0,0,.10);
+      backdrop-filter: blur(24px) saturate(1.3);
+      -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    }
+
+    .logo {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--accent);
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+      text-shadow: 0 8px 26px var(--glow);
+    }
+
+    [data-theme="night"] .logo { color: #d7c4ff; }
+
+    .nav {
+      display: flex;
+      gap: 2px;
+      margin-left: 6px;
+    }
+
+    .nav a {
+      font-family: "DM Sans", sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 999px;
+      opacity: .82;
+      transition: background .22s ease, color .22s ease, opacity .22s ease, transform .22s ease, box-shadow .22s ease;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+      opacity: 0;
+      transition: opacity .22s ease;
+    }
+
+    .nav a:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      opacity: 1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px var(--glow);
+    }
+
+    .nav a:hover::before { opacity: 1; }
+
+    .nav a.active {
+      background: color-mix(in srgb, var(--accent-soft), rgba(255,255,255,.08) 20%);
+      color: var(--accent);
+      opacity: 1;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 2px 10px var(--glow);
+    }
+
+    .theme-switcher {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.5) 30%);
+      padding: 6px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(18px) saturate(1.25);
+    }
+
+    .theme-switcher span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+    }
+
+    .theme-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .theme-dot:hover { transform: scale(1.18); }
+
+    .theme-dot.active {
+      border-color: var(--heading);
+      transform: scale(1.22);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    /* Theme dot colors — spring is now pink */
+    .theme-dot[data-theme="forest"]  { background: #2f7d24; }
+    .theme-dot[data-theme="spring"]  { background: #e8659a; }
+    .theme-dot[data-theme="rainy"]   { background: #1679a9; }
+    .theme-dot[data-theme="autumn"]  { background: #bd5b18; }
+    .theme-dot[data-theme="night"]   { background: #a889ff; }
+
+    /* ==================== HERO ==================== */
+
+    .hero {
+      max-width: 1180px;
+      margin: auto;
+      padding: 86px 28px 62px;
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 52px;
+    }
+
+    .eyebrow, .label {
+      font-size: 10.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      opacity: .86;
+    }
+
+    h1 {
+      font-size: clamp(48px, 6.2vw, 88px);
+      line-height: .97;
+      max-width: 800px;
+      letter-spacing: -0.015em;
+      margin: 14px 0 18px;
+      color: var(--heading);
+      font-weight: 400;
+    }
+
+    /* Dark-bg themes: white h1 */
+    [data-theme="forest"] h1,
+    [data-theme="rainy"] h1,
+    [data-theme="autumn"] h1,
+    [data-theme="night"] h1 {
+      color: #ffffff;
+      text-shadow: 0 18px 52px rgba(0,0,0,.34);
+    }
+
+    .hero-copy p {
+      max-width: 580px;
+      font-size: 15.8px;
+      line-height: 1.78;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    [data-theme="forest"] .hero-copy p,
+    [data-theme="rainy"] .hero-copy p,
+    [data-theme="autumn"] .hero-copy p,
+    [data-theme="night"] .hero-copy p {
+      color: rgba(255,255,255,.78);
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+    }
+
+    /* ==================== BUTTONS ==================== */
+
+    .btn {
+      display: inline-block;
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+      transition: transform .38s cubic-bezier(.2,.8,.2,1), box-shadow .38s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-120%);
+      background: linear-gradient(110deg, transparent, rgba(255,255,255,.32), transparent);
+      transition: transform .75s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .btn:hover::after { transform: translateX(120%); }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 14px 34px var(--glow);
+    }
+
+    .btn.primary:hover {
+      box-shadow: 0 20px 48px var(--glow);
+    }
+
+    .btn.secondary {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+        color-mix(in srgb, var(--card), transparent 30%);
+      color: var(--heading);
+      border-color: color-mix(in srgb, var(--border), rgba(255,255,255,.5) 30%);
+      backdrop-filter: blur(16px);
+    }
+
+    /* ==================== VISUAL CARD ==================== */
+
+    .visual-card {
+      position: relative;
+      width: min(100%, 440px);
+      max-width: 440px;
+      justify-self: end;
+      padding: 12px;
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035)),
+        rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.17),
+        0 36px 90px rgba(0,0,0,.20);
+      transform-style: preserve-3d;
+      overflow: hidden;
+    }
+
+    .visual-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(from 120deg, transparent, var(--glow), transparent, var(--accent-soft), transparent);
+      animation: slowSpin 12s linear infinite;
+      opacity: .36;
+      filter: blur(8px);
+    }
+
+    .visual-inner {
+      position: relative;
+      min-height: 370px;
+      border-radius: 28px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(255,255,255,.16), transparent 24%),
+        linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025)),
+        var(--soft);
+      border: 1px solid rgba(255,255,255,.16);
+      overflow: hidden;
+      transform: rotateX(2deg) rotateY(-2.5deg);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.20),
+        inset 0 -36px 70px rgba(0,0,0,.07),
+        0 30px 70px color-mix(in srgb, var(--shadow), transparent 22%);
+    }
+
+    /* per-theme inner backgrounds */
+    [data-theme="forest"] .visual-inner {
+      background:
+        radial-gradient(circle at 76% 22%, rgba(218,255,188,.44), transparent 18%),
+        linear-gradient(160deg, #10371f 0%, #225d2b 50%, #a5d191 100%);
+    }
+
+    [data-theme="spring"] .visual-inner {
+      background:
+        radial-gradient(circle at 76% 20%, rgba(255,222,239,.44), transparent 22%),
+        radial-gradient(circle at 18% 78%, rgba(105,211,139,.18), transparent 28%),
+        linear-gradient(145deg, rgba(255,235,246,.38), rgba(198,244,212,.12)),
+        var(--soft);
+    }
+
+    [data-theme="rainy"] .visual-inner {
+      background:
+        radial-gradient(circle at 66% 18%, rgba(190,235,255,.55), transparent 22%),
+        radial-gradient(circle at 20% 80%, rgba(110,205,245,.22), transparent 32%),
+        linear-gradient(160deg, #08283f 0%, #1375a8 52%, #bcecff 100%);
+    }
+
+    [data-theme="autumn"] .visual-inner {
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255,230,160,.32), transparent 24%),
+        radial-gradient(circle at 20% 80%, rgba(205,100,50,.12), transparent 32%),
+        linear-gradient(145deg, rgba(255,235,205,.24), rgba(150,70,28,.08)),
+        var(--soft);
+    }
+
+    [data-theme="night"] .visual-inner {
+      background:
+        radial-gradient(circle at 76% 18%, rgba(214,205,255,.44), transparent 24%),
+        radial-gradient(circle at 25% 78%, rgba(113,242,209,.18), transparent 28%),
+        linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
+        var(--soft);
+    }
+
+    .preview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      padding: 0 2px;
+    }
+
+    /* ===== THEME NAME WATERMARK ===== */
+    .theme-watermark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 150px; /* stop above the caption card */
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 12px;
+      pointer-events: none;
+      overflow: hidden;
+      gap: 0;
+    }
+
+    .theme-watermark-rule {
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.50), transparent);
+      opacity: 0;
+      transform: scaleX(0);
+      transition: opacity .55s ease .25s, transform .55s cubic-bezier(.22,1,.36,1) .25s;
+      margin-bottom: 8px;
+    }
+
+    .theme-watermark-rule.visible {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .theme-watermark-text {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(64px, 11vw, 100px);
+      letter-spacing: -0.01em;
+      line-height: 1;
+      color: rgba(255,255,255,.22);
+      opacity: 0;
+      transform: translateY(10px) scale(.96);
+      transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .theme-watermark-text.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Per-theme colours — filled, clearly visible but soft */
+    [data-theme="forest"] .theme-watermark-text   { color: rgba(160,240,130,.28); }
+    [data-theme="forest"] .theme-watermark-rule   { background: linear-gradient(90deg, transparent, rgba(160,240,130,.55), transparent); }
+
+    [data-theme="spring"] .theme-watermark-text   { color: rgba(218,130,175,.30); }
+    [data-theme="spring"] .theme-watermark-rule   { background: linear-gradient(90deg, transparent, rgba(218,130,175,.55), transparent); }
+
+    [data-theme="rainy"] .theme-watermark-text    { color: rgba(140,210,255,.35); }
+    [data-theme="rainy"] .theme-watermark-rule    { background: linear-gradient(90deg, transparent, rgba(140,210,255,.60), transparent); }
+
+    [data-theme="autumn"] .theme-watermark-text   { color: rgba(215,145,65,.62); }
+    [data-theme="autumn"] .theme-watermark-rule   { background: linear-gradient(90deg, transparent, rgba(215,145,65,.58), transparent); }
+
+    [data-theme="night"] .theme-watermark-text    { color: rgba(195,170,255,.30); }
+    [data-theme="night"] .theme-watermark-rule    { background: linear-gradient(90deg, transparent, rgba(195,170,255,.58), transparent); }
+
+    /* ===== LIVING PREVIEW CARD — label & pill visibility per theme ===== */
+    /* The visual-inner has its own per-theme background, so we target it directly */
+    [data-theme="forest"] .visual-inner .label  { color: #a5f08c; opacity: 1; }
+    [data-theme="spring"]  .visual-inner .label  { color: #c65f95; opacity: 1; }
+    [data-theme="rainy"]  .visual-inner .label  { color: #a8e4ff; opacity: 1; }
+    [data-theme="autumn"] .visual-inner .label  { color: #c8682a; opacity: 1; font-weight: 700; }
+    [data-theme="night"]  .visual-inner .label  { color: #c1a8ff; opacity: 1; }
+
+    [data-theme="autumn"] .visual-inner .pill {
+      background: rgba(160,70,20,.28);
+      color: #c8682a;
+      border-color: rgba(160,80,20,.55);
+      font-weight: 700;
+    }
+
+    .pill {
+      background: rgba(255,255,255,.13);
+      color: var(--accent);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 9.5px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,.18);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* Pill on dark-bg themes: white text + stronger glass */
+    [data-theme="forest"] .pill,
+    [data-theme="rainy"] .pill,
+    [data-theme="night"] .pill {
+      background: rgba(255,255,255,.22);
+      color: #ffffff;
+      border-color: rgba(255,255,255,.42);
+    }
+
+    /* Autumn pill: warm amber text for clear visibility against the orange bg */
+    [data-theme="autumn"] .pill {
+      background: rgba(255,220,160,.22);
+      color: #ffe0a0;
+      border-color: rgba(255,200,110,.50);
+    }
+
+    .hero-orbit {
+      position: absolute;
+      inset: 76px 24px 72px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,.24);
+      animation: orbitSpin 14s linear infinite;
+      opacity: .22;
+    }
+
+    .hero-orbit::before, .hero-orbit::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 20px var(--accent-2);
+    }
+
+    .hero-orbit::before { top: 12%; left: 8%; }
+    .hero-orbit::after { right: 10%; bottom: 18%; }
+
+    .big-symbol { display: none; }
+
+    /* Ambient floating orbs in preview */
+    .preview-ambient {
+      position: absolute;
+      inset: 72px 26px 96px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .preview-ambient::before {
+      content: "";
+      position: absolute;
+      right: 7%; top: 4%;
+      width: 142px; height: 142px;
+      border-radius: 42% 58% 48% 52%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.28), transparent 28%),
+        linear-gradient(145deg, var(--accent-soft), transparent);
+      opacity: .28;
+      animation: softBlobFloat 7s ease-in-out infinite;
+    }
+
+    .preview-ambient::after {
+      content: "";
+      position: absolute;
+      right: 16%; bottom: 14%;
+      width: 95px; height: 95px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.16);
+      background: radial-gradient(circle, var(--glow), transparent 68%);
+      opacity: .34;
+      animation: softOrbPulse 5.5s ease-in-out infinite;
+    }
+
+    .preview-ambient span {
+      position: absolute;
+      border-radius: 999px;
+      background: radial-gradient(circle, var(--accent-2), transparent 68%);
+      animation: ambientFloat 7s ease-in-out infinite;
+    }
+
+    .preview-ambient span:nth-child(1) { width:52px; height:52px; left:16%; top:18%; opacity:.22; }
+    .preview-ambient span:nth-child(2) { width:84px; height:84px; right:18%; top:28%; opacity:.16; animation-delay:1.4s; }
+    .preview-ambient span:nth-child(3) { width:48px; height:48px; right:8%; bottom:4%; opacity:.20; animation-delay:2.3s; }
+
+    /* Spring-specific ambient tones */
+    [data-theme="spring"] .preview-ambient::before {
+      border-radius: 50% 20% 50% 20%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.34), transparent 28%),
+        linear-gradient(145deg, rgba(255,190,220,.36), rgba(120,210,140,.16));
+    }
+
+    [data-theme="rainy"] .preview-ambient::before {
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.34), transparent 28%),
+        linear-gradient(145deg, rgba(170,230,255,.36), rgba(70,150,190,.12));
+    }
+
+    [data-theme="autumn"] .preview-ambient::before {
+      border-radius: 60% 30% 55% 35%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.30), transparent 28%),
+        linear-gradient(145deg, rgba(255,190,90,.38), rgba(190,80,30,.16));
+    }
+
+    [data-theme="night"] .preview-ambient::before {
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.34), transparent 28%),
+        linear-gradient(145deg, rgba(190,170,255,.40), rgba(80,255,220,.12));
+    }
+
+    .visual-caption {
+      position: absolute;
+      width: min(72%, 295px);
+      left: 26px;
+      right: auto;
+      bottom: 26px;
+      z-index: 3;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.28), rgba(255,255,255,.08)),
+        rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.20);
+      backdrop-filter: blur(28px) saturate(1.35);
+      -webkit-backdrop-filter: blur(28px) saturate(1.35);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 18px 46px rgba(0,0,0,.10);
+    }
+
+    .visual-caption h3 {
+      font-size: 26px;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      max-width: 240px;
+      color: var(--heading);
+      font-weight: 400;
+    }
+
+    [data-theme="forest"] .visual-caption h3,
+    [data-theme="rainy"] .visual-caption h3,
+    [data-theme="autumn"] .visual-caption h3,
+    [data-theme="night"] .visual-caption h3 { color: #fff; }
+
+    .visual-caption p {
+      font-size: 13px;
+      line-height: 1.62;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    [data-theme="forest"] .visual-caption p,
+    [data-theme="rainy"] .visual-caption p,
+    [data-theme="autumn"] .visual-caption p,
+    [data-theme="night"] .visual-caption p { color: rgba(255,255,255,.74); }
+
+    /* ==================== SECTIONS ==================== */
+
+    .section {
+      max-width: 1180px;
+      margin: auto;
+      padding: 72px 28px;
+    }
+
+    .section + .section {
+      position: relative;
+    }
+
+    .section + .section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 28px; right: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--border), white 40%), transparent);
+      opacity: .42;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 32px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(36px, 4.5vw, 60px);
+      line-height: 1.0;
+      letter-spacing: -0.014em;
+      margin: 12px 0 14px;
+      color: var(--heading);
+      font-weight: 400;
+    }
+
+    [data-theme="forest"] .section-title h2,
+    [data-theme="rainy"] .section-title h2,
+    [data-theme="autumn"] .section-title h2,
+    [data-theme="night"] .section-title h2 {
+      color: #ffffff;
+      text-shadow: 0 16px 44px rgba(0,0,0,.32);
+    }
+
+    .section-title p {
+      font-size: 15.6px;
+      line-height: 1.76;
+      font-weight: 400;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    [data-theme="forest"] .section-title p,
+    [data-theme="rainy"] .section-title p,
+    [data-theme="autumn"] .section-title p,
+    [data-theme="night"] .section-title p { color: rgba(255,255,255,.76); }
+
+    /* ==================== GLASS CARDS ==================== */
+
+    .glass-card,
+    .stage,
+    .tech,
+    .cta {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.17), rgba(255,255,255,.045)),
+        color-mix(in srgb, var(--card), transparent 42%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.62) 42%);
+      backdrop-filter: blur(30px) saturate(1.35);
+      -webkit-backdrop-filter: blur(30px) saturate(1.35);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.17),
+        0 20px 56px color-mix(in srgb, var(--shadow), transparent 34%);
+    }
+
+    /* spring-specific glass */
+    [data-theme="spring"] .glass-card,
+    [data-theme="spring"] .stage,
+    [data-theme="spring"] .tech,
+    [data-theme="spring"] .cta {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.32), rgba(255,255,255,.12)),
+        rgba(255,245,251,.52);
+    }
+
+    /* night-specific glass */
+    [data-theme="night"] .glass-card,
+    [data-theme="night"] .stage,
+    [data-theme="night"] .tech,
+    [data-theme="night"] .cta {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035)),
+        rgba(26,29,64,.62);
+      border-color: rgba(208,190,255,.24);
+    }
+
+    [data-theme="night"] .glass-card p,
+    [data-theme="night"] .stage p,
+    [data-theme="night"] .cta p { color: #d4cff6; }
+
+    /* ===== ENHANCED DARK THEME VISIBILITY FIXES ===== */
+
+    /* Forest theme text visibility */
+    [data-theme="forest"] .glass-card h3 { color: #e8ffe0; }
+    [data-theme="forest"] .glass-card p { color: rgba(220,255,195,.88); }
+    [data-theme="forest"] .stage h4 { color: #e4ffd8; }
+    [data-theme="forest"] .stage p { color: rgba(210,250,185,.82); }
+    [data-theme="forest"] .stage span { color: #7ede6a; }
+    [data-theme="forest"] .tech { color: #8de87a; }
+    [data-theme="forest"] .cta p { color: rgba(210,255,185,.84); }
+    [data-theme="forest"] .cta h2 { color: #f0ffe8; }
+    [data-theme="forest"] .eyebrow, [data-theme="forest"] .label { color: #a5f08c; opacity: 1; }
+    [data-theme="forest"] footer { color: rgba(200,245,175,.7); }
+
+    /* Rainy theme text visibility */
+    [data-theme="rainy"] .glass-card h3 { color: #ffffff; }
+    [data-theme="rainy"] .glass-card p { color: rgba(255,255,255,.92); }
+    [data-theme="rainy"] .stage h4 { color: #ffffff; }
+    [data-theme="rainy"] .stage p { color: rgba(255,255,255,.90); }
+    [data-theme="rainy"] .stage span { color: #a8e4ff; }
+    [data-theme="rainy"] .tech { color: #5dc4f0; }
+    [data-theme="rainy"] .cta p { color: rgba(255,255,255,.90); }
+    [data-theme="rainy"] .cta h2 { color: #ffffff; }
+    [data-theme="rainy"] .eyebrow, [data-theme="rainy"] .label { color: #a8e4ff; opacity: 1; }
+    [data-theme="rainy"] footer { color: rgba(255,255,255,.72); }
+
+    /* Autumn theme text visibility */
+    [data-theme="autumn"] .glass-card h3 { color: #ffffff; }
+    [data-theme="autumn"] .glass-card p { color: rgba(255,255,255,.92); }
+    [data-theme="autumn"] .stage h4 { color: #ffffff; }
+    [data-theme="autumn"] .stage p { color: rgba(255,255,255,.90); }
+    [data-theme="autumn"] .stage span { color: #ffd49a; }
+    [data-theme="autumn"] .tech { color: #e8a256; }
+    [data-theme="autumn"] .cta p { color: rgba(255,255,255,.90); }
+    [data-theme="autumn"] .cta h2 { color: #ffffff; }
+    [data-theme="autumn"] .eyebrow, [data-theme="autumn"] .label { color: #ffd49a; opacity: 1; }
+    [data-theme="autumn"] footer { color: rgba(255,255,255,.72); }
+
+    /* Night theme text visibility */
+    [data-theme="night"] .glass-card h3 { color: #f0ecff; }
+    [data-theme="night"] .stage h4 { color: #ece8ff; }
+    [data-theme="night"] .stage p { color: #d0c8f8; }
+    [data-theme="night"] .stage span { color: #c1a8ff; }
+    [data-theme="night"] .tech { color: #c1a8ff; }
+    [data-theme="night"] .cta h2 { color: #f7f3ff; }
+    [data-theme="night"] .cta p { color: #ddd6ff; }
+    [data-theme="night"] .eyebrow, [data-theme="night"] .label { color: #c1a8ff; opacity: 1; }
+    [data-theme="night"] footer { color: rgba(190,175,255,.70); }
+    [data-theme="night"] .nav a { color: #c1a8ff; }
+    [data-theme="night"] .nav a.active, [data-theme="night"] .nav a:hover { color: #e0d4ff; }
+
+    /* Forest/Rainy/Autumn nav text */
+    [data-theme="forest"] .nav a { color: rgba(180,240,160,.85); }
+    [data-theme="forest"] .nav a.active, [data-theme="forest"] .nav a:hover { color: #a5f08c; }
+    [data-theme="rainy"] .nav a { color: rgba(140,210,248,.85); }
+    [data-theme="rainy"] .nav a.active, [data-theme="rainy"] .nav a:hover { color: #7dd4f5; }
+    [data-theme="autumn"] .nav a { color: rgba(248,200,145,.85); }
+    [data-theme="autumn"] .nav a.active, [data-theme="autumn"] .nav a:hover { color: #f0b870; }
+
+    /* Theme switcher label visibility on dark themes */
+    [data-theme="forest"] .theme-switcher span,
+    [data-theme="rainy"] .theme-switcher span,
+    [data-theme="autumn"] .theme-switcher span,
+    [data-theme="night"] .theme-switcher span { color: rgba(255,255,255,.55); }
+
+    /* Secondary button on dark themes */
+    [data-theme="forest"] .btn.secondary,
+    [data-theme="rainy"] .btn.secondary,
+    [data-theme="autumn"] .btn.secondary,
+    [data-theme="night"] .btn.secondary {
+      color: rgba(255,255,255,.90);
+      border-color: rgba(255,255,255,.28);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+        rgba(255,255,255,.08);
+    }
+
+    [data-theme="forest"] .btn.secondary:hover,
+    [data-theme="rainy"] .btn.secondary:hover,
+    [data-theme="autumn"] .btn.secondary:hover,
+    [data-theme="night"] .btn.secondary:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,.44);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.26), rgba(255,255,255,.10)),
+        rgba(255,255,255,.14);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .glass-card {
+      border-radius: 24px;
+      padding: 23px 22px 25px;
+      min-height: 180px;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-6px) rotateX(.8deg) rotateY(-.6deg);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.30), rgba(255,255,255,.09)),
+        color-mix(in srgb, var(--card-strong), transparent 28%);
+      border-color: color-mix(in srgb, var(--accent), white 40%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.28),
+        0 24px 60px color-mix(in srgb, var(--shadow), transparent 20%),
+        0 0 0 1px color-mix(in srgb, var(--accent), transparent 72%);
+    }
+
+    .glass-card .icon {
+      display: block;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .glass-card h3 {
+      font-size: 26px;
+      line-height: 1.06;
+      margin-bottom: 10px;
+      color: var(--heading);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .glass-card p {
+      font-size: 13.8px;
+      line-height: 1.66;
+      color: var(--muted);
+    }
+
+    /* ==================== TIMELINE ==================== */
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 13px;
+    }
+
+    .stage {
+      position: relative;
+      text-align: center;
+      border-radius: 20px;
+      padding: 22px 14px 24px;
+      min-height: 150px;
+      overflow: hidden;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: auto 22px 0;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      opacity: .40;
+    }
+
+    .stage:hover {
+      transform: translateY(-6px) rotateX(.8deg) rotateY(-.6deg);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.28), rgba(255,255,255,.08)),
+        color-mix(in srgb, var(--card-strong), transparent 30%);
+      border-color: color-mix(in srgb, var(--accent), white 40%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.26),
+        0 20px 52px color-mix(in srgb, var(--shadow), transparent 22%),
+        0 0 0 1px color-mix(in srgb, var(--accent), transparent 70%);
+    }
+
+    .stage span {
+      display: block;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .stage h4 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      color: var(--heading);
+    }
+
+    .stage p {
+      font-size: 12.5px;
+      line-height: 1.48;
+      color: var(--muted);
+    }
+
+    /* ==================== THEME WORLD CARDS ==================== */
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 17px;
+    }
+
+    .theme-world {
+      min-height: 245px;
+      border-radius: 30px;
+      padding: 29px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 24px 70px color-mix(in srgb, var(--shadow), transparent 10%);
+      border: 1px solid rgba(255,255,255,.28);
+      isolation: isolate;
+    }
+
+    .theme-world:hover {
+      transform: translateY(-9px) scale(1.008);
+      filter: saturate(1.12) brightness(1.04);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.30),
+        0 32px 80px color-mix(in srgb, var(--shadow), transparent 8%);
+    }
+
+    .theme-world::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+    }
+
+    .theme-world::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.56), rgba(0,0,0,.12)),
+        radial-gradient(circle at right bottom, rgba(255,255,255,.10), transparent 38%);
+    }
+
+    .theme-world h3, .theme-world p, .theme-world .mini-tag {
+      color: #ffffff;
+      text-shadow: 0 3px 18px rgba(0,0,0,.55);
+    }
+
+    .theme-world h3 {
+      font-size: 40px;
+      line-height: .96;
+      margin: 10px 0 10px;
+      font-weight: 400;
+    }
+
+    .theme-world p {
+      max-width: 400px;
+      font-size: 14px;
+      line-height: 1.64;
+      font-weight: 400;
+    }
+
+    .mini-tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(10px);
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    .theme-symbol {
+      position: absolute;
+      right: 28px;
+      bottom: 24px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 34px;
+      font-weight: 400;
+      color: white;
+      text-transform: lowercase;
+      opacity: .20;
+    }
+
+    /* Theme-world backgrounds */
+    .forest-world::before {
+      background:
+        radial-gradient(circle at 82% 18%, rgba(228,255,160,.36), transparent 26%),
+        radial-gradient(circle at 16% 84%, rgba(64,150,72,.34), transparent 36%),
+        linear-gradient(135deg, #081b11, #1f6a36 54%, #b7d98a);
+    }
+
+    .spring-world::before {
+      background:
+        radial-gradient(circle at 75% 14%, rgba(255,224,239,.95), transparent 24%),
+        radial-gradient(circle at 20% 82%, rgba(112,220,150,.62), transparent 32%),
+        linear-gradient(135deg, #b94c86, #f2b8d4 48%, #c9efbf);
+    }
+
+    .rainy-world::before {
+      background:
+        radial-gradient(circle at 78% 14%, rgba(190,235,255,.65), transparent 26%),
+        radial-gradient(circle at 14% 82%, rgba(78,181,222,.60), transparent 34%),
+        linear-gradient(135deg, #041b2d, #1375a8 54%, #a8e3f8);
+    }
+
+    .autumn-world::before {
+      background:
+        radial-gradient(circle at 80% 15%, rgba(255,221,142,.48), transparent 26%),
+        radial-gradient(circle at 12% 82%, rgba(142,66,26,.32), transparent 34%),
+        linear-gradient(135deg, #7d3a1b, #c8783b 54%, #ffd49a);
+    }
+
+    .night-world::before {
+      background:
+        radial-gradient(circle at 78% 15%, rgba(190,165,255,.98), transparent 25%),
+        radial-gradient(circle at 18% 78%, rgba(82,240,203,.58), transparent 32%),
+        linear-gradient(135deg, #07091d, #33237c 55%, #9d7bff);
+    }
+
+    /* ==================== TECH ROW ==================== */
+
+    .tech-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .tech {
+      padding: 16px 12px;
+      border-radius: 999px;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .tech:hover {
+      transform: translateY(-5px);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.28), rgba(255,255,255,.09)),
+        color-mix(in srgb, var(--card-strong), transparent 30%);
+      border-color: color-mix(in srgb, var(--accent), white 40%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.24),
+        0 16px 36px color-mix(in srgb, var(--shadow), transparent 24%),
+        0 0 0 1px color-mix(in srgb, var(--accent), transparent 65%);
+      color: var(--accent);
+    }
+
+    /* Tech pill visibility on all dark/mid themes */
+    [data-theme="rainy"] .tech {
+      color: #e8f6ff;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.20), rgba(255,255,255,.06)),
+        rgba(180,220,245,.18);
+      border-color: rgba(140,200,240,.38);
+    }
+    [data-theme="autumn"] .tech {
+      color: #fff5e4;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.20), rgba(255,255,255,.07)),
+        rgba(240,195,130,.18);
+      border-color: rgba(210,155,80,.38);
+    }
+    [data-theme="forest"] .tech {
+      color: #eaffd8;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.05)),
+        rgba(155,225,120,.16);
+      border-color: rgba(120,200,90,.35);
+    }
+    [data-theme="night"] .tech {
+      color: #ede4ff;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.04)),
+        rgba(190,168,255,.14);
+      border-color: rgba(180,155,255,.30);
+    }
+
+    [data-theme="rainy"] .tech:hover  { color: #fff; border-color: rgba(170,225,255,.60); }
+    [data-theme="autumn"] .tech:hover { color: #fff; border-color: rgba(235,175,105,.60); }
+    [data-theme="forest"] .tech:hover { color: #fff; border-color: rgba(150,230,110,.60); }
+    [data-theme="night"] .tech:hover  { color: #fff; border-color: rgba(210,190,255,.60); }
+
+    /* ==================== CTA ==================== */
+
+    .cta {
+      max-width: 980px;
+      margin: 50px auto 90px;
+      padding: 68px 30px;
+      text-align: center;
+      border-radius: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, var(--glow), transparent 42%);
+      animation: slowSpin 18s linear infinite;
+      opacity: .58;
+    }
+
+    .cta > * { position: relative; z-index: 2; }
+
+    .cta h2 {
+      font-size: clamp(36px, 4.5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -0.016em;
+      margin-bottom: 14px;
+      color: var(--heading);
+      font-weight: 400;
+    }
+
+    [data-theme="night"] .cta h2 { color: var(--heading); }
+
+    [data-theme="forest"] .cta h2 { color: #ffffff; }
+    [data-theme="rainy"] .cta h2 { color: #ffffff; }
+    [data-theme="autumn"] .cta h2 { color: #ffffff; }
+
+    .cta p {
+      font-size: 15px;
+      font-weight: 400;
+      margin-bottom: 26px;
+      color: var(--muted);
+    }
+
+    /* ==================== FOOTER ==================== */
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 24px 28px 40px;
+      color: var(--muted);
+      font-size: 12px;
+      opacity: .72;
+    }
+
+    /* ==================== GLOBAL TRANSITIONS ==================== */
+
+    .glass-card,
+    .stage,
+    .tech,
+    .theme-world,
+    .visual-card,
+    .btn,
+    .cta {
+      transition:
+        transform .40s cubic-bezier(.2,.8,.2,1),
+        box-shadow .40s cubic-bezier(.2,.8,.2,1),
+        border-color .40s cubic-bezier(.2,.8,.2,1),
+        background .40s cubic-bezier(.2,.8,.2,1),
+        filter .40s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .visual-card:hover {
+      transform: translateY(-9px) rotateX(1deg) rotateY(-.8deg);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.20),
+        0 52px 120px rgba(0,0,0,.24);
+    }
+
+    .visual-card:hover .visual-inner {
+      transform: rotateX(3deg) rotateY(-1.4deg) translateY(-4px);
+    }
+
+    /* ==================== HAMBURGER MENU ==================== */
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      transition: background .2s ease;
+      margin-left: 4px;
+    }
+
+    .hamburger:hover { background: var(--accent-soft); }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--muted);
+      transition: transform .3s ease, opacity .3s ease;
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: 0;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(320px, calc(100% - 40px));
+      z-index: 49;
+      border-radius: 24px;
+      padding: 10px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+        color-mix(in srgb, var(--topbar-bg), transparent 8%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.55) 34%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 24px 60px rgba(0,0,0,.18);
+      backdrop-filter: blur(28px) saturate(1.3);
+      -webkit-backdrop-filter: blur(28px) saturate(1.3);
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu a {
+      display: block;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 11px 16px;
+      border-radius: 14px;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .mobile-menu a:hover, .mobile-menu a.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+
+    @keyframes slowSpin { to { transform: rotate(360deg); } }
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+    @keyframes ambientFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-16px) scale(1.05); }
+    }
+    @keyframes softBlobFloat {
+      0%, 100% { transform: translateY(0) rotate(-18deg) scale(1); }
+      50% { transform: translateY(-14px) rotate(-8deg) scale(1.04); }
+    }
+    @keyframes softOrbPulse {
+      0%, 100% { transform: scale(1); opacity: .25; }
+      50% { transform: scale(1.12); opacity: .42; }
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+
+    @media (max-width: 1100px) {
+      .nav { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .story-grid,
+      .theme-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tech-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar {
+        max-width: calc(100% - 22px);
+      }
+
+      .visual-card {
+        width: 100%;
+        max-width: none;
+        justify-self: stretch;
+      }
+
+      .visual-inner {
+        transform: none;
+        min-height: 340px;
+      }
+
+      .visual-caption {
+        width: auto;
+        left: 22px;
+        right: 22px;
+      }
+
+      .theme-world { min-height: 215px; }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        height: 56px;
+        padding: 0 16px;
+        top: 10px;
+      }
+
+      .logo { font-size: 19px; }
+      .theme-switcher span { display: none; }
+
+      .hero {
+        padding: 52px 18px 40px;
+      }
+
+      .section {
+        padding: 50px 18px;
+      }
+
+      h1 {
+        font-size: clamp(48px, 14vw, 72px);
+      }
+
+      .section-title h2 {
+        font-size: clamp(36px, 11vw, 52px);
+      }
+
+      .visual-inner { min-height: 320px; }
+      .visual-caption h3 { font-size: 25px; }
+      .theme-world { min-height: 220px; }
+
+      .timeline, .tech-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="logo">Habit Garden</div>
+
+      <nav class="nav">
+        <a href="home.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="about.html" class="active">About</a>
+        <a href="garden.html">Garden</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="features.html">Features</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="theme-switcher">
+        <span>Theme</span>
+        <button class="theme-dot active" data-theme="forest" aria-label="Forest theme"></button>
+        <button class="theme-dot" data-theme="spring" aria-label="Spring theme"></button>
+        <button class="theme-dot" data-theme="rainy" aria-label="Rainy theme"></button>
+        <button class="theme-dot" data-theme="autumn" aria-label="Autumn theme"></button>
+        <button class="theme-dot" data-theme="night" aria-label="Night theme"></button>
+      </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu">
+      <a href="home.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="about.html" class="active">About</a>
+      <a href="garden.html">Garden</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">About the project</span>
+        <h1>A garden that grows with you.</h1>
+        <p>
+          Five living themes, real-time growth, and quiet rewards turn daily habits into a softer ritual of progress.
+        </p>
+
+        <div class="hero-actions">
+          <a href="garden.html" class="btn primary">Enter Garden</a>
+          <a href="#themes" class="btn secondary">Explore Themes</a>
+        </div>
+      </div>
+
+      <div class="visual-card">
+        <div class="visual-inner">
+          <div class="preview-top">
+            <span class="label">Living preview</span>
+            <span class="pill" id="themePill">Night Bloom</span>
+          </div>
+          <div class="theme-watermark" aria-hidden="true">
+            <div class="theme-watermark-rule" id="themeWatermarkRule"></div>
+            <span class="theme-watermark-text" id="themeWatermark">Night</span>
+          </div>
+          <div class="hero-orbit"></div>
+          <div class="preview-ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="visual-caption">
+            <h3 id="visualTitle">A magical habit world</h3>
+            <p id="visualText">Glass layers, ambient motion, and soft feedback make the tracker feel alive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <span class="eyebrow">Project vision</span>
+        <h2>Progress, made visible.</h2>
+        <p>
+          Small rituals shape the day. This page turns those rituals into motion, atmosphere, and visible growth.
+        </p>
+      </div>
+
+      <div class="story-grid">
+        <div class="glass-card">
+          <span class="icon">01</span>
+          <h3>Interactive tracking</h3>
+          <p>A quiet space to record what you completed and let the interface hold the memory for you.</p>
+        </div>
+
+        <div class="glass-card">
+          <span class="icon">02</span>
+          <h3>Living feedback</h3>
+          <p>The garden responds as habits are completed, making consistency feel immediate and alive.</p>
+        </div>
+
+        <div class="glass-card">
+          <span class="icon">03</span>
+          <h3>Seasonal moods</h3>
+          <p>The full page shifts across five atmospheres, each with its own rhythm and emotional tone.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <span class="eyebrow">Growth journey</span>
+        <h2>From one action to a steady rhythm.</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="stage">
+          <span>01</span>
+          <h4>Seed</h4>
+          <p>The first habit begins the garden journey.</p>
+        </div>
+
+        <div class="stage">
+          <span>02</span>
+          <h4>Sprout</h4>
+          <p>Early consistency starts showing visible growth.</p>
+        </div>
+
+        <div class="stage">
+          <span>03</span>
+          <h4>Sapling</h4>
+          <p>Your routine becomes stronger day by day.</p>
+        </div>
+
+        <div class="stage">
+          <span>04</span>
+          <h4>Bloom</h4>
+          <p>Rewards and animations make progress exciting.</p>
+        </div>
+
+        <div class="stage">
+          <span>05</span>
+          <h4>Tree</h4>
+          <p>Your habits grow into a complete lifestyle.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="themes">
+      <div class="section-title">
+        <span class="eyebrow">Theme worlds</span>
+        <h2>Five visual moods.</h2>
+        <p>
+          Each environment changes the palette, motion, and feeling of the page without changing the habit system underneath.
+        </p>
+      </div>
+
+      <div class="theme-grid">
+        <div class="theme-world forest-world">
+          <span class="mini-tag">Calm green depth</span>
+          <h3>Forest</h3>
+          <p>Filtered light, soft foliage, and quiet green motion create a peaceful focus space.</p>
+          <div class="theme-symbol">Forest</div>
+        </div>
+
+        <div class="theme-world spring-world">
+          <span class="mini-tag">Bloom energy</span>
+          <h3>Spring</h3>
+          <p>Soft pink accents, botanical motion, and fresh garden lighting make the page feel gentle and bright.</p>
+          <div class="theme-symbol">Spring</div>
+        </div>
+
+        <div class="theme-world rainy-world">
+          <span class="mini-tag">Glass rain mood</span>
+          <h3>Rainy</h3>
+          <p>Layered clouds, glass rain, and misty blue depth make the rainy mood feel calm and cinematic.</p>
+          <div class="theme-symbol">Rain</div>
+        </div>
+
+        <div class="theme-world autumn-world">
+          <span class="mini-tag">Golden warmth</span>
+          <h3>Autumn</h3>
+          <p>Soft sunset tones, slow falling leaves, and amber particles create a calm autumn mood.</p>
+          <div class="theme-symbol">Autumn</div>
+        </div>
+
+        <div class="theme-world night-world">
+          <span class="mini-tag">Magic glow</span>
+          <h3>Night</h3>
+          <p>Moonlight, stars, and fireflies create a quiet magical depth.</p>
+          <div class="theme-symbol">Night</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <span class="eyebrow">How it works</span>
+        <h2>A calm system underneath the motion.</h2>
+      </div>
+
+      <div class="story-grid">
+        <div class="glass-card">
+          <span class="icon">01</span>
+          <h3>Create Profile</h3>
+          <p>The user chooses a name, avatar, goal, and preferred garden atmosphere before starting.</p>
+        </div>
+
+        <div class="glass-card">
+          <span class="icon">02</span>
+          <h3>Complete Habits</h3>
+          <p>Each completed habit updates XP, growth level, visual feedback, and the feeling of progress.</p>
+        </div>
+
+        <div class="glass-card">
+          <span class="icon">03</span>
+          <h3>Save Progress</h3>
+          <p>localStorage keeps the selected theme, profile details, habits, XP, and progress available.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <span class="eyebrow">Technology used</span>
+        <h2>Built with simple frontend tools.</h2>
+      </div>
+
+      <div class="tech-row">
+        <div class="tech">HTML</div>
+        <div class="tech">CSS</div>
+        <div class="tech">JavaScript</div>
+        <div class="tech">React</div>
+        <div class="tech">localStorage</div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2>Small habits become living progress.</h2>
+      <p>Digital Habit Garden turns everyday discipline into a peaceful, animated, and rewarding experience.</p>
+      <a href="garden.html" class="btn primary">Start Growing →</a>
+    </section>
+
+    <footer>
+      © 2026 Habit Garden — grown with care.
+    </footer>
+  </div>
+
+  <script>
+    const html = document.documentElement;
+    const dots = document.querySelectorAll(".theme-dot");
+    const heroSymbol = document.getElementById("heroSymbol");
+    const themePill = document.getElementById("themePill");
+    const visualTitle = document.getElementById("visualTitle");
+    const visualText = document.getElementById("visualText");
+
+    // Hamburger menu
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
+    });
+    document.addEventListener("click", (e) => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      }
+    });
+
+    const themeWatermark = document.getElementById("themeWatermark");
+    const themeWatermarkRule = document.getElementById("themeWatermarkRule");
+
+    const themeContent = {
+      forest: {
+        symbol: "",
+        pill: "Forest Glow",
+        title: "A living woodland path",
+        text: "Soft canopy motion, filtered light, and quiet green depth make the garden feel calm but alive."
+      },
+      spring: {
+        symbol: "",
+        pill: "Spring Meadow",
+        title: "A soft botanical space",
+        text: "Soft pink accents, fresh greens, blossoms, and gentle motion create a light botanical mood."
+      },
+      rainy: {
+        symbol: "",
+        pill: "Rainy Calm",
+        title: "A quiet rain space",
+        text: "Glass rain, soft mist, water ripples, and blue depth create a peaceful rainy mood."
+      },
+      autumn: {
+        symbol: "",
+        pill: "Autumn Calm",
+        title: "A warm autumn space",
+        text: "Soft sunset tones, slow leaves, and warm amber depth keep the page simple and calm."
+      },
+      night: {
+        symbol: "",
+        pill: "Night Bloom",
+        title: "A magical habit world",
+        text: "Moonlight, stars, fireflies, and glowing particles bring depth without making the page feel heavy."
+      }
+    };
+
+    let canvasCleanup = null;
+
+    const themeNames = {
+      forest: "Forest",
+      spring: "Spring",
+      rainy: "Rainy",
+      autumn: "Autumn",
+      night: "Night"
+    };
+
+    function applyTheme(theme) {
+      html.setAttribute("data-theme", theme);
+      dots.forEach(dot => dot.classList.toggle("active", dot.dataset.theme === theme));
+
+      const content = themeContent[theme] || themeContent.night;
+      if (heroSymbol) heroSymbol.textContent = content.symbol;
+      themePill.textContent = content.pill;
+      visualTitle.textContent = content.title;
+      visualText.textContent = content.text;
+
+      // Watermark — fade out, swap, fade in
+      themeWatermark.classList.remove("visible");
+      themeWatermarkRule.classList.remove("visible");
+      clearTimeout(themeWatermark._tid);
+      themeWatermark._tid = setTimeout(() => {
+        themeWatermark.textContent = themeNames[theme] || theme;
+        themeWatermark.classList.add("visible");
+        themeWatermarkRule.classList.add("visible");
+      }, 130);
+
+      localStorage.setItem("habitGardenTheme", theme);
+      localStorage.setItem("hg-theme", theme);
+
+      if (canvasCleanup) canvasCleanup();
+      canvasCleanup = startScene(theme);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => applyTheme(dot.dataset.theme));
+    });
+
+    const savedTheme = localStorage.getItem("habitGardenTheme") || localStorage.getItem("hg-theme") || "forest";
+    applyTheme(savedTheme);
+
+// ── Universal theme sync across all open tabs ──
+window.addEventListener('storage', function(e) {
+  if (e.key === 'habitGardenTheme' || e.key === 'hg-theme') {
+    if (e.newValue && typeof applyTheme === 'function') {
+      applyTheme(e.newValue);
+    }
+  }
+});
+
+
+    // ================= CANVAS SCENES =================
+
+    function startScene(theme) {
+      const canvas = document.getElementById("bg-canvas");
+      const ctx = canvas.getContext("2d");
+      let raf = 0;
+      let w = 0;
+      let h = 0;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rand = (a, b) => a + Math.random() * (b - a);
+
+      function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      function leafShape(x, y, size, color, rot) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(size * 0.35, -size * 0.55, size, -size * 0.42, size * 1.28, 0);
+        ctx.bezierCurveTo(size, size * 0.42, size * 0.35, size * 0.55, 0, 0);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,0.24)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(size * 1.16, 0);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawPetal(x, y, size, color, rot) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, size * 0.52, size, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "rgba(255,255,255,0.28)";
+        ctx.beginPath();
+        ctx.ellipse(-size * 0.12, -size * 0.2, size * 0.14, size * 0.32, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function glowCircle(x, y, r, inner, outer) {
+        const rg = ctx.createRadialGradient(x, y, 0, x, y, r);
+        rg.addColorStop(0, inner);
+        rg.addColorStop(1, outer);
+        ctx.fillStyle = rg;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function sceneForest() {
+        const canopyLeaves = Array.from({ length: Math.max(7, Math.floor(w / 165)) }, (_, i) => ({
+          x: (i + 0.5) * (w / Math.max(7, Math.floor(w / 165))) + rand(-45, 45),
+          y: rand(-38, 56),
+          len: rand(110, 170),
+          width: rand(34, 56),
+          rot: rand(0.58, 1.08),
+          phase: rand(0, Math.PI * 2),
+          hue: rand(102, 138),
+          light: rand(30, 42)
+        }));
+
+        const fineVines = Array.from({ length: 7 }, (_, i) => ({
+          x: (i + 0.5) * (w / 7) + rand(-42, 42),
+          length: rand(h * 0.16, h * 0.36),
+          amp: rand(7, 16),
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.42, 0.82)
+        }));
+
+        const fireflies = Array.from({ length: 46 }, () => ({
+          x: rand(0, w),
+          y: rand(0, h),
+          vx: rand(-0.20, 0.20),
+          vy: rand(-0.16, 0.16),
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.012, 0.036),
+          r: rand(1.0, 2.1)
+        }));
+
+        const pollen = Array.from({ length: 42 }, () => ({
+          x: rand(0, w),
+          y: rand(0, h),
+          r: rand(0.8, 2.1),
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.008, 0.024),
+          alpha: rand(0.10, 0.26)
+        }));
+
+        const drops = [];
+        let t = 0;
+
+        function drawPremiumLeaf(len, width, color, vein) {
+          const leafGradient = ctx.createLinearGradient(0, -width, len, width);
+          leafGradient.addColorStop(0, color);
+          leafGradient.addColorStop(1, "rgba(164,220,132,.88)");
+
+          ctx.fillStyle = leafGradient;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(len * 0.34, -width * 0.92, len * 0.78, -width * 0.58, len, 0);
+          ctx.bezierCurveTo(len * 0.78, width * 0.58, len * 0.34, width * 0.92, 0, 0);
+          ctx.fill();
+
+          ctx.strokeStyle = vein || "rgba(255,255,255,.24)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(len * 0.96, 0);
+          ctx.stroke();
+
+          ctx.fillStyle = "rgba(255,255,255,.075)";
+          ctx.beginPath();
+          ctx.ellipse(len * 0.42, -width * 0.22, len * 0.24, width * 0.14, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        function drawDrop(x, y, r) {
+          const rg = ctx.createRadialGradient(x, y - r * 0.3, 0, x, y, r * 2.4);
+          rg.addColorStop(0, "rgba(238,252,255,.82)");
+          rg.addColorStop(0.55, "rgba(155,215,255,.42)");
+          rg.addColorStop(1, "rgba(155,215,255,0)");
+          ctx.fillStyle = rg;
+          ctx.beginPath();
+          ctx.arc(x, y, r * 1.6, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = "rgba(255,255,255,.62)";
+          ctx.beginPath();
+          ctx.arc(x - r * 0.28, y - r * 0.38, r * 0.20, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        function spawnDrop(leaf) {
+          return {
+            leaf,
+            y: leaf.tipY,
+            vy: 0,
+            r: rand(2.2, 4.2),
+            state: "forming",
+            life: 0
+          };
+        }
+
+        function tick() {
+          t += 0.012;
+
+          const bg = ctx.createLinearGradient(0, 0, 0, h);
+          bg.addColorStop(0, "rgba(17,52,34,.96)");
+          bg.addColorStop(0.52, "rgba(13,72,37,.93)");
+          bg.addColorStop(1, "rgba(4,19,12,.98)");
+          ctx.fillStyle = bg;
+          ctx.fillRect(0, 0, w, h);
+
+          // Soft Pinterest-like sun wash
+          const sun = ctx.createRadialGradient(w * 0.18, h * 0.02, 0, w * 0.18, h * 0.02, h * 0.48);
+          sun.addColorStop(0, "rgba(232,255,186,.30)");
+          sun.addColorStop(0.42, "rgba(172,245,142,.10)");
+          sun.addColorStop(1, "rgba(172,245,142,0)");
+          ctx.fillStyle = sun;
+          ctx.beginPath();
+          ctx.arc(w * 0.18, h * 0.02, h * 0.48, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Minimal 3D light ribbons
+          for (let i = 0; i < 4; i++) {
+            const grad = ctx.createLinearGradient(w * 0.10, 0, w * (0.32 + i * 0.16), h);
+            grad.addColorStop(0, "rgba(226,255,180,.055)");
+            grad.addColorStop(1, "rgba(226,255,180,0)");
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.moveTo(w * (0.04 + i * 0.11), 0);
+            ctx.lineTo(w * (0.11 + i * 0.10), 0);
+            ctx.lineTo(w * (0.35 + i * 0.12), h);
+            ctx.lineTo(w * (0.20 + i * 0.10), h);
+            ctx.closePath();
+            ctx.fill();
+          }
+
+          // Elegant mist, fewer layers
+          for (let i = 0; i < 3; i++) {
+            ctx.fillStyle = "rgba(218,246,218," + (0.030 + i * 0.009) + ")";
+            ctx.beginPath();
+            ctx.ellipse(
+              w * (0.26 + i * 0.24) + Math.sin(t * 0.45 + i) * 24,
+              h * (0.38 + i * 0.12),
+              w * 0.32,
+              54,
+              0,
+              0,
+              Math.PI * 2
+            );
+            ctx.fill();
+          }
+
+          // Fine hanging vines
+          fineVines.forEach(v => {
+            ctx.strokeStyle = "rgba(155,220,132,.30)";
+            ctx.lineWidth = 1.25;
+            ctx.beginPath();
+            for (let y = 0; y <= v.length; y += 18) {
+              const x = v.x + Math.sin(y * 0.035 + t * v.speed + v.phase) * v.amp;
+              if (y === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            for (let y = 50; y < v.length; y += 94) {
+              const x = v.x + Math.sin(y * 0.035 + t * v.speed + v.phase) * v.amp;
+              ctx.save();
+              ctx.translate(x, y);
+              ctx.rotate(Math.sin(t + y * 0.018) * 0.48);
+              drawPremiumLeaf(14, 6, "rgba(166,228,133,.46)", "rgba(255,255,255,.14)");
+              ctx.restore();
+            }
+          });
+
+          // Sparse premium canopy
+          canopyLeaves.forEach(leaf => {
+            leaf.phase += 0.014;
+            const rot = leaf.rot + Math.sin(t + leaf.phase) * 0.035;
+            leaf.tipX = leaf.x + Math.cos(rot) * leaf.len;
+            leaf.tipY = leaf.y + Math.sin(rot) * leaf.len;
+
+            ctx.strokeStyle = "rgba(58,40,22,.42)";
+            ctx.lineWidth = 2.2;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(leaf.x - Math.cos(rot) * 12, leaf.y - Math.sin(rot) * 12);
+            ctx.lineTo(leaf.x, leaf.y);
+            ctx.stroke();
+
+            ctx.save();
+            ctx.translate(leaf.x, leaf.y);
+            ctx.rotate(rot);
+            drawPremiumLeaf(
+              leaf.len,
+              leaf.width,
+              `hsla(${leaf.hue}, 46%, ${leaf.light}%, .86)`,
+              "rgba(255,255,255,.18)"
+            );
+            ctx.restore();
+
+            if (Math.random() < 0.012 && !drops.some(d => d.leaf === leaf)) {
+              drops.push(spawnDrop(leaf));
+            }
+          });
+
+          for (let i = drops.length - 1; i >= 0; i--) {
+            const d = drops[i];
+            d.life++;
+            if (d.state === "forming") {
+              d.r += 0.018;
+              if (d.life > 62) {
+                d.state = "falling";
+                d.vy = 0.45;
+              }
+              drawDrop(d.leaf.tipX, d.leaf.tipY, d.r);
+            } else {
+              d.vy += 0.12;
+              d.y += d.vy;
+              drawDrop(d.leaf.tipX, d.y, d.r);
+              if (d.y > h + 24) drops.splice(i, 1);
+            }
+          }
+
+          // Subtle pollen
+          pollen.forEach(p => {
+            p.phase += p.speed;
+            p.x += Math.sin(p.phase) * 0.22;
+            p.y -= 0.06 + p.speed * 3;
+            if (p.y < -10) {
+              p.y = h + 12;
+              p.x = rand(0, w);
+            }
+            const a = p.alpha * (0.64 + Math.sin(p.phase * 2) * 0.28);
+            glowCircle(p.x, p.y, p.r * 6.6, `rgba(208,255,155,${a})`, "rgba(208,255,155,0)");
+          });
+
+          // Sparse fireflies
+          fireflies.forEach(f => {
+            f.phase += f.speed;
+            f.vx += rand(-0.018, 0.018);
+            f.vy += rand(-0.015, 0.015);
+            f.vx = Math.max(-0.38, Math.min(0.38, f.vx));
+            f.vy = Math.max(-0.32, Math.min(0.32, f.vy));
+            f.x += f.vx + Math.sin(f.phase) * 0.06;
+            f.y += f.vy + Math.cos(f.phase) * 0.04;
+
+            if (f.x < 0) f.x = w;
+            if (f.x > w) f.x = 0;
+            if (f.y < 0) f.y = h;
+            if (f.y > h) f.y = 0;
+
+            const glow = 0.35 + Math.sin(f.phase * 2.0) * 0.26;
+            glowCircle(f.x, f.y, 20 * glow, `rgba(218,255,150,${glow})`, "rgba(150,255,130,0)");
+            ctx.fillStyle = "rgba(240,255,194,.70)";
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          // Elegant foreground depth
+          ctx.fillStyle = "rgba(2,15,9,.22)";
+          ctx.beginPath();
+          ctx.moveTo(0, h * 0.90);
+          for (let x = 0; x <= w; x += 60) {
+            ctx.lineTo(x, h * 0.885 + Math.sin(x * 0.014 + t * 0.55) * 9);
+          }
+          ctx.lineTo(w, h);
+          ctx.lineTo(0, h);
+          ctx.closePath();
+          ctx.fill();
+
+          raf = requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      function sceneSpring() {
+        const pollen = Array.from({ length: 75 }, () => ({
+          x: rand(0, w), y: rand(0, h), phase: rand(0, 10), r: rand(1.2, 3.4), speed: rand(0.08, 0.28)
+        }));
+        const petals = Array.from({ length: 70 }, () => ({
+          x: rand(-40, w + 40), y: rand(-h, h), size: rand(4, 11),
+          vy: rand(0.22, 0.68), vx: rand(-0.18, 0.24), rot: rand(0, 6.28),
+          spin: rand(-0.018, 0.018), phase: rand(0, 10),
+          color: ["rgba(255,250,185,0.72)", "rgba(221,255,207,0.76)", "rgba(255,236,205,0.62)"][Math.floor(rand(0, 3))]
+        }));
+        const flowerHeads = Array.from({ length: 26 }, () => ({
+          x: rand(20, w - 20), base: rand(h * 0.74, h * 1.02), size: rand(11, 24), phase: rand(0, 10),
+          hue: rand(42, 78)
+        }));
+        const butterflies = Array.from({ length: 10 }, () => ({
+          x: rand(40, w - 40), y: rand(h * 0.16, h * 0.76), tx: rand(40, w - 40), ty: rand(h * 0.15, h * 0.75),
+          phase: rand(0, 10), size: rand(11, 21), hue: [42, 95, 165, 205][Math.floor(rand(0, 4))]
+        }));
+        let t = 0;
+
+        function drawButterfly(b) {
+          b.phase += 0.075;
+          b.x += (b.tx - b.x) * 0.005 + Math.sin(b.phase) * 0.26;
+          b.y += (b.ty - b.y) * 0.005 + Math.cos(b.phase * 1.2) * 0.20;
+          if (Math.abs(b.tx - b.x) < 24 && Math.abs(b.ty - b.y) < 24) {
+            b.tx = rand(35, w - 35);
+            b.ty = rand(h * 0.13, h * 0.74);
+          }
+          const flap = Math.abs(Math.sin(b.phase * 2.4));
+          ctx.save();
+          ctx.translate(b.x, b.y);
+          ctx.rotate(Math.sin(b.phase) * 0.22);
+          ctx.fillStyle = `hsla(${b.hue}, 70%, 62%, 0.72)`;
+          ctx.beginPath();
+          ctx.ellipse(-b.size * 0.45, -b.size * 0.22, b.size * (0.33 + flap * 0.22), b.size * 0.54, -0.45, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.ellipse(b.size * 0.45, -b.size * 0.22, b.size * (0.33 + flap * 0.22), b.size * 0.54, 0.45, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = `hsla(${b.hue + 30}, 74%, 72%, 0.62)`;
+          ctx.beginPath();
+          ctx.ellipse(-b.size * 0.34, b.size * 0.28, b.size * 0.30, b.size * 0.36, 0.45, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.ellipse(b.size * 0.34, b.size * 0.28, b.size * 0.30, b.size * 0.36, -0.45, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = "rgba(40,75,45,0.72)";
+          ctx.beginPath();
+          ctx.ellipse(0, 0, b.size * 0.11, b.size * 0.47, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        function drawFlower(f) {
+          const sway = Math.sin(t + f.phase) * 5;
+          const stemTop = f.base - f.size * 3.4;
+          ctx.strokeStyle = "rgba(64,136,70,0.33)";
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(f.x, f.base);
+          ctx.quadraticCurveTo(f.x + sway * 0.4, (f.base + stemTop) / 2, f.x + sway, stemTop);
+          ctx.stroke();
+          ctx.save();
+          ctx.translate(f.x + sway, stemTop);
+          for (let i = 0; i < 6; i++) {
+            ctx.rotate(Math.PI / 3);
+            ctx.fillStyle = `hsla(${f.hue}, 78%, 72%, 0.50)`;
+            ctx.beginPath();
+            ctx.ellipse(0, -f.size * 0.45, f.size * 0.26, f.size * 0.56, 0, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.fillStyle = "rgba(236,190,68,0.72)";
+          ctx.beginPath();
+          ctx.arc(0, 0, f.size * 0.22, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        function tick() {
+          t += 0.012;
+          const g = ctx.createLinearGradient(0, 0, 0, h);
+          g.addColorStop(0, "rgba(255,252,220,0.94)");
+          g.addColorStop(0.48, "rgba(213,245,204,0.76)");
+          g.addColorStop(1, "rgba(172,232,199,0.70)");
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, w, h);
+
+          glowCircle(w * 0.78, h * 0.14, 190, "rgba(255,236,138,0.42)", "rgba(255,236,138,0)");
+          glowCircle(w * 0.20, h * 0.86, 220, "rgba(91,204,125,0.20)", "rgba(91,204,125,0)");
+
+          ctx.fillStyle = "rgba(255,255,255,0.16)";
+          for (let i = 0; i < 6; i++) {
+            ctx.beginPath();
+            ctx.ellipse(w * (0.08 + i * 0.18) + Math.sin(t + i) * 16, h * (0.18 + (i % 2) * 0.08), 135, 40, 0, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          flowerHeads.forEach(drawFlower);
+
+          petals.forEach(p => {
+            p.phase += 0.028;
+            p.x += p.vx + Math.sin(p.phase) * 0.32;
+            p.y += p.vy;
+            p.rot += p.spin;
+            if (p.y > h + 24) {
+              p.y = -24;
+              p.x = rand(-40, w + 40);
+            }
+            drawPetal(p.x, p.y, p.size, p.color, p.rot);
+          });
+
+          pollen.forEach((p, i) => {
+            p.phase += 0.026;
+            p.y -= p.speed;
+            p.x += Math.sin(p.phase + i) * 0.14;
+            if (p.y < -20) {
+              p.y = h + 20;
+              p.x = rand(0, w);
+            }
+            const pulse = 0.20 + Math.sin(p.phase) * 0.12;
+            glowCircle(p.x, p.y, 17, `rgba(255,230,105,${pulse})`, "rgba(255,230,105,0)");
+          });
+
+          butterflies.forEach(drawButterfly);
+          raf = requestAnimationFrame(tick);
+        }
+        tick();
+      }
+
+      function sceneRainy() {
+        const drops = Array.from({ length: 210 }, () => ({
+          x: rand(0, w),
+          y: rand(-h, h),
+          len: rand(12, 30),
+          speed: rand(4.5, 9.5),
+          alpha: rand(0.15, 0.46),
+          drift: rand(0.25, 0.9)
+        }));
+
+        const ripples = Array.from({ length: 28 }, () => ({
+          x: rand(0, w),
+          y: rand(h * 0.62, h * 0.96),
+          r: rand(2, 24),
+          speed: rand(0.22, 0.62),
+          alpha: rand(0.18, 0.46)
+        }));
+
+        const fog = Array.from({ length: 8 }, (_, i) => ({
+          x: rand(-w * 0.3, w),
+          y: h * (0.14 + i * 0.07),
+          speed: rand(0.08, 0.24),
+          scale: rand(0.75, 1.7),
+          alpha: rand(0.045, 0.11)
+        }));
+
+        const bubbles = Array.from({ length: 60 }, () => ({
+          x: rand(0, w),
+          y: rand(0, h),
+          r: rand(2, 7),
+          vy: rand(0.20, 0.78),
+          phase: rand(0, Math.PI * 2),
+          alpha: rand(0.10, 0.32)
+        }));
+
+        let t = 0;
+
+        function tick() {
+          t += 0.016;
+
+          const bg = ctx.createLinearGradient(0, 0, 0, h);
+          bg.addColorStop(0, "rgba(7,38,66,0.98)");
+          bg.addColorStop(0.45, "rgba(13,88,128,0.96)");
+          bg.addColorStop(1, "rgba(3,17,32,0.99)");
+          ctx.fillStyle = bg;
+          ctx.fillRect(0, 0, w, h);
+
+          const moonGlow = ctx.createRadialGradient(w * 0.68, h * 0.16, 0, w * 0.68, h * 0.16, h * 0.36);
+          moonGlow.addColorStop(0, "rgba(190,238,255,0.34)");
+          moonGlow.addColorStop(0.5, "rgba(105,190,235,0.10)");
+          moonGlow.addColorStop(1, "rgba(105,190,235,0)");
+          ctx.fillStyle = moonGlow;
+          ctx.beginPath();
+          ctx.arc(w * 0.68, h * 0.16, h * 0.36, 0, Math.PI * 2);
+          ctx.fill();
+
+          fog.forEach(f => {
+            f.x += f.speed;
+            if (f.x > w + 220) f.x = -w * 0.35;
+            ctx.fillStyle = "rgba(215,242,255," + f.alpha + ")";
+            ctx.beginPath();
+            ctx.ellipse(f.x, f.y + Math.sin(t + f.scale) * 9, 180 * f.scale, 38 * f.scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(f.x + 120 * f.scale, f.y + 12, 120 * f.scale, 30 * f.scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          // glassy water base
+          ctx.fillStyle = "rgba(205,242,255,0.075)";
+          ctx.beginPath();
+          ctx.ellipse(w * 0.5, h * 0.76, w * 0.80, 92 + Math.sin(t) * 8, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          drops.forEach(d => {
+            d.y += d.speed;
+            d.x += d.drift;
+            if (d.y > h + d.len) {
+              d.y = rand(-150, -10);
+              d.x = rand(-35, w + 35);
+            }
+            ctx.strokeStyle = "rgba(190,230,255," + d.alpha + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y);
+            ctx.lineTo(d.x - 5, d.y + d.len);
+            ctx.stroke();
+          });
+
+          bubbles.forEach(b => {
+            b.phase += 0.03;
+            b.y -= b.vy;
+            b.x += Math.sin(b.phase) * 0.34;
+            if (b.y < -20) {
+              b.y = h + 20;
+              b.x = rand(0, w);
+            }
+            ctx.strokeStyle = "rgba(195,238,255," + b.alpha + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.stroke();
+          });
+
+          ripples.forEach(r => {
+            r.r += r.speed;
+            r.alpha -= 0.0032;
+            if (r.alpha <= 0 || r.r > 65) {
+              r.x = rand(0, w);
+              r.y = rand(h * 0.62, h * 0.96);
+              r.r = 2;
+              r.alpha = rand(0.18, 0.46);
+            }
+            ctx.strokeStyle = "rgba(174,228,255," + r.alpha + ")";
+            ctx.lineWidth = 1.15;
+            ctx.beginPath();
+            ctx.ellipse(r.x, r.y, r.r * 1.85, r.r * 0.45, 0, 0, Math.PI * 2);
+            ctx.stroke();
+          });
+
+          raf = requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      function sceneAutumn() {
+        const leaves = Array.from({ length: 105 }, () => ({
+          x: rand(-70, w + 70),
+          y: rand(-h, h),
+          vx: rand(-0.42, 0.34),
+          vy: rand(0.32, 0.95),
+          rot: rand(0, Math.PI * 2),
+          spin: rand(-0.032, 0.032),
+          size: rand(8, 21),
+          phase: rand(0, Math.PI * 2),
+          color: [
+            "rgba(179,78,31,0.74)",
+            "rgba(210,118,47,0.72)",
+            "rgba(226,160,74,0.68)",
+            "rgba(142,66,34,0.66)",
+            "rgba(240,186,98,0.58)"
+          ][Math.floor(rand(0, 5))]
+        }));
+
+        const dust = Array.from({ length: 56 }, () => ({
+          x: rand(0, w),
+          y: rand(0, h),
+          r: rand(0.8, 2.4),
+          phase: rand(0, Math.PI * 2),
+          alpha: rand(0.08, 0.22),
+          speed: rand(0.006, 0.020)
+        }));
+
+        const windLines = Array.from({ length: 5 }, (_, i) => ({
+          y: h * (0.24 + i * 0.13),
+          phase: rand(0, Math.PI * 2),
+          alpha: rand(0.035, 0.075)
+        }));
+
+        let t = 0;
+
+        function tick() {
+          t += 0.016;
+
+          const bg = ctx.createLinearGradient(0, 0, 0, h);
+          bg.addColorStop(0, "rgba(255,224,174,0.96)");
+          bg.addColorStop(0.48, "rgba(203,119,62,0.90)");
+          bg.addColorStop(1, "rgba(93,42,20,0.96)");
+          ctx.fillStyle = bg;
+          ctx.fillRect(0, 0, w, h);
+
+          const sun = ctx.createRadialGradient(w * 0.70, h * 0.18, 0, w * 0.70, h * 0.18, h * 0.36);
+          sun.addColorStop(0, "rgba(255,239,184,0.42)");
+          sun.addColorStop(0.52, "rgba(255,184,92,0.14)");
+          sun.addColorStop(1, "rgba(255,184,92,0)");
+          ctx.fillStyle = sun;
+          ctx.beginPath();
+          ctx.arc(w * 0.70, h * 0.18, h * 0.36, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Soft horizontal wind ribbons
+          windLines.forEach((line, idx) => {
+            const grad = ctx.createLinearGradient(0, 0, w, 0);
+            grad.addColorStop(0, "rgba(255,235,190,0)");
+            grad.addColorStop(0.45, "rgba(255,235,190," + line.alpha + ")");
+            grad.addColorStop(1, "rgba(255,235,190,0)");
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            for (let x = -80; x <= w + 80; x += 35) {
+              const y = line.y + Math.sin(x * 0.012 + t * 0.8 + line.phase) * (9 + idx * 2);
+              if (x === -80) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+          });
+
+          // Simple layered hills
+          ctx.fillStyle = "rgba(132,59,24,0.18)";
+          ctx.beginPath();
+          ctx.moveTo(0, h * 0.78);
+          for (let x = 0; x <= w; x += 54) {
+            ctx.lineTo(x, h * 0.76 + Math.sin(x * 0.011 + t * 0.42) * 11);
+          }
+          ctx.lineTo(w, h);
+          ctx.lineTo(0, h);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = "rgba(77,32,14,0.24)";
+          ctx.beginPath();
+          ctx.moveTo(0, h * 0.88);
+          for (let x = 0; x <= w; x += 60) {
+            ctx.lineTo(x, h * 0.865 + Math.cos(x * 0.01 + t * 0.38) * 9);
+          }
+          ctx.lineTo(w, h);
+          ctx.lineTo(0, h);
+          ctx.closePath();
+          ctx.fill();
+
+          // Fine amber dust
+          dust.forEach(d => {
+            d.phase += d.speed;
+            d.x += Math.sin(d.phase) * 0.14;
+            d.y -= 0.055 + d.speed * 2;
+            if (d.y < -10) {
+              d.y = h + 10;
+              d.x = rand(0, w);
+            }
+            const a = d.alpha * (0.72 + Math.sin(d.phase * 2) * 0.25);
+            glowCircle(d.x, d.y, d.r * 6.5, "rgba(255,219,144," + a + ")", "rgba(255,219,144,0)");
+          });
+
+          // Gentle leaves
+          leaves.forEach(l => {
+            l.phase += 0.026;
+            l.x += l.vx + Math.sin(l.phase) * 0.38;
+            l.y += l.vy;
+            l.rot += l.spin;
+            if (l.y > h + 35) {
+              l.y = rand(-65, -15);
+              l.x = rand(-70, w + 70);
+            }
+            leafShape(l.x, l.y, l.size, l.color, l.rot);
+          });
+
+          raf = requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      function sceneNight() {
+    const stars = Array.from({length:110},()=>({x:rand(0,w),y:rand(0,h*.65),r:rand(.35,1.4),tw:rand(0,6.28)}));
+    const flies = Array.from({length:72},()=>({x:rand(0,w),y:rand(h*.18,h),vx:rand(-.35,.35),vy:rand(-.35,.35),phase:rand(0,6.28),speed:rand(.025,.065)}));
+    const glowPlants = Array.from({length:18},()=>({x:rand(0,w),base:h+rand(-10,30),len:rand(45,120),p:rand(0,6.28)}));
+    let t=0;
+    function tick(){
+      t+=.016;
+      const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'rgba(8,8,28,1)');g.addColorStop(.52,'rgba(12,8,35,1)');g.addColorStop(1,'rgba(4,3,15,1)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+      // moon exactly as premium old vibe
+      const mx=w*.78,my=h*.18,mr=Math.min(w,h)*.075;
+      const moon=ctx.createRadialGradient(mx-mr*.25,my-mr*.3,0,mx,my,mr*3.8);
+      moon.addColorStop(0,'rgba(245,240,255,.95)'); moon.addColorStop(.22,'rgba(210,200,255,.42)'); moon.addColorStop(1,'rgba(150,125,255,0)');
+      ctx.fillStyle=moon;ctx.beginPath();ctx.arc(mx,my,mr*3.8,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='rgba(241,236,255,.95)';ctx.beginPath();ctx.arc(mx,my,mr,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='rgba(8,8,28,.72)';ctx.beginPath();ctx.arc(mx+mr*.35,my-mr*.15,mr*.9,0,Math.PI*2);ctx.fill();
+      stars.forEach(s=>{s.tw+=.04;ctx.fillStyle=`rgba(225,220,255,${.35+.42*Math.sin(s.tw)})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});
+      // glowing plants at bottom
+      glowPlants.forEach((p,i)=>{const sway=Math.sin(t*1.2+p.p)*8;ctx.strokeStyle='rgba(145,255,190,.25)';ctx.lineWidth=3;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(p.x,p.base);ctx.quadraticCurveTo(p.x+sway*.4,p.base-p.len*.55,p.x+sway,p.base-p.len);ctx.stroke();const gx=p.x+sway,gy=p.base-p.len;const pulse=.45+.45*Math.sin(t*2+p.p);const rg=ctx.createRadialGradient(gx,gy,0,gx,gy,20+pulse*22);rg.addColorStop(0,`rgba(190,255,210,${.75*pulse})`);rg.addColorStop(.45,`rgba(110,255,175,${.2*pulse})`);rg.addColorStop(1,'rgba(110,255,175,0)');ctx.fillStyle=rg;ctx.beginPath();ctx.arc(gx,gy,24+pulse*24,0,Math.PI*2);ctx.fill();ctx.fillStyle=`rgba(230,255,235,${.75*pulse})`;ctx.beginPath();ctx.arc(gx,gy,2.3,0,Math.PI*2);ctx.fill();});
+      flies.forEach(f=>{f.phase+=f.speed;f.vx+=rand(-.04,.04);f.vy+=rand(-.04,.04);f.vx=Math.max(-.55,Math.min(.55,f.vx));f.vy=Math.max(-.55,Math.min(.55,f.vy));f.x+=f.vx;f.y+=f.vy;if(f.x<0)f.x=w;if(f.x>w)f.x=0;if(f.y<0)f.y=h;if(f.y>h)f.y=0;const glow=.5+.5*Math.sin(f.phase);const rg=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,34*glow+6);rg.addColorStop(0,`rgba(255,244,165,${.82*glow})`);rg.addColorStop(.38,`rgba(255,221,80,${.26*glow})`);rg.addColorStop(1,'rgba(255,221,80,0)');ctx.fillStyle=rg;ctx.beginPath();ctx.arc(f.x,f.y,34*glow+6,0,Math.PI*2);ctx.fill();ctx.fillStyle=`rgba(255,255,205,${glow})`;ctx.beginPath();ctx.arc(f.x,f.y,1.4,0,Math.PI*2);ctx.fill();});
+      raf=requestAnimationFrame(tick);
+    }
+    tick();
+  }
+
+      const scenes = {
+        forest: sceneForest,
+        spring: sceneSpring,
+        rainy: sceneRainy,
+        autumn: sceneAutumn,
+        night: sceneNight
+      };
+
+      (scenes[theme] || sceneNight)();
+
+      return function cleanup() {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("resize", resize);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
+    }
+  </script>
+</body>
+</html>

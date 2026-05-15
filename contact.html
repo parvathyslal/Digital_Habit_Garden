@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="forest">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Digital Habit Garden</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================
+       DIGITAL HABIT GARDEN — CONTACT PAGE — PREMIUM STYLESHEET
+       Themes & Animations synced with about_enhanced_final_.html
+    ======================================================== */
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      letter-spacing: -0.008em;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background: var(--page-bg);
+      transition: background 0.7s ease, color 0.7s ease;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .036;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.95) 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.70) 0 1px, transparent 1px);
+      background-size: 42px 42px, 64px 64px;
+      mix-blend-mode: soft-light;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ==================== TYPOGRAPHY ==================== */
+
+    h1, h2, h3, h4, .logo {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.012em;
+    }
+
+    .eyebrow, .label, .theme-switcher span,
+    .mini-tag, .pill, .tech {
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: .07em;
+    }
+
+    /* ==================== THEME VARIABLES ==================== */
+
+    [data-theme="forest"] {
+      --page-bg:
+        radial-gradient(circle at 18% 0%, rgba(223,255,208,.36), transparent 27%),
+        radial-gradient(circle at 86% 14%, rgba(86,216,84,.16), transparent 26%),
+        linear-gradient(135deg, #07170f 0%, #194c2a 48%, #06170f 100%);
+      --topbar-bg: rgba(7, 28, 18, 0.72);
+      --card: rgba(235, 250, 229, 0.72);
+      --card-strong: rgba(248, 255, 244, 0.90);
+      --soft: rgba(226, 246, 215, 0.62);
+      --border: rgba(143, 205, 127, 0.30);
+      --text: #10220f;
+      --heading: #0c1f0c;
+      --muted: #4d7047;
+      --accent: #2f8f43;
+      --accent-2: #b7e86a;
+      --accent-soft: rgba(143, 216, 117, 0.22);
+      --glow: rgba(98, 212, 90, 0.28);
+      --shadow: rgba(5, 32, 13, 0.22);
+      --canvas-opacity: 0.90;
+    }
+
+    [data-theme="spring"] {
+      --page-bg:
+        radial-gradient(circle at 18% 8%, #ffeaf3 0%, #ffd9ea 24%, #e9f8d6 56%, #f7fff4 100%);
+      --topbar-bg: rgba(255, 245, 251, 0.78);
+      --card: rgba(255, 250, 253, 0.80);
+      --card-strong: rgba(255, 255, 250, 0.94);
+      --soft: rgba(255, 238, 248, 0.62);
+      --border: rgba(215, 128, 171, 0.26);
+      --text: #2e1830;
+      --heading: #231024;
+      --muted: #70506a;
+      --accent: #c65f95;
+      --accent-2: #69bd72;
+      --accent-soft: rgba(244, 175, 210, 0.24);
+      --glow: rgba(222, 116, 170, 0.28);
+      --shadow: rgba(148, 62, 105, 0.12);
+      --canvas-opacity: 0.84;
+    }
+
+    [data-theme="rainy"] {
+      --page-bg:
+        radial-gradient(circle at top, #d8f2ff 0%, #5aa8ce 42%, #061927 100%);
+      --topbar-bg: rgba(8, 32, 50, 0.72);
+      --card: rgba(235, 247, 255, 0.80);
+      --card-strong: rgba(250, 254, 255, 0.93);
+      --soft: rgba(231, 245, 253, 0.62);
+      --border: rgba(133, 188, 219, 0.42);
+      --text: #082033;
+      --heading: #071f2e;
+      --muted: #426e88;
+      --accent: #126ca5;
+      --accent-2: #65c7e8;
+      --accent-soft: rgba(196, 228, 247, 0.80);
+      --glow: rgba(67, 171, 226, 0.30);
+      --shadow: rgba(8, 58, 94, 0.18);
+      --canvas-opacity: 0.94;
+    }
+
+    [data-theme="autumn"] {
+      --page-bg:
+        radial-gradient(circle at 72% 5%, rgba(255,230,174,.58), transparent 28%),
+        radial-gradient(circle at 15% 88%, rgba(198,95,42,.16), transparent 30%),
+        linear-gradient(135deg, #7d3a1b 0%, #c77a3d 48%, #4f2410 100%);
+      --topbar-bg: rgba(91, 43, 18, 0.58);
+      --card: rgba(255, 244, 226, 0.72);
+      --card-strong: rgba(255, 250, 240, 0.88);
+      --soft: rgba(255, 226, 192, 0.58);
+      --border: rgba(184, 112, 54, 0.25);
+      --text: #341806;
+      --heading: #261005;
+      --muted: #81512e;
+      --accent: #b7612b;
+      --accent-2: #e8b66f;
+      --accent-soft: rgba(229, 151, 65, 0.20);
+      --glow: rgba(223, 129, 45, 0.22);
+      --shadow: rgba(83, 31, 5, 0.20);
+      --canvas-opacity: 0.78;
+    }
+
+    [data-theme="night"] {
+      --page-bg:
+        radial-gradient(circle at 50% -12%, #5b48bd 0%, #171b4a 48%, #060711 100%);
+      --topbar-bg: rgba(10, 12, 34, 0.68);
+      --card: rgba(30, 33, 74, 0.70);
+      --card-strong: rgba(38, 41, 88, 0.88);
+      --soft: rgba(43, 45, 92, 0.72);
+      --border: rgba(212, 194, 255, 0.28);
+      --text: #f7f3ff;
+      --heading: #ffffff;
+      --muted: #ddd6ff;
+      --accent: #c1a8ff;
+      --accent-2: #8affe4;
+      --accent-soft: rgba(183, 156, 255, 0.26);
+      --glow: rgba(194, 164, 255, 0.56);
+      --shadow: rgba(0, 0, 0, 0.42);
+      --canvas-opacity: 1;
+    }
+
+    /* ==================== BG CANVAS ==================== */
+
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: var(--canvas-opacity);
+      transition: opacity 0.5s ease;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 15%, var(--glow), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,0.10), transparent 28%),
+        radial-gradient(circle at 50% 95%, var(--accent-soft), transparent 34%);
+      pointer-events: none;
+    }
+
+    /* ==================== TOPBAR ==================== */
+
+    .topbar {
+      height: 58px;
+      max-width: min(1300px, calc(100% - 30px));
+      margin: 14px auto 0;
+      padding: 0 24px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 14px;
+      z-index: 50;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.04)),
+        color-mix(in srgb, var(--topbar-bg), transparent 12%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.55) 34%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 16px 48px rgba(0,0,0,.10);
+      backdrop-filter: blur(24px) saturate(1.3);
+      -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    }
+
+    .logo {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--accent);
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+      text-shadow: 0 8px 26px var(--glow);
+    }
+
+    [data-theme="night"] .logo { color: #d7c4ff; }
+
+    .nav {
+      display: flex;
+      gap: 2px;
+      margin-left: 6px;
+    }
+
+    .nav a {
+      font-family: "DM Sans", sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 999px;
+      opacity: .82;
+      transition: background .22s ease, color .22s ease, opacity .22s ease, transform .22s ease, box-shadow .22s ease;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+      opacity: 0;
+      transition: opacity .22s ease;
+    }
+
+    .nav a:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      opacity: 1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px var(--glow);
+    }
+
+    .nav a:hover::before { opacity: 1; }
+
+    .nav a.active {
+      background: color-mix(in srgb, var(--accent-soft), rgba(255,255,255,.08) 20%);
+      color: var(--accent);
+      opacity: 1;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 2px 10px var(--glow);
+    }
+
+    .theme-switcher {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.5) 30%);
+      padding: 6px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(18px) saturate(1.25);
+    }
+
+    .theme-switcher span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+    }
+
+    .theme-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .theme-dot:hover { transform: scale(1.18); }
+
+    .theme-dot.active {
+      border-color: var(--heading);
+      transform: scale(1.22);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .theme-dot[data-theme="forest"]  { background: #2f7d24; }
+    .theme-dot[data-theme="spring"]  { background: #e8659a; }
+    .theme-dot[data-theme="rainy"]   { background: #1679a9; }
+    .theme-dot[data-theme="autumn"]  { background: #bd5b18; }
+    .theme-dot[data-theme="night"]   { background: #a889ff; }
+
+    /* Nav text visibility per dark theme */
+    [data-theme="forest"] .nav a { color: rgba(180,240,160,.85); }
+    [data-theme="forest"] .nav a.active, [data-theme="forest"] .nav a:hover { color: #a5f08c; }
+    [data-theme="rainy"] .nav a { color: rgba(140,210,248,.85); }
+    [data-theme="rainy"] .nav a.active, [data-theme="rainy"] .nav a:hover { color: #7dd4f5; }
+    [data-theme="autumn"] .nav a { color: rgba(248,200,145,.85); }
+    [data-theme="autumn"] .nav a.active, [data-theme="autumn"] .nav a:hover { color: #f0b870; }
+    [data-theme="night"] .nav a { color: #c1a8ff; }
+    [data-theme="night"] .nav a.active, [data-theme="night"] .nav a:hover { color: #e0d4ff; }
+
+    [data-theme="forest"] .theme-switcher span,
+    [data-theme="rainy"] .theme-switcher span,
+    [data-theme="autumn"] .theme-switcher span,
+    [data-theme="night"] .theme-switcher span { color: rgba(255,255,255,.55); }
+
+    /* ==================== PAGE BANNER / HERO ==================== */
+
+    .page-hero {
+      max-width: 1180px;
+      margin: auto;
+      padding: 72px 28px 52px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 10.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      opacity: .86;
+    }
+
+    [data-theme="forest"] .eyebrow { color: #a5f08c; opacity: 1; }
+    [data-theme="rainy"]  .eyebrow { color: #a8e4ff; opacity: 1; }
+    [data-theme="autumn"] .eyebrow { color: #ffd49a; opacity: 1; }
+    [data-theme="night"]  .eyebrow { color: #c1a8ff; opacity: 1; }
+
+    h1 {
+      font-size: clamp(44px, 6.2vw, 80px);
+      line-height: .97;
+      letter-spacing: -0.015em;
+      margin: 14px auto 18px;
+      color: var(--heading);
+      font-weight: 400;
+      max-width: 700px;
+    }
+
+    [data-theme="forest"] h1,
+    [data-theme="rainy"] h1,
+    [data-theme="autumn"] h1,
+    [data-theme="night"] h1 {
+      color: #ffffff;
+      text-shadow: 0 18px 52px rgba(0,0,0,.34);
+    }
+
+    .page-desc {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 15.8px;
+      line-height: 1.78;
+      color: var(--muted);
+    }
+
+    [data-theme="forest"] .page-desc,
+    [data-theme="rainy"] .page-desc,
+    [data-theme="autumn"] .page-desc,
+    [data-theme="night"] .page-desc { color: rgba(255,255,255,.78); }
+
+    /* ==================== SECTIONS ==================== */
+
+    .section {
+      max-width: 1180px;
+      margin: auto;
+      padding: 56px 28px;
+    }
+
+    .section + .section {
+      position: relative;
+    }
+
+    .section + .section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 28px; right: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--border), white 40%), transparent);
+      opacity: .42;
+    }
+
+    /* ==================== GLASS BASE ==================== */
+
+    .glass-base {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.17), rgba(255,255,255,.045)),
+        color-mix(in srgb, var(--card), transparent 42%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.62) 42%);
+      backdrop-filter: blur(30px) saturate(1.35);
+      -webkit-backdrop-filter: blur(30px) saturate(1.35);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.17),
+        0 20px 56px color-mix(in srgb, var(--shadow), transparent 34%);
+    }
+
+    [data-theme="spring"] .glass-base {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.32), rgba(255,255,255,.12)),
+        rgba(255,245,251,.52);
+    }
+
+    [data-theme="night"] .glass-base {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035)),
+        rgba(26,29,64,.62);
+      border-color: rgba(208,190,255,.24);
+    }
+
+    /* ==================== CONTACT LAYOUT ==================== */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* ==================== FORM CARD ==================== */
+
+    .form-card {
+      border-radius: 28px;
+      padding: 34px;
+      transition: transform .40s cubic-bezier(.2,.8,.2,1), box-shadow .40s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .form-card:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.24),
+        0 28px 72px color-mix(in srgb, var(--shadow), transparent 20%);
+    }
+
+    .form-card h2 {
+      font-size: 36px;
+      margin-bottom: 8px;
+      color: var(--heading);
+    }
+
+    [data-theme="forest"] .form-card h2,
+    [data-theme="rainy"] .form-card h2,
+    [data-theme="autumn"] .form-card h2,
+    [data-theme="night"] .form-card h2 { color: #fff; }
+
+    .form-intro {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 26px;
+    }
+
+    [data-theme="forest"] .form-intro,
+    [data-theme="rainy"] .form-intro,
+    [data-theme="autumn"] .form-intro,
+    [data-theme="night"] .form-intro { color: rgba(255,255,255,.72); }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--heading);
+      letter-spacing: .01em;
+    }
+
+    [data-theme="forest"] .form-group label,
+    [data-theme="rainy"] .form-group label,
+    [data-theme="autumn"] .form-group label,
+    [data-theme="night"] .form-group label { color: rgba(255,255,255,.90); }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.3) 20%);
+      background: color-mix(in srgb, var(--card), transparent 20%);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      font-size: 14.5px;
+      outline: none;
+      transition: border-color .28s ease, box-shadow .28s ease, background .28s ease, transform .22s ease;
+      display: block;
+      backdrop-filter: blur(12px);
+    }
+
+    /* Night theme inputs */
+    [data-theme="night"] .form-group input,
+    [data-theme="night"] .form-group textarea,
+    [data-theme="night"] .form-group select {
+      background: rgba(30,33,74,.55);
+      border-color: rgba(212,194,255,.28);
+      color: #f7f3ff;
+    }
+
+    [data-theme="night"] .form-group input::placeholder,
+    [data-theme="night"] .form-group textarea::placeholder { color: rgba(212,194,255,.50); }
+
+    /* Forest inputs */
+    [data-theme="forest"] .form-group input,
+    [data-theme="forest"] .form-group textarea,
+    [data-theme="forest"] .form-group select {
+      background: rgba(200,240,185,.28);
+      border-color: rgba(143,205,127,.45);
+      color: #0c2010;
+    }
+
+    /* Rainy inputs */
+    [data-theme="rainy"] .form-group input,
+    [data-theme="rainy"] .form-group textarea,
+    [data-theme="rainy"] .form-group select {
+      background: rgba(190,230,250,.30);
+      border-color: rgba(133,188,219,.55);
+      color: #071f2e;
+    }
+
+    /* Autumn inputs */
+    [data-theme="autumn"] .form-group input,
+    [data-theme="autumn"] .form-group textarea,
+    [data-theme="autumn"] .form-group select {
+      background: rgba(255,230,185,.30);
+      border-color: rgba(184,112,54,.40);
+      color: #261005;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft), 0 4px 18px var(--glow);
+    }
+
+    .form-group input:hover,
+    .form-group textarea:hover {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea { resize: none; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ==================== BUTTON ==================== */
+
+    .btn-primary {
+      display: inline-block;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 14px 34px var(--glow);
+      transition: transform .38s cubic-bezier(.2,.8,.2,1), box-shadow .38s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-120%);
+      background: linear-gradient(110deg, transparent, rgba(255,255,255,.32), transparent);
+      transition: transform .75s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .btn-primary:hover::after { transform: translateX(120%); }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 48px var(--glow);
+    }
+
+    /* ==================== INFO PANEL ==================== */
+
+    .contact-info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-card {
+      border-radius: 22px;
+      padding: 18px 22px;
+      transition: transform .40s cubic-bezier(.2,.8,.2,1), box-shadow .40s cubic-bezier(.2,.8,.2,1), border-color .40s;
+      cursor: default;
+    }
+
+    .info-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.24),
+        0 22px 56px color-mix(in srgb, var(--shadow), transparent 22%),
+        0 0 0 1px color-mix(in srgb, var(--accent), transparent 72%);
+      border-color: color-mix(in srgb, var(--accent), white 40%);
+    }
+
+    .info-card h2 {
+      font-size: 28px;
+      margin-bottom: 6px;
+      color: var(--heading);
+    }
+
+    .info-card h3 {
+      font-size: 22px;
+      margin-bottom: 4px;
+      color: var(--heading);
+    }
+
+    .info-card p {
+      font-size: 14px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    /* Dark theme info cards */
+    [data-theme="forest"] .info-card h2,
+    [data-theme="forest"] .info-card h3 { color: #e8ffe0; }
+    [data-theme="forest"] .info-card p  { color: rgba(220,255,195,.88); }
+
+    [data-theme="rainy"] .info-card h2,
+    [data-theme="rainy"] .info-card h3  { color: #ffffff; }
+    [data-theme="rainy"] .info-card p   { color: rgba(255,255,255,.88); }
+
+    [data-theme="autumn"] .info-card h2,
+    [data-theme="autumn"] .info-card h3 { color: #ffffff; }
+    [data-theme="autumn"] .info-card p  { color: rgba(255,255,255,.88); }
+
+    [data-theme="night"] .info-card h2,
+    [data-theme="night"] .info-card h3  { color: #f0ecff; }
+    [data-theme="night"] .info-card p   { color: #d0c8f8; }
+
+    .section-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      opacity: .86;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    [data-theme="forest"] .section-label { color: #a5f08c; opacity: 1; }
+    [data-theme="rainy"]  .section-label { color: #a8e4ff; opacity: 1; }
+    [data-theme="autumn"] .section-label { color: #ffd49a; opacity: 1; }
+    [data-theme="night"]  .section-label { color: #c1a8ff; opacity: 1; }
+
+    /* ==================== FEEDBACK SECTION ==================== */
+
+    .feedback-section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px 56px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(34px, 4.5vw, 52px);
+      line-height: 1.0;
+      letter-spacing: -0.014em;
+      margin: 10px 0 12px;
+      color: var(--heading);
+      font-weight: 400;
+    }
+
+    [data-theme="forest"] .section-heading h2,
+    [data-theme="rainy"] .section-heading h2,
+    [data-theme="autumn"] .section-heading h2,
+    [data-theme="night"] .section-heading h2 {
+      color: #ffffff;
+      text-shadow: 0 16px 44px rgba(0,0,0,.32);
+    }
+
+    .section-subtext {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    [data-theme="forest"] .section-subtext,
+    [data-theme="rainy"] .section-subtext,
+    [data-theme="autumn"] .section-subtext,
+    [data-theme="night"] .section-subtext { color: rgba(255,255,255,.72); }
+
+    .feedback-card {
+      border-radius: 28px;
+      padding: 36px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ==================== LINKS SECTION ==================== */
+
+    .links-section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px 80px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 400px));
+      justify-content: center;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .link-card {
+      border-radius: 22px;
+      padding: 32px 28px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform .40s cubic-bezier(.2,.8,.2,1), box-shadow .40s, border-color .40s, filter .40s;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .link-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.26),
+        0 28px 70px color-mix(in srgb, var(--shadow), transparent 18%);
+      border-color: color-mix(in srgb, var(--accent), white 38%);
+      filter: saturate(1.1) brightness(1.03);
+    }
+
+    .link-card h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--heading);
+      transition: color .28s;
+    }
+
+    .link-card:hover h3 { color: var(--accent); }
+
+    .link-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    [data-theme="forest"] .link-card h3,
+    [data-theme="rainy"] .link-card h3,
+    [data-theme="autumn"] .link-card h3,
+    [data-theme="night"] .link-card h3 { color: rgba(255,255,255,.95); }
+
+    [data-theme="forest"] .link-card p,
+    [data-theme="rainy"] .link-card p,
+    [data-theme="autumn"] .link-card p,
+    [data-theme="night"] .link-card p { color: rgba(255,255,255,.68); }
+
+    [data-theme="forest"] .link-card:hover h3 { color: #a5f08c; }
+    [data-theme="rainy"] .link-card:hover h3  { color: #a8e4ff; }
+    [data-theme="autumn"] .link-card:hover h3 { color: #ffd49a; }
+    [data-theme="night"] .link-card:hover h3  { color: #c1a8ff; }
+
+    /* ==================== FORM STATES ==================== */
+
+    .error-message {
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    [data-theme="night"] .error-message { color: #f87171; }
+
+    .success-message {
+      display: none;
+      color: var(--accent);
+      font-size: 14px;
+      margin-top: 10px;
+      font-weight: 600;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .input-error {
+      border: 2px solid #dc2626 !important;
+      background: rgba(220,38,38,.08) !important;
+    }
+
+    .input-success {
+      border: 2px solid #16a34a !important;
+      background: rgba(22,163,74,.07) !important;
+    }
+
+    [data-theme="night"] .input-success { background: rgba(22,163,74,.14) !important; }
+
+    /* ==================== FOOTER ==================== */
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 24px 28px 40px;
+      color: var(--muted);
+      font-size: 12px;
+      opacity: .72;
+    }
+
+    [data-theme="forest"] footer { color: rgba(200,245,175,.7); }
+    [data-theme="rainy"] footer  { color: rgba(255,255,255,.72); }
+    [data-theme="autumn"] footer { color: rgba(255,255,255,.72); }
+    [data-theme="night"] footer  { color: rgba(190,175,255,.70); }
+
+    /* ==================== HAMBURGER ==================== */
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      transition: background .2s ease;
+      margin-left: 4px;
+    }
+
+    .hamburger:hover { background: var(--accent-soft); }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--muted);
+      transition: transform .3s ease, opacity .3s ease;
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: 0;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(320px, calc(100% - 40px));
+      z-index: 49;
+      border-radius: 24px;
+      padding: 10px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+        color-mix(in srgb, var(--topbar-bg), transparent 8%);
+      border: 1px solid color-mix(in srgb, var(--border), rgba(255,255,255,.55) 34%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        0 24px 60px rgba(0,0,0,.18);
+      backdrop-filter: blur(28px) saturate(1.3);
+      -webkit-backdrop-filter: blur(28px) saturate(1.3);
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu a {
+      display: block;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 11px 16px;
+      border-radius: 14px;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .mobile-menu a:hover, .mobile-menu a.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+
+    @keyframes slowSpin { to { transform: rotate(360deg); } }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+
+    @media (max-width: 1100px) {
+      .nav { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 840px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .links-grid { grid-template-columns: 1fr; }
+      .topbar { max-width: calc(100% - 22px); }
+    }
+
+    @media (max-width: 600px) {
+      .topbar { height: 56px; padding: 0 16px; top: 10px; }
+      .logo { font-size: 19px; }
+      .theme-switcher span { display: none; }
+      .page-hero { padding: 52px 18px 36px; }
+      .section, .feedback-section, .links-section { padding-left: 18px; padding-right: 18px; }
+      h1 { font-size: clamp(40px, 12vw, 64px); }
+    }
+
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <div class="page">
+
+    <!-- ========== TOPBAR ========== -->
+    <header class="topbar">
+      <div class="logo">Habit Garden</div>
+
+      <nav class="nav">
+        <a href="home.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="about.html">About</a>
+        <a href="features.html">Features</a>
+        <a href="garden.html">Garden</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="theme-switcher">
+        <span>Theme</span>
+        <button class="theme-dot active" data-theme="forest" aria-label="Forest theme"></button>
+        <button class="theme-dot" data-theme="spring" aria-label="Spring theme"></button>
+        <button class="theme-dot" data-theme="rainy" aria-label="Rainy theme"></button>
+        <button class="theme-dot" data-theme="autumn" aria-label="Autumn theme"></button>
+        <button class="theme-dot" data-theme="night" aria-label="Night theme"></button>
+      </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobileMenu">
+      <a href="home.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="about.html">About</a>
+      <a href="features.html">Features</a>
+      <a href="garden.html">Garden</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero">
+      <span class="eyebrow">Contact and Feedback</span>
+      <h1>Get in Touch</h1>
+      <p class="page-desc">
+        Share suggestions, ask questions, or submit feedback about the Digital Habit Garden experience.
+      </p>
+    </section>
+
+    <!-- ========== CONTACT + INFO ========== -->
+    <section class="section">
+      <div class="contact-grid">
+
+        <!-- Contact Form -->
+        <div class="form-card glass-base">
+          <h2>Contact Form</h2>
+          <p class="form-intro">Use this form for general queries, suggestions, or project-related messages.</p>
+
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your name" required>
+              <small class="error-message" id="nameError"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required>
+              <small class="error-message" id="emailError"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6" placeholder="Write your message"></textarea>
+              <small class="error-message" id="messageError"></small>
+            </div>
+
+            <button type="submit" class="btn-primary">Send Message</button>
+            <p class="success-message" id="formSuccess"></p>
+          </form>
+        </div>
+
+        <!-- Project Info Panel -->
+        <div class="contact-info-panel">
+          <div class="info-card glass-base">
+            <span class="section-label">Project Information</span>
+            <h2>Digital Habit Garden</h2>
+            <p>A dynamic habit-tracking web application where users personalize their experience, complete habits, and see progress reflected through a growing digital garden.</p>
+          </div>
+
+          <div class="info-card glass-base">
+            <h3>Project Focus</h3>
+            <p>Gamified productivity and interactive user experience</p>
+          </div>
+
+          <div class="info-card glass-base">
+            <h3>Technologies Used</h3>
+            <p>HTML, CSS, JavaScript, LocalStorage</p>
+          </div>
+
+          <div class="info-card glass-base">
+            <h3>Institution</h3>
+            <p>Amrita Vishwa Vidyapeetham</p>
+          </div>
+
+          <div class="info-card glass-base">
+            <h3>Department</h3>
+            <p>Computer Science and Engineering</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== FEEDBACK ========== -->
+    <div class="feedback-section">
+      <div class="section-heading">
+        <span class="section-label">User Feedback</span>
+        <h2>Help improve the experience</h2>
+        <p class="section-subtext">This form collects structured feedback from interested users.</p>
+      </div>
+
+      <div class="feedback-card glass-base">
+        <form id="feedbackForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="feedbackType">Feedback Type</label>
+              <select id="feedbackType" name="feedbackType" required>
+                <option value="">Select a type</option>
+                <option value="suggestion">Suggestion</option>
+                <option value="bug">Bug Report</option>
+                <option value="experience">User Experience</option>
+              </select>
+              <small class="error-message" id="typeError"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="rating">Experience Rating</label>
+              <select id="rating" name="rating" required>
+                <option value="">Choose rating</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Average</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Very Good</option>
+                <option value="5">5 - Excellent</option>
+              </select>
+              <small class="error-message" id="ratingError"></small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="feedbackMsg">Your Feedback</label>
+            <textarea id="feedbackMsg" name="feedbackMsg" rows="6" minlength="5" placeholder="Write your feedback" required></textarea>
+            <small class="error-message" id="feedbackError"></small>
+          </div>
+
+          <button type="submit" class="btn-primary">Submit Feedback</button>
+          <p class="success-message" id="feedbackSuccess"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ========== QUICK LINKS ========== -->
+    <div class="links-section">
+      <div class="section-heading">
+        <span class="section-label">Project Links</span>
+        <h2>Access the project</h2>
+      </div>
+
+      <div class="links-grid">
+        <a href="#" class="link-card glass-base">
+          <h3>GitHub Repository</h3>
+          <p>Source code and project files</p>
+        </a>
+
+        <a href="#" class="link-card glass-base">
+          <h3>Live Website</h3>
+          <p>Hosted version of the project</p>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      © 2026 Digital Habit Garden — grown with care.
+    </footer>
+
+  </div><!-- .page -->
+
+  <script>
+    // ==================== TOPBAR / THEME ====================
+
+    const html = document.documentElement;
+    const dots = document.querySelectorAll(".theme-dot");
+
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      }
+    });
+
+    let canvasCleanup = null;
+
+    function applyTheme(theme) {
+      html.setAttribute("data-theme", theme);
+      dots.forEach(dot => dot.classList.toggle("active", dot.dataset.theme === theme));
+      localStorage.setItem("habitGardenTheme", theme);
+      localStorage.setItem("hg-theme", theme);
+      if (canvasCleanup) canvasCleanup();
+      canvasCleanup = startScene(theme);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => applyTheme(dot.dataset.theme));
+    });
+
+    const savedTheme = localStorage.getItem("habitGardenTheme") || localStorage.getItem("hg-theme") || "forest";
+    applyTheme(savedTheme);
+
+// ── Universal theme sync across all open tabs ──
+window.addEventListener('storage', function(e) {
+  if (e.key === 'habitGardenTheme' || e.key === 'hg-theme') {
+    if (e.newValue && typeof applyTheme === 'function') {
+      applyTheme(e.newValue);
+    }
+  }
+});
+
+
+    // ==================== CANVAS SCENES ====================
+
+    function startScene(theme) {
+      const canvas = document.getElementById("bg-canvas");
+      const ctx = canvas.getContext("2d");
+      let raf = 0;
+      let w = 0, h = 0;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rand = (a, b) => a + Math.random() * (b - a);
+
+      function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      function leafShape(x, y, size, color, rot) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(size * 0.35, -size * 0.55, size, -size * 0.42, size * 1.28, 0);
+        ctx.bezierCurveTo(size, size * 0.42, size * 0.35, size * 0.55, 0, 0);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,0.24)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(size * 1.16, 0);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawPetal(x, y, size, color, rot) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, size * 0.52, size, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "rgba(255,255,255,0.28)";
+        ctx.beginPath();
+        ctx.ellipse(-size * 0.12, -size * 0.2, size * 0.14, size * 0.32, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function glowCircle(x, y, r, inner, outer) {
+        const rg = ctx.createRadialGradient(x, y, 0, x, y, r);
+        rg.addColorStop(0, inner);
+        rg.addColorStop(1, outer);
+        ctx.fillStyle = rg;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // ---- FOREST ----
+      function sceneForest() {
+        const canopyLeaves = Array.from({ length: Math.max(7, Math.floor(w / 165)) }, (_, i) => ({
+          x: (i + 0.5) * (w / Math.max(7, Math.floor(w / 165))) + rand(-45, 45),
+          y: rand(-38, 56), len: rand(110, 170), width: rand(34, 56),
+          rot: rand(0.58, 1.08), phase: rand(0, Math.PI * 2),
+          hue: rand(102, 138), light: rand(30, 42)
+        }));
+        const fineVines = Array.from({ length: 7 }, (_, i) => ({
+          x: (i + 0.5) * (w / 7) + rand(-42, 42),
+          length: rand(h * 0.16, h * 0.36), amp: rand(7, 16),
+          phase: rand(0, Math.PI * 2), speed: rand(0.42, 0.82)
+        }));
+        const fireflies = Array.from({ length: 46 }, () => ({
+          x: rand(0, w), y: rand(0, h),
+          vx: rand(-0.20, 0.20), vy: rand(-0.16, 0.16),
+          phase: rand(0, Math.PI * 2), speed: rand(0.012, 0.036), r: rand(1.0, 2.1)
+        }));
+        const pollen = Array.from({ length: 42 }, () => ({
+          x: rand(0, w), y: rand(0, h), r: rand(0.8, 2.1),
+          phase: rand(0, Math.PI * 2), speed: rand(0.008, 0.024), alpha: rand(0.10, 0.26)
+        }));
+        const drops = [];
+        let t = 0;
+
+        function drawPremiumLeaf(len, width, color, vein) {
+          const lg = ctx.createLinearGradient(0, -width, len, width);
+          lg.addColorStop(0, color);
+          lg.addColorStop(1, "rgba(164,220,132,.88)");
+          ctx.fillStyle = lg;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(len * 0.34, -width * 0.92, len * 0.78, -width * 0.58, len, 0);
+          ctx.bezierCurveTo(len * 0.78, width * 0.58, len * 0.34, width * 0.92, 0, 0);
+          ctx.fill();
+          ctx.strokeStyle = vein || "rgba(255,255,255,.24)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(len * 0.96, 0);
+          ctx.stroke();
+        }
+
+        function drawDrop(x, y, r) {
+          const rg = ctx.createRadialGradient(x, y - r * 0.3, 0, x, y, r * 2.4);
+          rg.addColorStop(0, "rgba(238,252,255,.82)");
+          rg.addColorStop(0.55, "rgba(155,215,255,.42)");
+          rg.addColorStop(1, "rgba(155,215,255,0)");
+          ctx.fillStyle = rg;
+          ctx.beginPath();
+          ctx.arc(x, y, r * 1.6, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        function spawnDrop(leaf) {
+          return { leaf, y: leaf.tipY, vy: 0, r: rand(2.2, 4.2), state: "forming", life: 0 };
+        }
+
+        function tick() {
+          t += 0.012;
+          const bg = ctx.createLinearGradient(0, 0, 0, h);
+          bg.addColorStop(0, "rgba(17,52,34,.96)");
+          bg.addColorStop(0.52, "rgba(13,72,37,.93)");
+          bg.addColorStop(1, "rgba(4,19,12,.98)");
+          ctx.fillStyle = bg;
+          ctx.fillRect(0, 0, w, h);
+
+          const sun = ctx.createRadialGradient(w * 0.18, h * 0.02, 0, w * 0.18, h * 0.02, h * 0.48);
+          sun.addColorStop(0, "rgba(232,255,186,.30)");
+          sun.addColorStop(0.42, "rgba(172,245,142,.10)");
+          sun.addColorStop(1, "rgba(172,245,142,0)");
+          ctx.fillStyle = sun;
+          ctx.beginPath();
+          ctx.arc(w * 0.18, h * 0.02, h * 0.48, 0, Math.PI * 2);
+          ctx.fill();
+
+          for (let i = 0; i < 4; i++) {
+            const grad = ctx.createLinearGradient(w * 0.10, 0, w * (0.32 + i * 0.16), h);
+            grad.addColorStop(0, "rgba(226,255,180,.055)");
+            grad.addColorStop(1, "rgba(226,255,180,0)");
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.moveTo(w * (0.04 + i * 0.11), 0);
+            ctx.lineTo(w * (0.11 + i * 0.10), 0);
+            ctx.lineTo(w * (0.35 + i * 0.12), h);
+            ctx.lineTo(w * (0.20 + i * 0.10), h);
+            ctx.closePath();
+            ctx.fill();
+          }
+
+          for (let i = 0; i < 3; i++) {
+            ctx.fillStyle = "rgba(218,246,218," + (0.030 + i * 0.009) + ")";
+            ctx.beginPath();
+            ctx.ellipse(w * (0.26 + i * 0.24) + Math.sin(t * 0.45 + i) * 24, h * (0.38 + i * 0.12), w * 0.32, 54, 0, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          fineVines.forEach(v => {
+            ctx.strokeStyle = "rgba(155,220,132,.30)";
+            ctx.lineWidth = 1.25;
+            ctx.beginPath();
+            for (let y = 0; y <= v.length; y += 18) {
+              const x = v.x + Math.sin(y * 0.035 + t * v.speed + v.phase) * v.amp;
+              if (y === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            for (let y = 50; y < v.length; y += 94) {
+              const x = v.x + Math.sin(y * 0.035 + t * v.speed + v.phase) * v.amp;
+              ctx.save();
+              ctx.translate(x, y);
+              ctx.rotate(Math.sin(t + y * 0.018) * 0.48);
+              drawPremiumLeaf(14, 6, "rgba(166,228,133,.46)", "rgba(255,255,255,.14)");
+              ctx.restore();
+            }
+          });
+
+          canopyLeaves.forEach(leaf => {
+            leaf.phase += 0.014;
+            const rot = leaf.rot + Math.sin(t + leaf.phase) * 0.035;
+            leaf.tipX = leaf.x + Math.cos(rot) * leaf.len;
+            leaf.tipY = leaf.y + Math.sin(rot) * leaf.len;
+            ctx.strokeStyle = "rgba(58,40,22,.42)";
+            ctx.lineWidth = 2.2;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(leaf.x - Math.cos(rot) * 12, leaf.y - Math.sin(rot) * 12);
+            ctx.lineTo(leaf.x, leaf.y);
+            ctx.stroke();
+            ctx.save();
+            ctx.translate(leaf.x, leaf.y);
+            ctx.rotate(rot);
+            drawPremiumLeaf(leaf.len, leaf.width, `hsla(${leaf.hue}, 46%, ${leaf.light}%, .86)`, "rgba(255,255,255,.18)");
+            ctx.restore();
+            if (Math.random() < 0.012 && !drops.some(d => d.leaf === leaf)) drops.push(spawnDrop(leaf));
+          });
+
+          for (let i = drops.length - 1; i >= 0; i--) {
+            const d = drops[i];
+            d.life++;
+            if (d.state === "forming") {
+              d.r += 0.018;
+              if (d.life > 62) { d.state = "falling"; d.vy = 0.45; }
+              drawDrop(d.leaf.tipX, d.leaf.tipY, d.r);
+            } else {
+              d.vy += 0.12;
+              d.y += d.vy;
+              drawDrop(d.leaf.tipX, d.y, d.r);
+              if (d.y > h + 24) drops.splice(i, 1);
+            }
+          }
+
+          pollen.forEach(p => {
+            p.phase += p.speed;
+            p.x += Math.sin(p.phase) * 0.22;
+            p.y -= 0.06 + p.speed * 3;
+            if (p.y < -10) { p.y = h + 12; p.x = rand(0, w); }
+            const a = p.alpha * (0.64 + Math.sin(p.phase * 2) * 0.28);
+            glowCircle(p.x, p.y, p.r * 6.6, `rgba(208,255,155,${a})`, "rgba(208,255,155,0)");
+          });
+
+          fireflies.forEach(f => {
+            f.phase += f.speed;
+            f.vx += rand(-0.018, 0.018);
+            f.vy += rand(-0.015, 0.015);
+            f.vx = Math.max(-0.38, Math.min(0.38, f.vx));
+            f.vy = Math.max(-0.32, Math.min(0.32, f.vy));
+            f.x += f.vx + Math.sin(f.phase) * 0.06;
+            f.y += f.vy + Math.cos(f.phase) * 0.04;
+            if (f.x < 0) f.x = w; if (f.x > w) f.x = 0;
+            if (f.y < 0) f.y = h; if (f.y > h) f.y = 0;
+            const glow = 0.35 + Math.sin(f.phase * 2.0) * 0.26;
+            glowCircle(f.x, f.y, 20 * glow, `rgba(218,255,150,${glow})`, "rgba(150,255,130,0)");
+            ctx.fillStyle = "rgba(240,255,194,.70)";
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          ctx.fillStyle = "rgba(2,15,9,.22)";
+          ctx.beginPath();
+          ctx.moveTo(0, h * 0.90);
+          for (let x = 0; x <= w; x += 60) ctx.lineTo(x, h * 0.885 + Math.sin(x * 0.014 + t * 0.55) * 9);
+          ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath(); ctx.fill();
+
+          raf = requestAnimationFrame(tick);
+        }
+        tick();
+      }
+
+      // ---- SPRING ----
+      function sceneSpring() {
+        const pollen = Array.from({ length: 75 }, () => ({
+          x: rand(0, w), y: rand(0, h), phase: rand(0, 10), r: rand(1.2, 3.4), speed: rand(0.08, 0.28)
+        }));
+        const petals = Array.from({ length: 70 }, () => ({
+          x: rand(-40, w + 40), y: rand(-h, h), size: rand(4, 11),
+          vy: rand(0.22, 0.68), vx: rand(-0.18, 0.24), rot: rand(0, 6.28),
+          spin: rand(-0.018, 0.018), phase: rand(0, 10),
+          color: ["rgba(255,250,185,0.72)", "rgba(221,255,207,0.76)", "rgba(255,236,205,0.62)"][Math.floor(rand(0, 3))]
+        }));
+        const flowerHeads = Array.from({ length: 26 }, () => ({
+          x: rand(20, w - 20), base: rand(h * 0.74, h * 1.02), size: rand(11, 24),
+          phase: rand(0, 10), hue: rand(42, 78)
+        }));
+        const butterflies = Array.from({ length: 10 }, () => ({
+          x: rand(40, w - 40), y: rand(h * 0.16, h * 0.76),
+          tx: rand(40, w - 40), ty: rand(h * 0.15, h * 0.75),
+          phase: rand(0, 10), size: rand(11, 21), hue: [42, 95, 165, 205][Math.floor(rand(0, 4))]
+        }));
+        let t = 0;
+
+        function drawButterfly(b) {
+          b.phase += 0.075;
+          b.x += (b.tx - b.x) * 0.005 + Math.sin(b.phase) * 0.26;
+          b.y += (b.ty - b.y) * 0.005 + Math.cos(b.phase * 1.2) * 0.20;
+          if (Math.abs(b.tx - b.x) < 24 && Math.abs(b.ty - b.y) < 24) {
+            b.tx = rand(35, w - 35); b.ty = rand(h * 0.13, h * 0.74);
+          }
+          const flap = Math.abs(Math.sin(b.phase * 2.4));
+          ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(Math.sin(b.phase) * 0.22);
+          ctx.fillStyle = `hsla(${b.hue}, 70%, 62%, 0.72)`;
+          ctx.beginPath(); ctx.ellipse(-b.size * 0.45, -b.size * 0.22, b.size * (0.33 + flap * 0.22), b.size * 0.54, -0.45, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.ellipse(b.size * 0.45, -b.size * 0.22, b.size * (0.33 + flap * 0.22), b.size * 0.54, 0.45, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = `hsla(${b.hue + 30}, 74%, 72%, 0.62)`;
+          ctx.beginPath(); ctx.ellipse(-b.size * 0.34, b.size * 0.28, b.size * 0.30, b.size * 0.36, 0.45, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.ellipse(b.size * 0.34, b.size * 0.28, b.size * 0.30, b.size * 0.36, -0.45, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "rgba(40,75,45,0.72)";
+          ctx.beginPath(); ctx.ellipse(0, 0, b.size * 0.11, b.size * 0.47, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
+
+        function drawFlower(f) {
+          const sway = Math.sin(t + f.phase) * 5;
+          const stemTop = f.base - f.size * 3.4;
+          ctx.strokeStyle = "rgba(64,136,70,0.33)"; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(f.x, f.base);
+          ctx.quadraticCurveTo(f.x + sway * 0.4, (f.base + stemTop) / 2, f.x + sway, stemTop); ctx.stroke();
+          ctx.save(); ctx.translate(f.x + sway, stemTop);
+          for (let i = 0; i < 6; i++) {
+            ctx.rotate(Math.PI / 3);
+            ctx.fillStyle = `hsla(${f.hue}, 78%, 72%, 0.50)`;
+            ctx.beginPath(); ctx.ellipse(0, -f.size * 0.45, f.size * 0.26, f.size * 0.56, 0, 0, Math.PI * 2); ctx.fill();
+          }
+          ctx.fillStyle = "rgba(236,190,68,0.72)";
+          ctx.beginPath(); ctx.arc(0, 0, f.size * 0.22, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
+
+        function tick() {
+          t += 0.012;
+          const g = ctx.createLinearGradient(0, 0, 0, h);
+          g.addColorStop(0, "rgba(255,252,220,0.94)");
+          g.addColorStop(0.48, "rgba(213,245,204,0.76)");
+          g.addColorStop(1, "rgba(172,232,199,0.70)");
+          ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+          glowCircle(w * 0.78, h * 0.14, 190, "rgba(255,236,138,0.42)", "rgba(255,236,138,0)");
+          glowCircle(w * 0.20, h * 0.86, 220, "rgba(91,204,125,0.20)", "rgba(91,204,125,0)");
+          ctx.fillStyle = "rgba(255,255,255,0.16)";
+          for (let i = 0; i < 6; i++) {
+            ctx.beginPath();
+            ctx.ellipse(w * (0.08 + i * 0.18) + Math.sin(t + i) * 16, h * (0.18 + (i % 2) * 0.08), 135, 40, 0, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          flowerHeads.forEach(drawFlower);
+          petals.forEach(p => {
+            p.phase += 0.028; p.x += p.vx + Math.sin(p.phase) * 0.32; p.y += p.vy; p.rot += p.spin;
+            if (p.y > h + 24) { p.y = -24; p.x = rand(-40, w + 40); }
+            drawPetal(p.x, p.y, p.size, p.color, p.rot);
+          });
+          pollen.forEach((p, i) => {
+            p.phase += 0.026; p.y -= p.speed; p.x += Math.sin(p.phase + i) * 0.14;
+            if (p.y < -20) { p.y = h + 20; p.x = rand(0, w); }
+            const pulse = 0.20 + Math.sin(p.phase) * 0.12;
+            glowCircle(p.x, p.y, 17, `rgba(255,230,105,${pulse})`, "rgba(255,230,105,0)");
+          });
+          butterflies.forEach(drawButterfly);
+          raf = requestAnimationFrame(tick);
+        }
+        tick();
+      }
+
+      // ---- RAINY ----
+      function sceneRainy() {
+        const drops = Array.from({ length: 210 }, () => ({
+          x: rand(0, w), y: rand(-h, h), len: rand(12, 30),
+          speed: rand(4.5, 9.5), alpha: rand(0.15, 0.46), drift: rand(0.25, 0.9)
+        }));
+        const ripples = Array.from({ length: 28 }, () => ({
+          x: rand(0, w), y: rand(h * 0.62, h * 0.96), r: rand(2, 24),
+          speed: rand(0.22, 0.62), alpha: rand(0.18, 0.46)
+        }));
+        const fog = Array.from({ length: 8 }, (_, i) => ({
+          x: rand(-w * 0.3, w), y: h * (0.14 + i * 0.07),
+          speed: rand(0.08, 0.24), scale: rand(0.75, 1.7), alpha: rand(0.045, 0.11)
+        }));
+        const bubbles = Array.from({ length: 60 }, () => ({
+          x: rand(0, w), y: rand(0, h), r: rand(2, 7),
+          vy: rand(0.20, 0.78), phase: rand(0, Math.PI * 2), alpha: rand(0.10, 0.32)
+        }));
+        let t = 0;
+
+        function tick() {
+          t += 0.016;
+          const bg = ctx.createLinearGradient(0, 0, 0, h);
+          bg.addColorStop(0, "rgba(7,38,66,0.98)");
+          bg.addColorStop(0.45, "rgba(13,88,128,0.96)");
+          bg.addColorStop(1, "rgba(3,17,32,0.99)");
+          ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+
+          const moonGlow = ctx.createRadialGradient(w * 0.68, h * 0.16, 0, w * 0.68, h * 0.16, h * 0.36);
+          moonGlow.addColorStop(0, "rgba(190,238,255,0.34)");
+          moonGlow.addColorStop(0.5, "rgba(105,190,235,0.10)");
+          moonGlow.addColorStop(1, "rgba(105,190,235,0)");
+          ctx.fillStyle = moonGlow;
+          ctx.beginPath(); ctx.arc(w * 0.68, h * 0.16, h * 0.36, 0, Math.PI * 2); ctx.fill();
+
+          fog.forEach(f => {
+            f.x += f.speed;
+            if (f.x > w + 220) f.x = -w * 0.35;
+            ctx.fillStyle = "rgba(215,242,255," + f.alpha + ")";
+            ctx.beginPath(); ctx.ellipse(f.x, f.y + Math.sin(t + f.scale) * 9, 180 * f.scale, 38 * f.scale, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(f.x + 120 * f.scale, f.y + 12, 120 * f.scale, 30 * f.scale, 0, 0, Math.PI * 2); ctx.fill();
+          });
+
+          ctx.fillStyle = "rgba(205,242,255,0.075)";
+          ctx.beginPath();
+          ctx.ellipse(w * 0.5, h * 0.76, w * 0.80, 92 + Math.sin(t) * 8, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          drops.forEach(d => {
+            d.y += d.speed; d.x += d.drift;
+            if (d.y > h + d.len) { d.y = rand(-150, -10); d.x = rand(-35, w + 35); }
+            ctx.strokeStyle = "rgba(190,230,255," + d.alpha + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x - 5, d.y + d.len); ctx.stroke();
+          });
+
+          bubbles.forEach(b => {
+            b.phase += 0.03; b.y -= b.vy; b.x += Math.sin(b.phase) * 0.34;
+            if (b.y < -20) { b.y = h + 20; b.x = rand(0, w); }
+            ctx.strokeStyle = "rgba(195,238,255," + b.alpha + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.stroke();
+          });
+
+          ripples.forEach(r => {
+            r.r += r.speed; r.alpha -= 0.0032;
+            if (r.alpha <= 0 || r.r > 65) {
+              r.x = rand(0, w); r.y = rand(h * 0.62, h * 0.96); r.r = 2; r.alpha = rand(0.18, 0.46);
+            }
+            ctx.strokeStyle = "rgba(174,228,255," + r.alpha + ")";
+            ctx.lineWidth = 1.15;
+            ctx.beginPath(); ctx.ellipse(r.x, r.y, r.r * 1.85, r.r * 0.45, 0, 0, Math.PI * 2); ctx.stroke();
+          });
+
+          raf = requestAnimationFrame(tick);
+        }
+        tick();
+      }
+
+      // ---- AUTUMN ----
+      function sceneAutumn() {
+        const leaves = Array.from({ length: 105 }, () => ({
+          x: rand(-70, w + 70), y: rand(-h, h),
+          vx: rand(-0.42, 0.34), vy: rand(0.32, 0.95),
+          rot: rand(0, Math.PI * 2), spin: rand(-0.032, 0.032),
+          size: rand(8, 21), phase: rand(0, Math.PI * 2),
+          color: [
+            "rgba(179,78,31,0.74)", "rgba(210,118,47,0.72)", "rgba(226,160,74,0.68)",
+            "rgba(142,66,34,0.66)", "rgba(240,186,98,0.58)"
+          ][Math.floor(rand(0, 5))]
+        }));
+        const dust = Array.from({ length: 56 }, () => ({
+          x: rand(0, w), y: rand(0, h), r: rand(0.8, 2.4),
+          phase: rand(0, Math.PI * 2), alpha: rand(0.08, 0.22), speed: rand(0.006, 0.020)
+        }));
+        const windLines = Array.from({ length: 5 }, (_, i) => ({
+          y: h * (0.24 + i * 0.13), phase: rand(0, Math.PI * 2), alpha: rand(0.035, 0.075)
+        }));
+        let t = 0;
+
+        function tick() {
+          t += 0.016;
+          const bg = ctx.createLinearGradient(0, 0, 0, h);
+          bg.addColorStop(0, "rgba(255,224,174,0.96)");
+          bg.addColorStop(0.48, "rgba(203,119,62,0.90)");
+          bg.addColorStop(1, "rgba(93,42,20,0.96)");
+          ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+
+          const sun = ctx.createRadialGradient(w * 0.70, h * 0.18, 0, w * 0.70, h * 0.18, h * 0.36);
+          sun.addColorStop(0, "rgba(255,239,184,0.42)");
+          sun.addColorStop(0.52, "rgba(255,184,92,0.14)");
+          sun.addColorStop(1, "rgba(255,184,92,0)");
+          ctx.fillStyle = sun;
+          ctx.beginPath(); ctx.arc(w * 0.70, h * 0.18, h * 0.36, 0, Math.PI * 2); ctx.fill();
+
+          windLines.forEach((line, idx) => {
+            const grad = ctx.createLinearGradient(0, 0, w, 0);
+            grad.addColorStop(0, "rgba(255,235,190,0)");
+            grad.addColorStop(0.45, "rgba(255,235,190," + line.alpha + ")");
+            grad.addColorStop(1, "rgba(255,235,190,0)");
+            ctx.strokeStyle = grad; ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            for (let x = -80; x <= w + 80; x += 35) {
+              const y = line.y + Math.sin(x * 0.012 + t * 0.8 + line.phase) * (9 + idx * 2);
+              if (x === -80) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+          });
+
+          ctx.fillStyle = "rgba(132,59,24,0.18)";
+          ctx.beginPath(); ctx.moveTo(0, h * 0.78);
+          for (let x = 0; x <= w; x += 54) ctx.lineTo(x, h * 0.76 + Math.sin(x * 0.011 + t * 0.42) * 11);
+          ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath(); ctx.fill();
+
+          ctx.fillStyle = "rgba(77,32,14,0.24)";
+          ctx.beginPath(); ctx.moveTo(0, h * 0.88);
+          for (let x = 0; x <= w; x += 60) ctx.lineTo(x, h * 0.865 + Math.cos(x * 0.01 + t * 0.38) * 9);
+          ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath(); ctx.fill();
+
+          dust.forEach(d => {
+            d.phase += d.speed; d.x += Math.sin(d.phase) * 0.14; d.y -= 0.055 + d.speed * 2;
+            if (d.y < -10) { d.y = h + 10; d.x = rand(0, w); }
+            const a = d.alpha * (0.72 + Math.sin(d.phase * 2) * 0.25);
+            glowCircle(d.x, d.y, d.r * 6.5, "rgba(255,219,144," + a + ")", "rgba(255,219,144,0)");
+          });
+
+          leaves.forEach(l => {
+            l.phase += 0.026; l.x += l.vx + Math.sin(l.phase) * 0.38; l.y += l.vy; l.rot += l.spin;
+            if (l.y > h + 35) { l.y = rand(-65, -15); l.x = rand(-70, w + 70); }
+            leafShape(l.x, l.y, l.size, l.color, l.rot);
+          });
+
+          raf = requestAnimationFrame(tick);
+        }
+        tick();
+      }
+
+      // ---- NIGHT ----
+      function sceneNight() {
+        const stars = Array.from({length:110},()=>({x:rand(0,w),y:rand(0,h*.65),r:rand(.35,1.4),tw:rand(0,6.28)}));
+        const flies = Array.from({length:72},()=>({x:rand(0,w),y:rand(h*.18,h),vx:rand(-.35,.35),vy:rand(-.35,.35),phase:rand(0,6.28),speed:rand(.025,.065)}));
+        const glowPlants = Array.from({length:18},()=>({x:rand(0,w),base:h+rand(-10,30),len:rand(45,120),p:rand(0,6.28)}));
+        let t=0;
+
+        function tick(){
+          t+=.016;
+          const g=ctx.createLinearGradient(0,0,0,h);
+          g.addColorStop(0,'rgba(8,8,28,1)');g.addColorStop(.52,'rgba(12,8,35,1)');g.addColorStop(1,'rgba(4,3,15,1)');
+          ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+          const mx=w*.78,my=h*.18,mr=Math.min(w,h)*.075;
+          const moon=ctx.createRadialGradient(mx-mr*.25,my-mr*.3,0,mx,my,mr*3.8);
+          moon.addColorStop(0,'rgba(245,240,255,.95)');moon.addColorStop(.22,'rgba(210,200,255,.42)');moon.addColorStop(1,'rgba(150,125,255,0)');
+          ctx.fillStyle=moon;ctx.beginPath();ctx.arc(mx,my,mr*3.8,0,Math.PI*2);ctx.fill();
+          ctx.fillStyle='rgba(241,236,255,.95)';ctx.beginPath();ctx.arc(mx,my,mr,0,Math.PI*2);ctx.fill();
+          ctx.fillStyle='rgba(8,8,28,.72)';ctx.beginPath();ctx.arc(mx+mr*.35,my-mr*.15,mr*.9,0,Math.PI*2);ctx.fill();
+          stars.forEach(s=>{s.tw+=.04;ctx.fillStyle=`rgba(225,220,255,${.35+.42*Math.sin(s.tw)})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});
+          glowPlants.forEach((p)=>{
+            const sway=Math.sin(t*1.2+p.p)*8;
+            ctx.strokeStyle='rgba(145,255,190,.25)';ctx.lineWidth=3;ctx.lineCap='round';
+            ctx.beginPath();ctx.moveTo(p.x,p.base);ctx.quadraticCurveTo(p.x+sway*.4,p.base-p.len*.55,p.x+sway,p.base-p.len);ctx.stroke();
+            const gx=p.x+sway,gy=p.base-p.len;const pulse=.45+.45*Math.sin(t*2+p.p);
+            const rg=ctx.createRadialGradient(gx,gy,0,gx,gy,20+pulse*22);
+            rg.addColorStop(0,`rgba(190,255,210,${.75*pulse})`);rg.addColorStop(.45,`rgba(110,255,175,${.2*pulse})`);rg.addColorStop(1,'rgba(110,255,175,0)');
+            ctx.fillStyle=rg;ctx.beginPath();ctx.arc(gx,gy,24+pulse*24,0,Math.PI*2);ctx.fill();
+            ctx.fillStyle=`rgba(230,255,235,${.75*pulse})`;ctx.beginPath();ctx.arc(gx,gy,2.3,0,Math.PI*2);ctx.fill();
+          });
+          flies.forEach(f=>{
+            f.phase+=f.speed;f.vx+=rand(-.04,.04);f.vy+=rand(-.04,.04);
+            f.vx=Math.max(-.55,Math.min(.55,f.vx));f.vy=Math.max(-.55,Math.min(.55,f.vy));
+            f.x+=f.vx;f.y+=f.vy;
+            if(f.x<0)f.x=w;if(f.x>w)f.x=0;if(f.y<0)f.y=h;if(f.y>h)f.y=0;
+            const glow=.5+.5*Math.sin(f.phase);
+            const rg=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,34*glow+6);
+            rg.addColorStop(0,`rgba(255,244,165,${.82*glow})`);rg.addColorStop(.38,`rgba(255,221,80,${.26*glow})`);rg.addColorStop(1,'rgba(255,221,80,0)');
+            ctx.fillStyle=rg;ctx.beginPath();ctx.arc(f.x,f.y,34*glow+6,0,Math.PI*2);ctx.fill();
+            ctx.fillStyle=`rgba(255,255,205,${glow})`;ctx.beginPath();ctx.arc(f.x,f.y,1.4,0,Math.PI*2);ctx.fill();
+          });
+          raf=requestAnimationFrame(tick);
+        }
+        tick();
+      }
+
+      const scenes = {
+        forest: sceneForest, spring: sceneSpring,
+        rainy: sceneRainy, autumn: sceneAutumn, night: sceneNight
+      };
+
+      (scenes[theme] || sceneForest)();
+
+      return function cleanup() {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("resize", resize);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
+    }
+
+    // ==================== CONTACT FORM ====================
+
+    const contactForm = document.getElementById("contactForm");
+    const formSuccess = document.getElementById("formSuccess");
+
+    contactForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let isValid = true;
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const message = document.getElementById("message");
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const messageError = document.getElementById("messageError");
+
+      [name, email, message].forEach(i => i.classList.remove("input-error", "input-success"));
+      nameError.textContent = ""; emailError.textContent = ""; messageError.textContent = "";
+      formSuccess.textContent = "";
+
+      const namePattern = /^[A-Za-z ]{3,30}$/;
+      if (name.value.trim() === "") {
+        nameError.textContent = "Name is required"; name.classList.add("input-error"); isValid = false;
+      } else if (!namePattern.test(name.value.trim())) {
+        nameError.textContent = "Name should contain only letters (3–30 characters)"; name.classList.add("input-error"); isValid = false;
+      } else { name.classList.add("input-success"); }
+
+      /*const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if (email.value.trim() === "") {
+        emailError.textContent = "Email is required"; email.classList.add("input-error"); isValid = false;
+      } else if (!emailPattern.test(email.value.trim())) {
+        emailError.textContent = "Email must end with @gmail.com"; email.classList.add("input-error"); isValid = false;
+      } else { email.classList.add("input-success"); }*/
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if (email.value.trim() === "") {
+
+  emailError.textContent = "Email cannot be empty";
+  email.classList.add("input-error");
+  isValid = false;
+
+} else if (!emailPattern.test(email.value.trim())) {
+
+  emailError.textContent = "Enter a valid email";
+  email.classList.add("input-error");
+  isValid = false;
+
+} else {
+
+  email.classList.add("input-success");
+
+}
+
+      if (message.value.trim() === "") {
+        messageError.textContent = "Message is required"; message.classList.add("input-error"); isValid = false;
+      } else if (message.value.trim().length < 10) {
+        messageError.textContent = "Message must be at least 10 characters"; message.classList.add("input-error"); isValid = false;
+      } else { message.classList.add("input-success"); }
+
+      if (isValid) {
+        formSuccess.style.display = "block";
+        formSuccess.textContent = "Message sent successfully 🌸";
+        contactForm.reset();
+        [name, email, message].forEach(i => i.classList.remove("input-success"));
+        setTimeout(() => { formSuccess.style.display = "none"; formSuccess.textContent = ""; }, 5000);
+      }
+    });
+
+    // ==================== FEEDBACK FORM ====================
+
+    const feedbackForm = document.getElementById("feedbackForm");
+    const feedbackSuccess = document.getElementById("feedbackSuccess");
+
+    feedbackForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let isValid = true;
+      const type = document.getElementById("feedbackType");
+      const msg = document.getElementById("feedbackMsg");
+      const rating = document.getElementById("rating");
+      const typeError = document.getElementById("typeError");
+      const feedbackError = document.getElementById("feedbackError");
+      const ratingError = document.getElementById("ratingError");
+
+      [type, msg].forEach(i => i.classList.remove("input-error", "input-success"));
+      typeError.textContent = ""; feedbackError.textContent = ""; ratingError.textContent = "";
+      feedbackSuccess.textContent = "";
+
+      if (type.value === "") {
+        typeError.textContent = "Select a type"; type.classList.add("input-error"); isValid = false;
+      } else { type.classList.add("input-success"); }
+
+      if (rating.value === "") {
+        ratingError.textContent = "Please choose a rating"; rating.classList.add("input-error"); isValid = false;
+      } else { rating.classList.add("input-success"); }
+
+      if (msg.value.trim() === "") {
+        feedbackError.textContent = "Feedback required"; msg.classList.add("input-error"); isValid = false;
+      } else if (msg.value.trim().length < 15) {
+        feedbackError.textContent = "Feedback must be at least 15 characters"; msg.classList.add("input-error"); isValid = false;
+      } else { msg.classList.add("input-success"); }
+
+      if (isValid) {
+        feedbackSuccess.style.display = "block";
+        feedbackSuccess.textContent = "Thank you for your feedback 🌿";
+        feedbackForm.reset();
+        [type, rating, msg].forEach(i => i.classList.remove("input-success"));
+        setTimeout(() => { feedbackSuccess.style.display = "none"; feedbackSuccess.textContent = ""; }, 5000);
+      }
+    });
+
+  </script>
+</body>
+</html>

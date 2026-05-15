@@ -72,10 +72,25 @@
 ## Technologies Used
 
 - HTML5
+  - Used for structuring the web pages and application layout.
+
 - CSS3
-- JavaScript
+  - Used for styling, animations, glassmorphism effects, responsive layouts, and theme design.
+
+- JavaScript (Vanilla JavaScript)
+  - Used for DOM manipulation, interactivity, theme switching, habit tracking logic, local storage handling, and animations.
+
+- React.js
+  - Used in the Garden module for rendering dynamic and interactive UI components.
+
+- HTML5 Canvas API
+  - Used for animated ambient backgrounds and environmental visual effects.
+
 - Browser Local Storage
+  - Used to store user preferences, habit progress, streak data, themes, and profile information locally.
+
 - Responsive Web Design
+  - Implemented using media queries and flexible layouts for compatibility across desktop and mobile devices.
 
 ## Project Structure
 

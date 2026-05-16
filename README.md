@@ -104,3 +104,12 @@ Digital Habit Garden/
 ├── garden.html
 ├── dashboard.html
 └── contact.html
+
+# Digital Habit Garden
+
+## Live Website
+[Visit Digital Habit Garden](https://parvathyslal.github.io/Digital_Habit_Garden/)
+
+## GitHub Repository
+[GitHub Repo](https://github.com/parvathyslal/Digital_Habit_Garden)
+
